@@ -1,0 +1,1205 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "v1.3.0",
+        "title": "Account API",
+        "description": "The Account API gives sellers the ability to configure their eBay seller accounts, including the seller's policies (the Fulfillment Policy, Payment Policy, and Return Policy), opt in and out of eBay seller programs, configure sales tax tables, and get account information. For details on the restrictions and availability of the methods in this API, see API restrictions.",
+        "termsOfService": "http:\/\/exmple.com\/license\/"
+    },
+    "servers": [
+        "http:\/\/api.ebay.com\/sell\/account\/v1"
+    ],
+    "paths": {
+        "\/fulfillment_policy\/": {
+            "get": {
+                "summary": "",
+                "description": "This method retrieves all the fulfillment policies configured for the marketplace you specify using the marketplace_id query parameter. Marketplaces and locales Get the correct policies for a marketplace that supports multiple locales using the Content-Language request header. For example, get the policies for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language:",
+                "operationId": "GetFulfillmentPolicies",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "marketplace_id",
+                        "in": "query",
+                        "description": "This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation help, refer to eBay API documentation at https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/FulfillmentPolicyResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "",
+                "description": "This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling item purchases. Fulfillment policies include the shipment options that the seller offers to buyers. Each policy targets a marketplaceId and categoryTypes.name combination and you can create multiple policies for each combination. Be aware that some marketplaces require a specific fulfillment policy for vehicle listings. A successful request returns the URI to the new policy in the Location re",
+                "operationId": "CreateFulfillmentPolicy",
+                "deprecated": 0,
+                "parameters": []
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Amount": {
+                "type": "object",
+                "properties": {
+                    "currency": {
+                        "description": "The base currency applied to the value field to establish a monetary amount. The currency is represented as a 3-letter ISO4217 currency code. For example, the code for the Canadian Dollar is CAD. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CurrencyCodeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The value of the monetary amount in the specified currency.",
+                        "type": "string"
+                    }
+                }
+            },
+            "CategoryType": {
+                "type": "object",
+                "properties": {
+                    "default": {
+                        "description": "Sellers can create multiple policies for any marketplaceId and categoryTypes.name combination. For example, you can create multiple fulfillment policies for one marketplace, where they all target the same category type name. However, only one policy can be the default for any marketplaceId and name combination, and eBay designates the first policy created for a combination as the default. If set to true, this policy is the default policy for the associated categoryTypes.name and marketplaceId pair. Note: eBay considers the status of this field only when you create listings through the Web flow. If you create listings using the APIs, you must specifically set the policies you want applied to a listing in the payload of the call you use to create the listing. If you use the Web flow to create item listings, eBay uses the default policy for the marketplace and category type specified, unless you override the default. For more on default policies, see Changing the default policy for a category type.",
+                        "type": "boolean"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "Deposit": {
+                "type": "object",
+                "properties": {
+                    "Amount": {
+                        "description": "A complex type that describes the value of a monetary amount as represented by a global currency.",
+                        "type": "object"
+                    },
+                    "amount": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "dueIn": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "paymentMethods": {
+                        "description": "A list of accepted payment methods. For deposits (which are applicable to only motor listings), the paymentMethodType must be set to 'PayPal'",
+                        "type": "array"
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    }
+                }
+            },
+            "dueIn": {
+                "type": "object"
+            },
+            "paymentMethods": {
+                "type": "array"
+            },
+            "FulfillmentPolicy": {
+                "type": "object",
+                "properties": {
+                    "categoryTypes": {
+                        "description": "The CategoryTypeEnum value to which this policy applies. Used to discern accounts that sell motor vehicles from those that don't. (Currently, each policy can be set to only one categoryTypes value at a time.)",
+                        "type": "array"
+                    },
+                    "description": {
+                        "description": "An optional seller-defined description of the fulfillment policy for internal use (this value is not displayed to end users). Max length: 250",
+                        "type": "string"
+                    },
+                    "freightShipping": {
+                        "description": "If set to true, the seller offers freight shipping. Default: false",
+                        "type": "boolean"
+                    },
+                    "fulfillmentPolicyId": {
+                        "description": "A unique eBay-assigned ID for the fulfillment policy. This ID is generated when the policy is created.",
+                        "type": "string"
+                    },
+                    "globalShipping": {
+                        "description": "If set to true, the seller has opted-in to the eBay Global Shipping Program and that they use that service for their international shipments. Setting this value automatically sets the international shipping service for the policy to International Priority Shipping and the buyer does not need to set any other shipping services for their INTERNATIONAL shipping options (unless they sell items not covered by the Global Shipping Program). If this value is set to false, the seller is responsible for manually specifying the international shipping services, as described in Setting up worldwide shipping. To opt-in to the Global Shipping Program, log in to eBay and navigate to My Account &gt; Site Preferences &gt; Shipping preferences. Default: false",
+                        "type": "boolean"
+                    },
+                    "handlingTime": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "localPickup": {
+                        "description": "If set to true, the seller offers local pickup of their items. Local pickup is supported by the Inventory API, and it can be used with Add\/Revise\/Relist calls. To enable local pickup, a seller (1) must be eligible for local pickup and (2) must set this boolean field to 'true'. Currently, local pickup is available to only large retail merchants and can be applied to only multiple-quantity, fixed-price listings. In addition to setting this field, the merchant must also do the following to enable the &quot;Local Pickup&quot; option on a multiple-quantity, fixed-price listing: Have inventory for the product at one or more physical stores tied to the merchant's account. Sellers can use the createInventoryLocaion method in the Inventory API to associate physical stores to their account and they can then can add inventory to specific store locations. Include the seller-defined SKU value of the product(s) in the request. For single-variation listings, the SKU value is specified in the Item.SKU field and for multiple-variation listings, the SKU value(s) are specified in the Item.Variations.Variation.SKU field(s). Set an immediate payment requirement on the item. The immediate payment feature requires the seller to: Include only one paymentMethods field in the payment policy and set its value to PAYPAL. Include a valid PayPal contact in the recipientAccountReference.referenceId field of the payment policy. Have a valid store location with a complete street address. When a seller is suc",
+                        "type": "boolean"
+                    },
+                    "marketplaceId": {
+                        "description": "The ID of the eBay marketplace to which this fulfillment policy applies. If this value is not specified, value defaults to the seller's eBay registration site. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "pickupDropOff": {
+                        "description": "If set to true, the seller offers the &quot;Click and Collect&quot; feature. Click and Collect is supported by the Inventory API, and it can be used with Add\/Revise\/Relist calls. To enable &quot;Click and Collect&quot;, a seller (1) must be eligible for Click and Collect and (2) must set this boolean field to 'true'. Currently, Click and Collect is available to only large retail merchants selling in the eBay AU and UK marketplaces. In addition to setting this field, the merchant must also do the following to enable the &quot;Click and Collect&quot; option on a listing: Have inventory for the product at one or more physical stores tied to the merchant's account. Sellers can use the createInventoryLocaion method in the Inventory API to associate physical stores to their account and they can then can add inventory to specific store locations. Set an immediate payment requirement on the item. The immediate payment feature requires the seller to: Set the immediatePay flag in the payment policy to 'true'. Include only one paymentMethods field in the payment policy and set its value to PAYPAL. Include a valid PayPal contact in the recipientAccountReference.referenceId field of the payment policy. Have a valid store location with a complete street address. When a UK merchant successfully lists an item with Click and Collect, prospective buyers within a reasonable distance from one of the merchant's stores (that has stock available) will see the &quot;Available for Click and Collect&q",
+                        "type": "boolean"
+                    },
+                    "shippingOptions": {
+                        "description": "A list that defines the seller's shipping configurations for DOMESTIC and INTERNATIONAL order shipments. shippingOptions is a list with a single element if the seller ships to only domestic locations. If the seller also ships internationally, the list contains a second element that defines their international shipping options. Shipping options configure the high-level shipping settings that apply to orders, such as flat-rate or calculated shipping, any rate tables the seller wants to associate with the shipping services, plus other details (such as the shippingServices offered for domestic or international shipments).",
+                        "type": "array"
+                    },
+                    "shipToLocations": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    },
+                    "RegionSet": {
+                        "description": "This complex type contains the <b>regionIncluded<\/b> and <b>regionExcluded<\/b> fields, which indicate the areas to where the seller does and doesn't ship. <p>Normally a seller ships to as many areas as possible using both DOMESTIC and INTERNATIONAL shipping options, and they don't have a need to exclude any regions from their ship-to locations. Here, there's no reason to set <b>regionExcluded<\/b> fields. However, it makes sense to set the <b>regionExcluded<\/b> field when a seller wants to exclude a small area that's within a larger area they service. For example, suppose a seller indicates they ship 'Worldwide', but for some reason must exclude a specific country, or world region. <p class=\"tablenote\"><b>Note:<\/b> Configuring the <b>shipToLocations<\/b> is tricky because the <b>regionIncluded<\/b> and <b>regionExcluded<\/b> fields are valid in different parts of the schema and their allowable settings vary upon the context. For details on setting these fields, see <a href=\"\/api-docs\/sell\/static\/seller-accounts\/ht_shipping-worldwide.html#shipToLocations\"><\/a>.<\/p>",
+                        "type": "object"
+                    }
+                }
+            },
+            "categoryTypes": {
+                "type": "array"
+            },
+            "handlingTime": {
+                "type": "object"
+            },
+            "shippingOptions": {
+                "type": "array"
+            },
+            "shipToLocations": {
+                "type": "object"
+            },
+            "FulfillmentPolicyRequest": {
+                "type": "object",
+                "properties": {
+                    "categoryTypes": {
+                        "description": "The CategoryTypeEnum value to which this policy applies. Used to discern accounts that sell motor vehicles from those that don't. (Currently, each policy can be set to only one categoryTypes value at a time.)",
+                        "type": "array"
+                    },
+                    "description": {
+                        "description": "An optional seller-defined description of the fulfillment policy for internal use (this value is not displayed to end users). Max length: 250",
+                        "type": "string"
+                    },
+                    "freightShipping": {
+                        "description": "If set to true, the seller offers freight shipping. Default: false",
+                        "type": "boolean"
+                    },
+                    "globalShipping": {
+                        "description": "If set to true, the seller has opted-in to the eBay Global Shipping Program and that they use that service for their international shipments. Setting this value automatically sets the international shipping service for the policy to International Priority Shipping and the buyer does not need to set any other shipping services for their INTERNATIONAL shipping options (unless they sell items not covered by the Global Shipping Program). If this value is set to false, the seller is responsible for manually specifying the international shipping services, as described in Setting up worldwide shipping. To opt-in to the Global Shipping Program, log in to eBay and navigate to My Account &gt; Site Preferences &gt; Shipping preferences. Default: false",
+                        "type": "boolean"
+                    },
+                    "handlingTime": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "localPickup": {
+                        "description": "If set to true, the seller offers local pickup of their items. Local pickup is supported by the Inventory API, and it can be used with Add\/Revise\/Relist calls. To enable local pickup, a seller (1) must be eligible for local pickup and (2) must set this boolean field to 'true'. Currently, local pickup is available to only large retail merchants and can be applied to only multiple-quantity, fixed-price listings. In addition to setting this field, the merchant must also do the following to enable the &quot;Local Pickup&quot; option on a multiple-quantity, fixed-price listing: Have inventory for the product at one or more physical stores tied to the merchant's account. Sellers can use the createInventoryLocaion method in the Inventory API to associate physical stores to their account and they can then can add inventory to specific store locations. Include the seller-defined SKU value of the product(s) in the request. For single-variation listings, the SKU value is specified in the Item.SKU field and for multiple-variation listings, the SKU value(s) are specified in the Item.Variations.Variation.SKU field(s). Set an immediate payment requirement on the item. The immediate payment feature requires the seller to: Include only one paymentMethods field in the payment policy and set its value to PAYPAL. Include a valid PayPal contact in the recipientAccountReference.referenceId field of the payment policy. Have a valid store location with a complete street address. When a seller is suc",
+                        "type": "boolean"
+                    },
+                    "marketplaceId": {
+                        "description": "The ID of the eBay marketplace to which this fulfillment policy applies. If this value is not specified, value defaults to the seller's eBay registration site. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "pickupDropOff": {
+                        "description": "If set to true, the seller offers the &quot;Click and Collect&quot; feature. Click and Collect is supported by the Inventory API, and it can be used with Add\/Revise\/Relist calls. To enable &quot;Click and Collect&quot;, a seller (1) must be eligible for Click and Collect and (2) must set this boolean field to 'true'. Currently, Click and Collect is available to only large retail merchants selling in the eBay AU and UK marketplaces. In addition to setting this field, the merchant must also do the following to enable the &quot;Click and Collect&quot; option on a listing: Have inventory for the product at one or more physical stores tied to the merchant's account. Sellers can use the createInventoryLocaion method in the Inventory API to associate physical stores to their account and they can then can add inventory to specific store locations. Set an immediate payment requirement on the item. The immediate payment feature requires the seller to: Set the immediatePay flag in the payment policy to 'true'. Include only one paymentMethods field in the payment policy and set its value to PAYPAL. Include a valid PayPal contact in the recipientAccountReference.referenceId field of the payment policy. Have a valid store location with a complete street address. When a UK merchant successfully lists an item with Click and Collect, prospective buyers within a reasonable distance from one of the merchant's stores (that has stock available) will see the &quot;Available for Click and Collect&q",
+                        "type": "boolean"
+                    },
+                    "shippingOptions": {
+                        "description": "A list that defines the seller's shipping configurations for DOMESTIC and INTERNATIONAL order shipments. shippingOptions is a list with a single element if the seller ships to only domestic locations. If the seller also ships internationally, the list contains a second element that defines their international shipping options. Shipping options configure the high-level shipping settings that apply to orders, such as flat-rate or calculated shipping, any rate tables the seller wants to associate with the shipping services, plus other details (such as the shippingServices offered for domestic or international shipments).",
+                        "type": "array"
+                    },
+                    "shipToLocations": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    },
+                    "RegionSet": {
+                        "description": "This complex type contains the <b>regionIncluded<\/b> and <b>regionExcluded<\/b> fields, which indicate the areas to where the seller does and doesn't ship. <p>Normally a seller ships to as many areas as possible using both DOMESTIC and INTERNATIONAL shipping options, and they don't have a need to exclude any regions from their ship-to locations. Here, there's no reason to set <b>regionExcluded<\/b> fields. However, it makes sense to set the <b>regionExcluded<\/b> field when a seller wants to exclude a small area that's within a larger area they service. For example, suppose a seller indicates they ship 'Worldwide', but for some reason must exclude a specific country, or world region. <p class=\"tablenote\"><b>Note:<\/b> Configuring the <b>shipToLocations<\/b> is tricky because the <b>regionIncluded<\/b> and <b>regionExcluded<\/b> fields are valid in different parts of the schema and their allowable settings vary upon the context. For details on setting these fields, see <a href=\"\/api-docs\/sell\/static\/seller-accounts\/ht_shipping-worldwide.html#shipToLocations\"><\/a>.<\/p>",
+                        "type": "object"
+                    }
+                }
+            },
+            "FulfillmentPolicyResponse": {
+                "type": "object",
+                "properties": {
+                    "fulfillmentPolicies": {
+                        "description": "A list of the seller's fulfillment policies.",
+                        "type": "array"
+                    },
+                    "href": {
+                        "description": "Returns a URL link to the result set.",
+                        "type": "string"
+                    },
+                    "limit": {
+                        "description": "Returns the maximum number of results that can be returned in result set.",
+                        "type": "integer"
+                    },
+                    "next": {
+                        "description": "Returns a URL link to the next set of results.",
+                        "type": "string"
+                    },
+                    "offset": {
+                        "description": "Returns how many result sets were skipped before the currently returned result set.",
+                        "type": "integer"
+                    },
+                    "prev": {
+                        "description": "Returns a URL link to the previous set of results.",
+                        "type": "string"
+                    },
+                    "total": {
+                        "description": "Returns the total number of result sets in the paginated collection.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "fulfillmentPolicies": {
+                "type": "array"
+            },
+            "InternationalReturnOverrideType": {
+                "type": "object",
+                "properties": {
+                    "returnMethod": {
+                        "description": "Valid in the US marketplace only, this optional field indicates additional services (other than money-back) that sellers can offer buyers for remorse returns. As of version 1.2.0, the only accepted value for this field is REPLACEMENT. This field is valid in only the US marketplace, any supplied value is ignored in other marketplaces. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ReturnMethodEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "returnPeriod": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "returnsAccepted": {
+                        "description": "Required if the seller wants to set an international return policy that differs from their domestic return policy. If set to true, the seller allows international returns. If set to false, the seller does not accept international returns.",
+                        "type": "boolean"
+                    },
+                    "returnShippingCostPayer": {
+                        "description": "Required if the internationalOverride.returnsAccepted field is set to true. This field indicates who is responsible for paying for the shipping charges for returned items. The field can be set to either BUYER or SELLER. Depending on the return policy and specifics of the return, either the buyer or the seller can be responsible for the return shipping costs. Note that the seller is always responsible for return shipping costs for SNAD-related issues. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ReturnShippingCostPayerEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    }
+                }
+            },
+            "returnPeriod": {
+                "type": "object"
+            },
+            "PaymentMethod": {
+                "type": "object",
+                "properties": {
+                    "brands": {
+                        "description": "Required if paymentMethodType is set to CREDIT_CARD. A list of credit card brands accepted by the seller. It's important to note that the credit card brands Visa and MasterCard must both be listed if either one is listed, as is shown in the following code fragment: &quot;paymentMethods&quot;: [{ &quot;brands&quot;: [VISA, MASTERCARD] }] ... Note: Different eBay marketplaces may or may not support this field. Use the Trading API GetCategoryFeatures call with FeatureID set to PaymentMethods and DetailLevel set to ReturnAll to see what credit card brands different marketplaces support. If the GetCategoryFeatures call returns details on credit card brands for the categories in which you sell, then you can use this field to list the credit card brands the seller accepts. If, on the other hand, GetCategoryFeatures does not enumerate credit card brands for your target site (for example, if it returns PaymentMethod set to CCAccepted), then you cannot enumerate specific credit card brands with this field for that marketplace.",
+                        "type": "array"
+                    },
+                    "paymentMethodType": {
+                        "description": "The payment method, selected from the supported payment method types. Use GetCategoryFeatures in the Trading API to retrieve the payment methods allowed for a category on a specific marketplace, as well as the default payment method for that marketplace (review the SiteDefaults.PaymentMethod field). For example, the response from GetCategoryFeatures shows that on the US marketplace, most categories allow only electronic payments via credit cards, PayPal, and the like. Also, note that GeteBayDetails does not return payment method information. Note: If you create item listings using the Inventory API, you must set this field to PAYPAL (currently, the Inventory API supports only fixed-prince GTC items where the only supported paymentMethod is PayPal). For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/PaymentMethodTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "recipientAccountReference": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "brands": {
+                "type": "array"
+            },
+            "recipientAccountReference": {
+                "type": "object",
+                "properties": {
+                    "referenceId": {
+                        "description": "Contains the PayPal email address of the recipient (buyer) if referenceType is set to PAYPAL_EMAIL.",
+                        "type": "string"
+                    },
+                    "referenceType": {
+                        "description": "A reference a recipient's account. Currently only PAYPAL_EMAIL is valid. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/RecipientAccountReferenceTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentPolicy": {
+                "type": "object",
+                "properties": {
+                    "categoryTypes": {
+                        "description": "The CategoryTypeEnum value to which this policy applies. Used to discern accounts that sell motor vehicles from those that don't. (Currently, each policy can be set to only one categoryTypes value at a time.)",
+                        "type": "array"
+                    },
+                    "Deposit": {
+                        "description": "A container that describes the details of a deposit. Used only with motor listings.",
+                        "type": "object"
+                    },
+                    "deposit": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "description": {
+                        "description": "An optional seller-defined description of the fulfillment policy for internal use (this value is not displayed to end users). Max length: 250",
+                        "type": "string"
+                    },
+                    "fullPaymentDueIn": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "immediatePay": {
+                        "description": "If set to true, payment is due upon receipt (eBay generates a receipt when the buyer agrees to purchase an item). This boolean must be set in the payment policy if the seller wants to create a listing that has an &quot;immediate payment&quot; requirement. The seller can change the immediate payment requirement at any time during the life cycle of a listing. The following must be true before a seller can apply an immediate payment requirement to an item: The seller must have a PayPal Business account. The Buy It Now price cannot be higher than $60,000 USD. The eBay marketplace on which the item is listed must support PayPal payments. The listing type must be fixed-price, or an auction with a Buy It Now option.To enable the immediate payment requirement, the seller must also perform the following actions via API calls: Provide a valid paymentMethods.recipientAccountReference.referenceId value. Offer PayPal as the only payment method for the item(s). Specify all related costs to the buyer (because the buyer is not be able to use the Buyer Request Total feature in an immediate payment listing); these costs include flat-rate shipping costs for each domestic and international shipping service offered, package handling costs, and any shipping surcharges. Include and set the shippingProfileDiscountInfo container values if you are going to use promotional shipping discounts.For more information, see the Understanding immediate payment Help page. Note: Listings created with the Invento",
+                        "type": "boolean"
+                    },
+                    "marketplaceId": {
+                        "description": "The ID of the eBay marketplace to which this fulfillment policy applies. If this value is not specified, value defaults to the seller's eBay registration site. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "paymentInstructions": {
+                        "description": "This user-defined field allows the seller to give payment instructions to the buyer. These instructions appear on the eBay View Item and Checkout pages. eBay recommends the seller use this field to clarify payment policies for motor vehicles (eBay Motors US and CA). For example, sellers can include the specifics on the deposit (if required), pickup\/delivery arrangements, and full payment details on the vehicle. Max length: 500",
+                        "type": "string"
+                    },
+                    "paymentMethods": {
+                        "description": "A list of accepted payment methods. For deposits (which are applicable to only motor listings), the paymentMethodType must be set to 'PayPal'",
+                        "type": "array"
+                    },
+                    "paymentPolicyId": {
+                        "description": "A unique eBay-assigned ID for a payment policy. This ID is generated when the policy is created.",
+                        "type": "string"
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    }
+                }
+            },
+            "fullPaymentDueIn": {
+                "type": "object"
+            },
+            "PaymentPolicyRequest": {
+                "type": "object",
+                "properties": {
+                    "categoryTypes": {
+                        "description": "The CategoryTypeEnum value to which this policy applies. Used to discern accounts that sell motor vehicles from those that don't. (Currently, each policy can be set to only one categoryTypes value at a time.)",
+                        "type": "array"
+                    },
+                    "Deposit": {
+                        "description": "A container that describes the details of a deposit. Used only with motor listings.",
+                        "type": "object"
+                    },
+                    "deposit": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "description": {
+                        "description": "An optional seller-defined description of the fulfillment policy for internal use (this value is not displayed to end users). Max length: 250",
+                        "type": "string"
+                    },
+                    "fullPaymentDueIn": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "immediatePay": {
+                        "description": "If set to true, payment is due upon receipt (eBay generates a receipt when the buyer agrees to purchase an item). This boolean must be set in the payment policy if the seller wants to create a listing that has an &quot;immediate payment&quot; requirement. The seller can change the immediate payment requirement at any time during the life cycle of a listing. The following must be true before a seller can apply an immediate payment requirement to an item: The seller must have a PayPal Business account. The Buy It Now price cannot be higher than $60,000 USD. The eBay marketplace on which the item is listed must support PayPal payments. The listing type must be fixed-price, or an auction with a Buy It Now option.To enable the immediate payment requirement, the seller must also perform the following actions via API calls: Provide a valid paymentMethods.recipientAccountReference.referenceId value. Offer PayPal as the only payment method for the item(s). Specify all related costs to the buyer (because the buyer is not be able to use the Buyer Request Total feature in an immediate payment listing); these costs include flat-rate shipping costs for each domestic and international shipping service offered, package handling costs, and any shipping surcharges. Include and set the shippingProfileDiscountInfo container values if you are going to use promotional shipping discounts.For more information, see the Understanding immediate payment Help page. Note: Listings created with the Invento",
+                        "type": "boolean"
+                    },
+                    "marketplaceId": {
+                        "description": "The ID of the eBay marketplace to which this fulfillment policy applies. If this value is not specified, value defaults to the seller's eBay registration site. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "paymentInstructions": {
+                        "description": "This user-defined field allows the seller to give payment instructions to the buyer. These instructions appear on the eBay View Item and Checkout pages. eBay recommends the seller use this field to clarify payment policies for motor vehicles (eBay Motors US and CA). For example, sellers can include the specifics on the deposit (if required), pickup\/delivery arrangements, and full payment details on the vehicle. Max length: 500",
+                        "type": "string"
+                    },
+                    "paymentMethods": {
+                        "description": "A list of accepted payment methods. For deposits (which are applicable to only motor listings), the paymentMethodType must be set to 'PayPal'",
+                        "type": "array"
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    }
+                }
+            },
+            "PaymentPolicyResponse": {
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "description": "Returns a URL link to the result set.",
+                        "type": "string"
+                    },
+                    "limit": {
+                        "description": "Returns the maximum number of results that can be returned in result set.",
+                        "type": "integer"
+                    },
+                    "next": {
+                        "description": "Returns a URL link to the next set of results.",
+                        "type": "string"
+                    },
+                    "offset": {
+                        "description": "Returns how many result sets were skipped before the currently returned result set.",
+                        "type": "integer"
+                    },
+                    "paymentPolicies": {
+                        "description": "A list of the seller's payment policies.",
+                        "type": "array"
+                    },
+                    "prev": {
+                        "description": "Returns a URL link to the previous set of results.",
+                        "type": "string"
+                    },
+                    "total": {
+                        "description": "Returns the total number of result sets in the paginated collection.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "paymentPolicies": {
+                "type": "array"
+            },
+            "PaymentsProgramResponse": {
+                "type": "object",
+                "properties": {
+                    "marketplaceId": {
+                        "description": "The ID of the eBay marketplace to which this fulfillment policy applies. If this value is not specified, value defaults to the seller's eBay registration site. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "paymentsProgramType": {
+                        "description": "This path parameter specifies the payment program whose status is returned by the call. Currently the only supported payments program is EBAY_PAYMENTS. For details on the program, see Payments Terms of Use. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/PaymentsProgramType.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": " For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/PaymentsProgramStatus.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "wasPreviouslyOptedIn": {
+                        "description": "If set to true, the seller was at one point opted-in to the associated payment program, but they later opted out of the program. A value of false indicates the seller never opted-in to the program or if they did opt-in to the program, they never opted-out of it. It's important to note that the setting of this field does not indicate the seller's current status regarding the payment program. It is possible for this field to return true while the status field returns OPTED_IN.",
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Program": {
+                "type": "object",
+                "properties": {
+                    "programType": {
+                        "description": "A seller program in to which a seller can opt-in. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ProgramTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "Programs": {
+                "type": "object",
+                "properties": {
+                    "programs": {
+                        "description": "A list of seller programs.",
+                        "type": "array"
+                    }
+                }
+            },
+            "programs": {
+                "type": "array"
+            },
+            "RateTable": {
+                "type": "object",
+                "properties": {
+                    "countryCode": {
+                        "description": "A two-letter ISO 3166-1 Alpha-2 country code representing the eBay marketplace where an item is listed. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CountryCodeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "locality": {
+                        "description": "The region covered by the shipping rate table, either DOMESTIC or INTERNATIONAL. DOMESTIC indicates that the shipping rate table applies to regions within the country where an item is listed (the source country) while INTERNATIONAL indicates that the shipping rate table applies to regions outside of the country where an item is listed. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ShippingOptionTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "rateTableId": {
+                        "description": "A unique eBay-assigned ID for a seller's shipping rate table. Call getRateTables to retrieve the seller's current rate table IDs.",
+                        "type": "string"
+                    }
+                }
+            },
+            "RateTableResponse": {
+                "type": "object",
+                "properties": {
+                    "rateTables": {
+                        "description": "A list of elements that provide information on the seller-defined shipping rate tables.",
+                        "type": "array"
+                    }
+                }
+            },
+            "rateTables": {
+                "type": "array"
+            },
+            "Region": {
+                "type": "object",
+                "properties": {
+                    "regionName": {
+                        "description": "A string that indicates the name of a region, as defined by eBay. A &quot;region&quot; can be either a 'world region' (e.g., the &quot;Middle East&quot; or &quot;Southeast Asia&quot;) or a country, as represented with a two-letter country code. Use GeteBayDetails to get the values accepted by this field. The values that you're allowed to use for a specific regionName field depend on the context in which you are setting the value. For details on how to set the values for this field, see The shipToLocations container.",
+                        "type": "string"
+                    },
+                    "regionType": {
+                        "description": "Reserved for future use. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/RegionTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "RegionSet": {
+                "type": "object",
+                "properties": {
+                    "regionExcluded": {
+                        "description": "A list of one or more regionsName fields that specify the areas to where a seller does not ship. Populate regionExcluded in only the top-level shipToLocations container (do not populate this field within the shippingOptions container). Normally a seller ships to as many areas as possible using both DOMESTIC and INTERNATIONAL shipping options and they don't have a need to exclude any regions from their ship-to locations. With this, there's no reason to set regionExclude fields. However, it makes sense to set the regionExcluded field when a seller wants to exclude a small area that's located within a larger area they service. For example, suppose a seller indicates they ship 'Worldwide', but for some reason must exclude a specific country, or world region, from the larger world area they ship to. To retrieve the regions you can specify in the associated regionName field, call GeteBayDetails with DetailName set to ExcludeShippingLocationDetails, then review the Location fields in the response for the strings that you can specify regionExcluded.regionName. Note that if a buyer's primary ship-to location is a region that a seller has excluded in their fulfillment policy (or if the buyer does not have a primary ship-to location), they will receive an error message if they attempt to buy or place a bid on an item that uses that fulfillment policy. For details on setting this field, see Excluding specific regions from included shipping areas.",
+                        "type": "array"
+                    },
+                    "regionIncluded": {
+                        "description": "Required if optionType set to INTERNATIONAL. A list of one or more regionsName fields that specify the areas to where a seller ships. Important: Populate this field only when the parent shipToLocations object is located within a shippingOptions container (that is, the parent shipTolocations object must not be the one at the top-level of the policy). Also, this field needs to be populated only when the associated shippingOptions container has optionType set to INTERNATIONAL. Withing an international shipping option, set this value to Worldwide to indicate the seller ships to all world regions. If needed, use the regionExcluded field to exclude any regions in the world to where the seller does not ship. Each eBay marketplace supports its own set of allowable shipping locations. Obtain the valid 'Ship-To Locations' for a marketplace by calling GeteBayDetails with DetailName set to ShippingLocationDetails, then review the ShippingLocation fields in the response for the strings that you can specify in the regionIncluded.regionName field. For DOMESTIC shipping options, eBay automatically uses the seller's listing country as the default regionIncluded country. For details on setting this field, see How to set up worldwide shipping. This field is always returned in the shipping policy response.",
+                        "type": "array"
+                    }
+                }
+            },
+            "regionExcluded": {
+                "type": "array"
+            },
+            "regionIncluded": {
+                "type": "array"
+            },
+            "ReturnPolicy": {
+                "type": "object",
+                "properties": {
+                    "categoryTypes": {
+                        "description": "The CategoryTypeEnum value to which this policy applies. Used to discern accounts that sell motor vehicles from those that don't. (Currently, each policy can be set to only one categoryTypes value at a time.)",
+                        "type": "array"
+                    },
+                    "description": {
+                        "description": "An optional seller-defined description of the fulfillment policy for internal use (this value is not displayed to end users). Max length: 250",
+                        "type": "string"
+                    },
+                    "extendedHolidayReturnsOffered": {
+                        "description": "Important! This field has been deprecated as of version 1.2.0, released on May 31, 2018. Any value supplied in this field is neither read nor returned. If set to true, the seller offers an Extended Holiday Returns policy for their listings. IMPORTANT: Extended Holiday Returns is a seasonally available feature that is offered on some eBay marketplaces. To see if the feature is enabled in any given year, check the Returns on eBay page before the holiday season begins. If the feature is not enabled for the season, this field is ignored. The extended holiday returns period is defined by three dates: The start date = start of November. The purchase cutoff date = end of the year. The end date = end of January. The above dates may vary by a few days each year. Sellers are notified of the current dates on their eBay marketplace before the holiday period starts. Sellers can specify Extended Holiday Returns (as well as their regular non-holiday returns period) for chosen listings at any time during the year. The Extended Holiday Returns offer is not visible in listings until the start date of current year's holiday returns period, at which point it overrides the non-holiday returns policy. Buyers can see the Extended Holiday Returns offer in listings displayed through the purchase cutoff date and are able to return those purchases until the end date of the period. After the purchase cutoff date, the Extended Holiday Returns offer automatically disappears from the listings and the selle",
+                        "type": "boolean"
+                    },
+                    "InternationalReturnOverrideType": {
+                        "description": "This type defines the fields for a seller's international return policy. If a seller does not populate the fields in this complex type, the international return policy defaults to the return policy set for domestic returns.",
+                        "type": "object"
+                    },
+                    "internationalOverride": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "marketplaceId": {
+                        "description": "The ID of the eBay marketplace to which this fulfillment policy applies. If this value is not specified, value defaults to the seller's eBay registration site. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "refundMethod": {
+                        "description": "Important! this field has been deprecated as of version 1.2.0, released on May 31, 2018. Any value other than MONEY_BACK will be treated as MONEY_BACK (although for a period of time, eBay will store and return the legacy values to preserve backwards compatibility). Indicates the method the seller uses to compensate the buyer for returned items. The return method specified applies only to remorse returns. Each eBay marketplace may support different sets of refund methods and marketplaces can also have differing default values for this field. Sellers are obligated to honor the refund method displayed in their listings. Call GeteBayDetails in the Trading API to see the refund methods supported by the marketplaces you sell into. We recommend you set this field to the value of your preferred refund method and that you use the description field to detail the seller's return policy (such as indicating how quickly the seller will process a refund, whether the seller must receive the item before processing a refund, and other similar useful details). You cannot modify this value in a Revise item call if (1) the listing has bids or (2) the listing ends within 12 hours. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/RefundMethodEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "restockingFeePercentage": {
+                        "description": "Important! This field has been deprecated as of version 1.2.0, released on May 31, 2018. Any value supplied in this field is ignored, it is neither read nor returned. Sellers who accept returns should include this field if they charge buyers a restocking fee when items are returned. A restocking fee comes into play only when an item is returned due to buyer remorse and\/or a purchasing mistake, but sellers cannot charge a restocking fee for SNAD-related returns. The total amount returned to the buyer is reduced by the cost of the item multiplied by the percentage indicated by this field. Allowable restocking fee values are: 0.0: No restocking fee is charged to the buyer 10.0: 10 percent of the item price is charged to the buyer 15.0: 15 percent of the item price is charged to the buyer 20.0: Up to 20 percent of the item price is charged to the buyer",
+                        "type": "string"
+                    },
+                    "returnInstructions": {
+                        "description": "Important! This field is being deprecated on many marketplaces. Once deprecated, this field will be ignored on marketplaces where it is not supported and it will neither be read nor returned. This optional field contains the seller's detailed explanation for their return policy and is displayed in the Return Policy section of the View Item page. This field is valid in only the following marketplaces (the field is otherwise ignored): Germany (DE) Spain (ES) France (FR) Italy (IT) Where valid, sellers can use this field to add details about their return policies. eBay uses this text string as-is in the Return Policy section of the View Item page. Avoid HTML and avoid character entity references (such as &amp;amp;pound; or &amp;amp;#163;). To include special characters in the return policy description, use the literal UTF-8 or ISO-8559-1 character (e.g. &amp;#163;). Max length: 5000 (8000 for DE)",
+                        "type": "string"
+                    },
+                    "returnMethod": {
+                        "description": "Valid in the US marketplace only, this optional field indicates additional services (other than money-back) that sellers can offer buyers for remorse returns. As of version 1.2.0, the only accepted value for this field is REPLACEMENT. This field is valid in only the US marketplace, any supplied value is ignored in other marketplaces. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ReturnMethodEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "returnPeriod": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "returnPolicyId": {
+                        "description": "A unique eBay-assigned ID for this policy. This ID value is appended to the end of the Location URI that is returned as a response header when you call createReturnPolicy).",
+                        "type": "string"
+                    },
+                    "returnsAccepted": {
+                        "description": "Required if the seller wants to set an international return policy that differs from their domestic return policy. If set to true, the seller allows international returns. If set to false, the seller does not accept international returns.",
+                        "type": "boolean"
+                    },
+                    "returnShippingCostPayer": {
+                        "description": "Required if the internationalOverride.returnsAccepted field is set to true. This field indicates who is responsible for paying for the shipping charges for returned items. The field can be set to either BUYER or SELLER. Depending on the return policy and specifics of the return, either the buyer or the seller can be responsible for the return shipping costs. Note that the seller is always responsible for return shipping costs for SNAD-related issues. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ReturnShippingCostPayerEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    }
+                }
+            },
+            "ReturnPolicyRequest": {
+                "type": "object",
+                "properties": {
+                    "categoryTypes": {
+                        "description": "The CategoryTypeEnum value to which this policy applies. Used to discern accounts that sell motor vehicles from those that don't. (Currently, each policy can be set to only one categoryTypes value at a time.)",
+                        "type": "array"
+                    },
+                    "description": {
+                        "description": "An optional seller-defined description of the fulfillment policy for internal use (this value is not displayed to end users). Max length: 250",
+                        "type": "string"
+                    },
+                    "extendedHolidayReturnsOffered": {
+                        "description": "Important! This field has been deprecated as of version 1.2.0, released on May 31, 2018. Any value supplied in this field is neither read nor returned. If set to true, the seller offers an Extended Holiday Returns policy for their listings. IMPORTANT: Extended Holiday Returns is a seasonally available feature that is offered on some eBay marketplaces. To see if the feature is enabled in any given year, check the Returns on eBay page before the holiday season begins. If the feature is not enabled for the season, this field is ignored. The extended holiday returns period is defined by three dates: The start date = start of November. The purchase cutoff date = end of the year. The end date = end of January. The above dates may vary by a few days each year. Sellers are notified of the current dates on their eBay marketplace before the holiday period starts. Sellers can specify Extended Holiday Returns (as well as their regular non-holiday returns period) for chosen listings at any time during the year. The Extended Holiday Returns offer is not visible in listings until the start date of current year's holiday returns period, at which point it overrides the non-holiday returns policy. Buyers can see the Extended Holiday Returns offer in listings displayed through the purchase cutoff date and are able to return those purchases until the end date of the period. After the purchase cutoff date, the Extended Holiday Returns offer automatically disappears from the listings and the selle",
+                        "type": "boolean"
+                    },
+                    "InternationalReturnOverrideType": {
+                        "description": "This type defines the fields for a seller's international return policy. If a seller does not populate the fields in this complex type, the international return policy defaults to the return policy set for domestic returns.",
+                        "type": "object"
+                    },
+                    "internationalOverride": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "marketplaceId": {
+                        "description": "The ID of the eBay marketplace to which this fulfillment policy applies. If this value is not specified, value defaults to the seller's eBay registration site. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "refundMethod": {
+                        "description": "Important! this field has been deprecated as of version 1.2.0, released on May 31, 2018. Any value other than MONEY_BACK will be treated as MONEY_BACK (although for a period of time, eBay will store and return the legacy values to preserve backwards compatibility). Indicates the method the seller uses to compensate the buyer for returned items. The return method specified applies only to remorse returns. Each eBay marketplace may support different sets of refund methods and marketplaces can also have differing default values for this field. Sellers are obligated to honor the refund method displayed in their listings. Call GeteBayDetails in the Trading API to see the refund methods supported by the marketplaces you sell into. We recommend you set this field to the value of your preferred refund method and that you use the description field to detail the seller's return policy (such as indicating how quickly the seller will process a refund, whether the seller must receive the item before processing a refund, and other similar useful details). You cannot modify this value in a Revise item call if (1) the listing has bids or (2) the listing ends within 12 hours. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/RefundMethodEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "restockingFeePercentage": {
+                        "description": "Important! This field has been deprecated as of version 1.2.0, released on May 31, 2018. Any value supplied in this field is ignored, it is neither read nor returned. Sellers who accept returns should include this field if they charge buyers a restocking fee when items are returned. A restocking fee comes into play only when an item is returned due to buyer remorse and\/or a purchasing mistake, but sellers cannot charge a restocking fee for SNAD-related returns. The total amount returned to the buyer is reduced by the cost of the item multiplied by the percentage indicated by this field. Allowable restocking fee values are: 0.0: No restocking fee is charged to the buyer 10.0: 10 percent of the item price is charged to the buyer 15.0: 15 percent of the item price is charged to the buyer 20.0: Up to 20 percent of the item price is charged to the buyer",
+                        "type": "string"
+                    },
+                    "returnInstructions": {
+                        "description": "Important! This field is being deprecated on many marketplaces. Once deprecated, this field will be ignored on marketplaces where it is not supported and it will neither be read nor returned. This optional field contains the seller's detailed explanation for their return policy and is displayed in the Return Policy section of the View Item page. This field is valid in only the following marketplaces (the field is otherwise ignored): Germany (DE) Spain (ES) France (FR) Italy (IT) Where valid, sellers can use this field to add details about their return policies. eBay uses this text string as-is in the Return Policy section of the View Item page. Avoid HTML and avoid character entity references (such as &amp;amp;pound; or &amp;amp;#163;). To include special characters in the return policy description, use the literal UTF-8 or ISO-8559-1 character (e.g. &amp;#163;). Max length: 5000 (8000 for DE)",
+                        "type": "string"
+                    },
+                    "returnMethod": {
+                        "description": "Valid in the US marketplace only, this optional field indicates additional services (other than money-back) that sellers can offer buyers for remorse returns. As of version 1.2.0, the only accepted value for this field is REPLACEMENT. This field is valid in only the US marketplace, any supplied value is ignored in other marketplaces. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ReturnMethodEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "returnPeriod": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "returnsAccepted": {
+                        "description": "Required if the seller wants to set an international return policy that differs from their domestic return policy. If set to true, the seller allows international returns. If set to false, the seller does not accept international returns.",
+                        "type": "boolean"
+                    },
+                    "returnShippingCostPayer": {
+                        "description": "Required if the internationalOverride.returnsAccepted field is set to true. This field indicates who is responsible for paying for the shipping charges for returned items. The field can be set to either BUYER or SELLER. Depending on the return policy and specifics of the return, either the buyer or the seller can be responsible for the return shipping costs. Note that the seller is always responsible for return shipping costs for SNAD-related issues. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ReturnShippingCostPayerEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    }
+                }
+            },
+            "ReturnPolicyResponse": {
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "description": "Returns a URL link to the result set.",
+                        "type": "string"
+                    },
+                    "limit": {
+                        "description": "Returns the maximum number of results that can be returned in result set.",
+                        "type": "integer"
+                    },
+                    "next": {
+                        "description": "Returns a URL link to the next set of results.",
+                        "type": "string"
+                    },
+                    "offset": {
+                        "description": "Returns how many result sets were skipped before the currently returned result set.",
+                        "type": "integer"
+                    },
+                    "prev": {
+                        "description": "Returns a URL link to the previous set of results.",
+                        "type": "string"
+                    },
+                    "returnPolicies": {
+                        "description": "A list of the seller's return policies.",
+                        "type": "array"
+                    },
+                    "total": {
+                        "description": "Returns the total number of result sets in the paginated collection.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "returnPolicies": {
+                "type": "array"
+            },
+            "SalesTax": {
+                "type": "object",
+                "properties": {
+                    "countryCode": {
+                        "description": "A two-letter ISO 3166-1 Alpha-2 country code representing the eBay marketplace where an item is listed. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CountryCodeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "salesTaxJurisdictionId": {
+                        "description": "A unique ID that identifies the sales tax jurisdiction to which the tax rate applies (for example a state within the United States).",
+                        "type": "string"
+                    },
+                    "salesTaxPercentage": {
+                        "description": "The sales tax rate (as a percentage of the sale) applied to sales transactions made in this country and sales tax jurisdiction.",
+                        "type": "string"
+                    },
+                    "shippingAndHandlingTaxed": {
+                        "description": "If set to true, shipping and handling charges are taxed.",
+                        "type": "boolean"
+                    }
+                }
+            },
+            "SalesTaxBase": {
+                "type": "object",
+                "properties": {
+                    "salesTaxPercentage": {
+                        "description": "The sales tax rate (as a percentage of the sale) applied to sales transactions made in this country and sales tax jurisdiction.",
+                        "type": "string"
+                    },
+                    "shippingAndHandlingTaxed": {
+                        "description": "If set to true, shipping and handling charges are taxed.",
+                        "type": "boolean"
+                    }
+                }
+            },
+            "SalesTaxes": {
+                "type": "object",
+                "properties": {
+                    "salesTaxes": {
+                        "description": "A list of sales tax tables that have been set up by a seller.",
+                        "type": "array"
+                    }
+                }
+            },
+            "salesTaxes": {
+                "type": "array"
+            },
+            "SellingLimit": {
+                "type": "object",
+                "properties": {
+                    "Amount": {
+                        "description": "A complex type that describes the value of a monetary amount as represented by a global currency.",
+                        "type": "object"
+                    },
+                    "amount": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "quantity": {
+                        "description": "The maximum quantity of items that can be listed by the seller per calendar month. Note that for a listing with variations, all of the items listed in the variation count as individual items.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "SellingPrivileges": {
+                "type": "object",
+                "properties": {
+                    "sellerRegistrationCompleted": {
+                        "description": "If set to true, the seller's registration is completed.",
+                        "type": "boolean"
+                    },
+                    "SellingLimit": {
+                        "description": "Defines the selling limit applied to an eBay seller's account.",
+                        "type": "object"
+                    },
+                    "sellingLimit": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "SetFulfillmentPolicyResponse": {
+                "type": "object",
+                "properties": {
+                    "categoryTypes": {
+                        "description": "The CategoryTypeEnum value to which this policy applies. Used to discern accounts that sell motor vehicles from those that don't. (Currently, each policy can be set to only one categoryTypes value at a time.)",
+                        "type": "array"
+                    },
+                    "description": {
+                        "description": "An optional seller-defined description of the fulfillment policy for internal use (this value is not displayed to end users). Max length: 250",
+                        "type": "string"
+                    },
+                    "freightShipping": {
+                        "description": "If set to true, the seller offers freight shipping. Default: false",
+                        "type": "boolean"
+                    },
+                    "fulfillmentPolicyId": {
+                        "description": "A unique eBay-assigned ID for the fulfillment policy. This ID is generated when the policy is created.",
+                        "type": "string"
+                    },
+                    "globalShipping": {
+                        "description": "If set to true, the seller has opted-in to the eBay Global Shipping Program and that they use that service for their international shipments. Setting this value automatically sets the international shipping service for the policy to International Priority Shipping and the buyer does not need to set any other shipping services for their INTERNATIONAL shipping options (unless they sell items not covered by the Global Shipping Program). If this value is set to false, the seller is responsible for manually specifying the international shipping services, as described in Setting up worldwide shipping. To opt-in to the Global Shipping Program, log in to eBay and navigate to My Account &gt; Site Preferences &gt; Shipping preferences. Default: false",
+                        "type": "boolean"
+                    },
+                    "handlingTime": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "localPickup": {
+                        "description": "If set to true, the seller offers local pickup of their items. Local pickup is supported by the Inventory API, and it can be used with Add\/Revise\/Relist calls. To enable local pickup, a seller (1) must be eligible for local pickup and (2) must set this boolean field to 'true'. Currently, local pickup is available to only large retail merchants and can be applied to only multiple-quantity, fixed-price listings. In addition to setting this field, the merchant must also do the following to enable the &quot;Local Pickup&quot; option on a multiple-quantity, fixed-price listing: Have inventory for the product at one or more physical stores tied to the merchant's account. Sellers can use the createInventoryLocaion method in the Inventory API to associate physical stores to their account and they can then can add inventory to specific store locations. Include the seller-defined SKU value of the product(s) in the request. For single-variation listings, the SKU value is specified in the Item.SKU field and for multiple-variation listings, the SKU value(s) are specified in the Item.Variations.Variation.SKU field(s). Set an immediate payment requirement on the item. The immediate payment feature requires the seller to: Include only one paymentMethods field in the payment policy and set its value to PAYPAL. Include a valid PayPal contact in the recipientAccountReference.referenceId field of the payment policy. Have a valid store location with a complete street address. When a seller is suc",
+                        "type": "boolean"
+                    },
+                    "marketplaceId": {
+                        "description": "The ID of the eBay marketplace to which this fulfillment policy applies. If this value is not specified, value defaults to the seller's eBay registration site. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "pickupDropOff": {
+                        "description": "If set to true, the seller offers the &quot;Click and Collect&quot; feature. Click and Collect is supported by the Inventory API, and it can be used with Add\/Revise\/Relist calls. To enable &quot;Click and Collect&quot;, a seller (1) must be eligible for Click and Collect and (2) must set this boolean field to 'true'. Currently, Click and Collect is available to only large retail merchants selling in the eBay AU and UK marketplaces. In addition to setting this field, the merchant must also do the following to enable the &quot;Click and Collect&quot; option on a listing: Have inventory for the product at one or more physical stores tied to the merchant's account. Sellers can use the createInventoryLocaion method in the Inventory API to associate physical stores to their account and they can then can add inventory to specific store locations. Set an immediate payment requirement on the item. The immediate payment feature requires the seller to: Set the immediatePay flag in the payment policy to 'true'. Include only one paymentMethods field in the payment policy and set its value to PAYPAL. Include a valid PayPal contact in the recipientAccountReference.referenceId field of the payment policy. Have a valid store location with a complete street address. When a UK merchant successfully lists an item with Click and Collect, prospective buyers within a reasonable distance from one of the merchant's stores (that has stock available) will see the &quot;Available for Click and Collect&q",
+                        "type": "boolean"
+                    },
+                    "shippingOptions": {
+                        "description": "A list that defines the seller's shipping configurations for DOMESTIC and INTERNATIONAL order shipments. shippingOptions is a list with a single element if the seller ships to only domestic locations. If the seller also ships internationally, the list contains a second element that defines their international shipping options. Shipping options configure the high-level shipping settings that apply to orders, such as flat-rate or calculated shipping, any rate tables the seller wants to associate with the shipping services, plus other details (such as the shippingServices offered for domestic or international shipments).",
+                        "type": "array"
+                    },
+                    "RegionSet": {
+                        "description": "This complex type contains the <b>regionIncluded<\/b> and <b>regionExcluded<\/b> fields, which indicate the areas to where the seller does and doesn't ship. <p>Normally a seller ships to as many areas as possible using both DOMESTIC and INTERNATIONAL shipping options, and they don't have a need to exclude any regions from their ship-to locations. Here, there's no reason to set <b>regionExcluded<\/b> fields. However, it makes sense to set the <b>regionExcluded<\/b> field when a seller wants to exclude a small area that's within a larger area they service. For example, suppose a seller indicates they ship 'Worldwide', but for some reason must exclude a specific country, or world region. <p class=\"tablenote\"><b>Note:<\/b> Configuring the <b>shipToLocations<\/b> is tricky because the <b>regionIncluded<\/b> and <b>regionExcluded<\/b> fields are valid in different parts of the schema and their allowable settings vary upon the context. For details on setting these fields, see <a href=\"\/api-docs\/sell\/static\/seller-accounts\/ht_shipping-worldwide.html#shipToLocations\"><\/a>.<\/p>",
+                        "type": "object"
+                    },
+                    "shipToLocations": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "warnings": {
+                        "description": "A list of warnings related to request. This field normally returns empty, which indicates the request did not generate any warnings.",
+                        "type": "array"
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    }
+                }
+            },
+            "warnings": {
+                "type": "array"
+            },
+            "SetPaymentPolicyResponse": {
+                "type": "object",
+                "properties": {
+                    "categoryTypes": {
+                        "description": "The CategoryTypeEnum value to which this policy applies. Used to discern accounts that sell motor vehicles from those that don't. (Currently, each policy can be set to only one categoryTypes value at a time.)",
+                        "type": "array"
+                    },
+                    "Deposit": {
+                        "description": "A container that describes the details of a deposit. Used only with motor listings.",
+                        "type": "object"
+                    },
+                    "deposit": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "description": {
+                        "description": "An optional seller-defined description of the fulfillment policy for internal use (this value is not displayed to end users). Max length: 250",
+                        "type": "string"
+                    },
+                    "fullPaymentDueIn": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "immediatePay": {
+                        "description": "If set to true, payment is due upon receipt (eBay generates a receipt when the buyer agrees to purchase an item). This boolean must be set in the payment policy if the seller wants to create a listing that has an &quot;immediate payment&quot; requirement. The seller can change the immediate payment requirement at any time during the life cycle of a listing. The following must be true before a seller can apply an immediate payment requirement to an item: The seller must have a PayPal Business account. The Buy It Now price cannot be higher than $60,000 USD. The eBay marketplace on which the item is listed must support PayPal payments. The listing type must be fixed-price, or an auction with a Buy It Now option.To enable the immediate payment requirement, the seller must also perform the following actions via API calls: Provide a valid paymentMethods.recipientAccountReference.referenceId value. Offer PayPal as the only payment method for the item(s). Specify all related costs to the buyer (because the buyer is not be able to use the Buyer Request Total feature in an immediate payment listing); these costs include flat-rate shipping costs for each domestic and international shipping service offered, package handling costs, and any shipping surcharges. Include and set the shippingProfileDiscountInfo container values if you are going to use promotional shipping discounts.For more information, see the Understanding immediate payment Help page. Note: Listings created with the Invento",
+                        "type": "boolean"
+                    },
+                    "marketplaceId": {
+                        "description": "The ID of the eBay marketplace to which this fulfillment policy applies. If this value is not specified, value defaults to the seller's eBay registration site. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "paymentInstructions": {
+                        "description": "This user-defined field allows the seller to give payment instructions to the buyer. These instructions appear on the eBay View Item and Checkout pages. eBay recommends the seller use this field to clarify payment policies for motor vehicles (eBay Motors US and CA). For example, sellers can include the specifics on the deposit (if required), pickup\/delivery arrangements, and full payment details on the vehicle. Max length: 500",
+                        "type": "string"
+                    },
+                    "paymentMethods": {
+                        "description": "A list of accepted payment methods. For deposits (which are applicable to only motor listings), the paymentMethodType must be set to 'PayPal'",
+                        "type": "array"
+                    },
+                    "paymentPolicyId": {
+                        "description": "A unique eBay-assigned ID for a payment policy. This ID is generated when the policy is created.",
+                        "type": "string"
+                    },
+                    "warnings": {
+                        "description": "A list of warnings related to request. This field normally returns empty, which indicates the request did not generate any warnings.",
+                        "type": "array"
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    }
+                }
+            },
+            "SetReturnPolicyResponse": {
+                "type": "object",
+                "properties": {
+                    "categoryTypes": {
+                        "description": "The CategoryTypeEnum value to which this policy applies. Used to discern accounts that sell motor vehicles from those that don't. (Currently, each policy can be set to only one categoryTypes value at a time.)",
+                        "type": "array"
+                    },
+                    "description": {
+                        "description": "An optional seller-defined description of the fulfillment policy for internal use (this value is not displayed to end users). Max length: 250",
+                        "type": "string"
+                    },
+                    "extendedHolidayReturnsOffered": {
+                        "description": "Important! This field has been deprecated as of version 1.2.0, released on May 31, 2018. Any value supplied in this field is neither read nor returned. If set to true, the seller offers an Extended Holiday Returns policy for their listings. IMPORTANT: Extended Holiday Returns is a seasonally available feature that is offered on some eBay marketplaces. To see if the feature is enabled in any given year, check the Returns on eBay page before the holiday season begins. If the feature is not enabled for the season, this field is ignored. The extended holiday returns period is defined by three dates: The start date = start of November. The purchase cutoff date = end of the year. The end date = end of January. The above dates may vary by a few days each year. Sellers are notified of the current dates on their eBay marketplace before the holiday period starts. Sellers can specify Extended Holiday Returns (as well as their regular non-holiday returns period) for chosen listings at any time during the year. The Extended Holiday Returns offer is not visible in listings until the start date of current year's holiday returns period, at which point it overrides the non-holiday returns policy. Buyers can see the Extended Holiday Returns offer in listings displayed through the purchase cutoff date and are able to return those purchases until the end date of the period. After the purchase cutoff date, the Extended Holiday Returns offer automatically disappears from the listings and the selle",
+                        "type": "boolean"
+                    },
+                    "InternationalReturnOverrideType": {
+                        "description": "This type defines the fields for a seller's international return policy. If a seller does not populate the fields in this complex type, the international return policy defaults to the return policy set for domestic returns.",
+                        "type": "object"
+                    },
+                    "internationalOverride": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "marketplaceId": {
+                        "description": "The ID of the eBay marketplace to which this fulfillment policy applies. If this value is not specified, value defaults to the seller's eBay registration site. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "refundMethod": {
+                        "description": "Important! this field has been deprecated as of version 1.2.0, released on May 31, 2018. Any value other than MONEY_BACK will be treated as MONEY_BACK (although for a period of time, eBay will store and return the legacy values to preserve backwards compatibility). Indicates the method the seller uses to compensate the buyer for returned items. The return method specified applies only to remorse returns. Each eBay marketplace may support different sets of refund methods and marketplaces can also have differing default values for this field. Sellers are obligated to honor the refund method displayed in their listings. Call GeteBayDetails in the Trading API to see the refund methods supported by the marketplaces you sell into. We recommend you set this field to the value of your preferred refund method and that you use the description field to detail the seller's return policy (such as indicating how quickly the seller will process a refund, whether the seller must receive the item before processing a refund, and other similar useful details). You cannot modify this value in a Revise item call if (1) the listing has bids or (2) the listing ends within 12 hours. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/RefundMethodEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "restockingFeePercentage": {
+                        "description": "Important! This field has been deprecated as of version 1.2.0, released on May 31, 2018. Any value supplied in this field is ignored, it is neither read nor returned. Sellers who accept returns should include this field if they charge buyers a restocking fee when items are returned. A restocking fee comes into play only when an item is returned due to buyer remorse and\/or a purchasing mistake, but sellers cannot charge a restocking fee for SNAD-related returns. The total amount returned to the buyer is reduced by the cost of the item multiplied by the percentage indicated by this field. Allowable restocking fee values are: 0.0: No restocking fee is charged to the buyer 10.0: 10 percent of the item price is charged to the buyer 15.0: 15 percent of the item price is charged to the buyer 20.0: Up to 20 percent of the item price is charged to the buyer",
+                        "type": "string"
+                    },
+                    "returnInstructions": {
+                        "description": "Important! This field is being deprecated on many marketplaces. Once deprecated, this field will be ignored on marketplaces where it is not supported and it will neither be read nor returned. This optional field contains the seller's detailed explanation for their return policy and is displayed in the Return Policy section of the View Item page. This field is valid in only the following marketplaces (the field is otherwise ignored): Germany (DE) Spain (ES) France (FR) Italy (IT) Where valid, sellers can use this field to add details about their return policies. eBay uses this text string as-is in the Return Policy section of the View Item page. Avoid HTML and avoid character entity references (such as &amp;amp;pound; or &amp;amp;#163;). To include special characters in the return policy description, use the literal UTF-8 or ISO-8559-1 character (e.g. &amp;#163;). Max length: 5000 (8000 for DE)",
+                        "type": "string"
+                    },
+                    "returnMethod": {
+                        "description": "Valid in the US marketplace only, this optional field indicates additional services (other than money-back) that sellers can offer buyers for remorse returns. As of version 1.2.0, the only accepted value for this field is REPLACEMENT. This field is valid in only the US marketplace, any supplied value is ignored in other marketplaces. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ReturnMethodEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "returnPeriod": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "returnPolicyId": {
+                        "description": "A unique eBay-assigned ID for this policy. This ID value is appended to the end of the Location URI that is returned as a response header when you call createReturnPolicy).",
+                        "type": "string"
+                    },
+                    "returnsAccepted": {
+                        "description": "Required if the seller wants to set an international return policy that differs from their domestic return policy. If set to true, the seller allows international returns. If set to false, the seller does not accept international returns.",
+                        "type": "boolean"
+                    },
+                    "returnShippingCostPayer": {
+                        "description": "Required if the internationalOverride.returnsAccepted field is set to true. This field indicates who is responsible for paying for the shipping charges for returned items. The field can be set to either BUYER or SELLER. Depending on the return policy and specifics of the return, either the buyer or the seller can be responsible for the return shipping costs. Note that the seller is always responsible for return shipping costs for SNAD-related issues. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ReturnShippingCostPayerEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "warnings": {
+                        "description": "A list of warnings related to request. This field normally returns empty, which indicates the request did not generate any warnings.",
+                        "type": "array"
+                    },
+                    "TimeDuration": {
+                        "description": "A complex type that specifies a period of time using a specified time-measurement unit.",
+                        "type": "object"
+                    }
+                }
+            },
+            "ShippingOption": {
+                "type": "object",
+                "properties": {
+                    "costType": {
+                        "description": "Required if the policy offers shipping options using a shippingOptions container. Defines whether the shipping cost is FLAT_RATE, CALCULATED, or NOT_SPECIFIED (for use with freight shipping and local pickup). For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ShippingCostTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "Amount": {
+                        "description": "A complex type that describes the value of a monetary amount as represented by a global currency.",
+                        "type": "object"
+                    },
+                    "insuranceFee": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "insuranceOffered": {
+                        "description": "If set to true, the seller offers buyer-paid shipping insurance. The optionType shows whether this is for either a domestic or international shipment. Buyer-paid shipping insurance is currently supported in only Australia (AU), France (FR), and Italy (IT).",
+                        "type": "boolean"
+                    },
+                    "optionType": {
+                        "description": "Required if the policy offers shipping options using a shippingOptions container. Use this field to set the ShippingOption element to either DOMESTIC or INTERNATIONAL. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/ShippingOptionTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "packageHandlingCost": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "rateTableId": {
+                        "description": "A unique eBay-assigned ID for a seller's shipping rate table. Call getRateTables to retrieve the seller's current rate table IDs.",
+                        "type": "string"
+                    },
+                    "shippingServices": {
+                        "description": "Required if the policy offers shipping options using a shippingOptions container. Contains a list of shipping services offered for either DOMESTIC or INTERNATIONAL shipments. Sellers can specify up to four domestic shipping services and up to five international shipping services by using separate shippingService containers for each. Note that if the seller is opted in to the Global Shipping Program, they can specify only four other international shipping services, regardless of whether or not Global Shipping is offered as one of the services.",
+                        "type": "array"
+                    }
+                }
+            },
+            "shippingServices": {
+                "type": "array"
+            },
+            "ShippingService": {
+                "type": "object",
+                "properties": {
+                    "Amount": {
+                        "description": "A complex type that describes the value of a monetary amount as represented by a global currency.",
+                        "type": "object"
+                    },
+                    "additionalShippingCost": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "buyerResponsibleForPickup": {
+                        "description": "This field is only applicable to vehicle categories on eBay Motors (US and Canada). If set to true, the buyer is responsible for picking up the vehicle. Otherwise, the seller should specify the vehicle pickup arrangements in the item description. The seller cannot modify this flag if the vehicle has bids or if the listing ends within 12 hours. Default: false",
+                        "type": "boolean"
+                    },
+                    "buyerResponsibleForShipping": {
+                        "description": "This field is applicable for only items listed in vehicle categories on eBay Motors (US and Canada). If set to true, the buyer is responsible for the shipment of the vehicle. Otherwise, the seller should specify the vehicle shipping arrangements in the item description. The seller cannot modify this flag if the vehicle has bids or if the listing ends within 12 hours. Default: false",
+                        "type": "boolean"
+                    },
+                    "cashOnDeliveryFee": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "freeShipping": {
+                        "description": "If set to true, the seller offers free shipping to the buyer. This field can only be included and set to 'true' for the first domestic shipping service option specified in the shippingServices container (it is ignored if set for subsequent shipping services). The first specified shipping service option has a sortOrder value of 1 or (if the sortOrderId field is not used) it is the shipping service option that's specified first in the shippingServices container.",
+                        "type": "boolean"
+                    },
+                    "shippingCarrierCode": {
+                        "description": "The shipping carrier, such as 'USPS', 'FedEx', 'UPS', and so on.",
+                        "type": "string"
+                    },
+                    "shippingCost": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "shippingServiceCode": {
+                        "description": "The shipping service that the shipping carrier uses to ship an item. For example, an overnight, two-day delivery, or other type of service. For details on configuring shipping services, see Setting the shipping carrier and shipping service values.",
+                        "type": "string"
+                    },
+                    "RegionSet": {
+                        "description": "This complex type contains the <b>regionIncluded<\/b> and <b>regionExcluded<\/b> fields, which indicate the areas to where the seller does and doesn't ship. <p>Normally a seller ships to as many areas as possible using both DOMESTIC and INTERNATIONAL shipping options, and they don't have a need to exclude any regions from their ship-to locations. Here, there's no reason to set <b>regionExcluded<\/b> fields. However, it makes sense to set the <b>regionExcluded<\/b> field when a seller wants to exclude a small area that's within a larger area they service. For example, suppose a seller indicates they ship 'Worldwide', but for some reason must exclude a specific country, or world region. <p class=\"tablenote\"><b>Note:<\/b> Configuring the <b>shipToLocations<\/b> is tricky because the <b>regionIncluded<\/b> and <b>regionExcluded<\/b> fields are valid in different parts of the schema and their allowable settings vary upon the context. For details on setting these fields, see <a href=\"\/api-docs\/sell\/static\/seller-accounts\/ht_shipping-worldwide.html#shipToLocations\"><\/a>.<\/p>",
+                        "type": "object"
+                    },
+                    "shipToLocations": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "sortOrder": {
+                        "description": "This integer value controls the order that this shipping service option appears in the View Item and Checkout pages, as related to the other specified shipping service options. Sellers can specify up to four domestic shipping services (in four separate shippingService containers), so valid values are 1, 2, 3, and 4. A shipping service option with a sortOrder value of '1' appears at the top of View Item and Checkout pages. Conversely, a shipping service option with a sortOrder value of '4' appears at the bottom of the list. Sellers can specify up to five international shipping services (in five separate shippingService containers, so valid values for international shipping services are 1, 2, 3, 4, and 5. Similarly to domestic shipping service options, the sortOrder value of a international shipping service option controls the placement of that shipping service option in the View Item and Checkout pages. Set up different domestic and international services by configuring two shippingOptions containers, where you set shippingOptions.optionType to either DOMESTIC or INTERNATIONAL to indicate the area supported by the listed shipping services. If the sortOrder field is not supplied, the order of domestic and international shipping service options is determined by the order in which they are listed in the API call. Min: 1. Max: 4 (for domestic shipping service) or 5 (for international shipping service).",
+                        "type": "integer"
+                    },
+                    "surcharge": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "TimeDuration": {
+                "type": "object",
+                "properties": {
+                    "unit": {
+                        "description": "Required in the TimeDuration container. A time-measurement unit used to specify a period of time. Time-measurement units can be years, months, days, hours, minutes, and other time units (see TimeDurationUnitEnum for a complete list of possible units). The unit is applied to the number in the value field to define a span of time. See the containing object for details and call GeteBayDetails in the Trading API to get the allowable values for the specific object you're configuring. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/TimeDurationUnitEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "Required in the TimeDuration container. An amount of time, as measured by the time-measurement units specified in the unit field. Supported values for this field vary according to the object using the time duration. See the containing object for details and call GeteBayDetails in the Trading API to get the allowable values for the specific object you're configuring.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "category": {
+                        "description": "The category type for this error or warning. It takes a string that can have one of three values: Application: Indicates an exception or error occurred in the application code or at runtime. Examples include catching an exception in a service's business logic, system failures, or request errors from a dependency. Business: Used when your service or a dependent service refused to continue processing on the resource because of a business rule violation such as &quot;Seller does not ship item to Antarctica&quot; or &quot;Buyer ineligible to purchase an alcoholic item&quot;. Business errors are not syntactical input errors. Request: Used when there is anything wrong with the request, such as authentication, syntactical errors, rate limiting or missing headers, bad HTTP header values, and so on.",
+                        "type": "string"
+                    },
+                    "domain": {
+                        "description": "Name of the domain containing the service or application.",
+                        "type": "string"
+                    },
+                    "errorId": {
+                        "description": "A positive integer that uniquely identifies the specific error condition that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.",
+                        "type": "integer"
+                    },
+                    "inputRefIds": {
+                        "description": "Identifies specific request elements associated with the error, if any. inputRefId's response is format specific. For JSON, use JSONPath notation.",
+                        "type": "array"
+                    },
+                    "longMessage": {
+                        "description": "An expanded version of message that should be around 100-200 characters long, but is not required to be such.",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "An end user and app developer friendly device agnostic message. It explains what the error or warning is, and how to fix it (in a general sense). Its value is at most 50 characters long. If applicable, the value is localized in the end user's requested locale.",
+                        "type": "string"
+                    },
+                    "outputRefIds": {
+                        "description": "Identifies specific response elements associated with the error, if any. Path format is the same as inputRefId.",
+                        "type": "array"
+                    },
+                    "parameters": {
+                        "description": "This optional complex field type contains a list of one or more context-specific ErrorParameter objects, with each item in the list entry being a parameter (or input field name) that caused an error condition. Each ErrorParameter object consists of two fields, a name and a value.",
+                        "type": "array"
+                    },
+                    "subdomain": {
+                        "description": "Name of the domain's subsystem or subdivision. For example, checkout is a subdomain in the buying domain.",
+                        "type": "string"
+                    }
+                }
+            },
+            "inputRefIds": {
+                "type": "array"
+            },
+            "outputRefIds": {
+                "type": "array"
+            },
+            "parameters": {
+                "type": "array"
+            },
+            "ErrorParameter": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "The category type to which the policy applies (motor vehicles or non-motor vehicles). Note for return policies: The 'MOTORS_VEHICLES' category type is not valid for return policies because eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/CategoryTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The value of the monetary amount in the specified currency.",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
