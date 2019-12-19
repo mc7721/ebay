@@ -1,0 +1,92 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "",
+        "title": "EBay Finding API",
+        "description": "Search eBay; build search and browse experiences.",
+        "termsOfService": ""
+    },
+    "servers": [
+        "httpssvcs.ebay.com\/services\/search\/FindingService\/v1"
+    ],
+    "paths": {
+        "?OPERATION-NAME=findItemsByKeywords": {
+            "get": {
+                "summary": "Find Item By Keywords",
+                "description": "This call searches for items on eBay by a keyword query (keywords).",
+                "operationId": "FindItemsByKeywords",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "SERVICE",
+                        "in": "query",
+                        "description": "The service version."
+                    },
+                    {
+                        "name": "RESPONSE",
+                        "in": "query",
+                        "description": "Response in either XML or JSON."
+                    },
+                    {
+                        "name": "keywords",
+                        "in": "query",
+                        "description": "The key word or phrase to search by."
+                    }
+                ]
+            }
+        },
+        "?OPERATION-NAME=findItemsByCategory": {
+            "get": {
+                "summary": "Find Item By Category",
+                "description": "Returns items in a specific category. Results can be filtered and sorted.",
+                "operationId": "FindItemsByCategory",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "SERVICE",
+                        "in": "query",
+                        "description": "The service version."
+                    },
+                    {
+                        "name": "categoryId",
+                        "in": "query",
+                        "description": "The ebay category id."
+                    },
+                    {
+                        "name": "RESPONSE",
+                        "in": "query",
+                        "description": "Response in either XML or JSON."
+                    }
+                ]
+            }
+        },
+        "?OPERATION-NAME=findItemsAdvanced": {
+            "get": {
+                "summary": "Find Item By Advanced",
+                "description": "Finds items by a keyword query and\/or category and allows searching within item descriptions.",
+                "operationId": "FindItemsAdvanced",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "SERVICE",
+                        "in": "query",
+                        "description": "The service version."
+                    },
+                    {
+                        "name": "RESPONSE",
+                        "in": "query",
+                        "description": "Response in either XML or JSON."
+                    },
+                    {
+                        "name": "keywords",
+                        "in": "query",
+                        "description": "The key word or phrase to search by."
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": []
+    }
+}
