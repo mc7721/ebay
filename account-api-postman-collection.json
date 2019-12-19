@@ -1,0 +1,67 @@
+{
+    "id": "e6d1d33a04a7a72073b2b236e3a9a61b",
+    "name": "Account API",
+    "description": null,
+    "auth": null,
+    "events": null,
+    "variables": [],
+    "order": [],
+    "folders_order": [],
+    "folders": [],
+    "requests": [
+        {
+            "id": "4e97c35e9b9cf15dd727a938566b7280",
+            "name": "",
+            "url": "http:\/\/api.ebay.com\/sell\/account\/v1\/fulfillment_policy\/",
+            "description": "This method retrieves all the fulfillment policies configured for the marketplace you specify using the marketplace_id query parameter. Marketplaces and locales Get the correct policies for a marketplace that supports multiple locales using the Content-Language request header. For example, get the policies for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language:",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "marketplace_id",
+                    "description": "This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation help, refer to eBay API documentation at https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/account\/types\/MarketplaceIdEnum.html",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "e6d1d33a04a7a72073b2b236e3a9a61b",
+            "rawModeData": ""
+        },
+        {
+            "id": "ac3eb3b1b64b4614d2f4eed1bb45f83a",
+            "name": "",
+            "url": "http:\/\/api.ebay.com\/sell\/account\/v1\/fulfillment_policy\/",
+            "description": "This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling item purchases. Fulfillment policies include the shipment options that the seller offers to buyers. Each policy targets a marketplaceId and categoryTypes.name combination and you can create multiple policies for each combination. Be aware that some marketplaces require a specific fulfillment policy for vehicle listings. A successful request returns the URI to the new policy in the Location re",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "post",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "e6d1d33a04a7a72073b2b236e3a9a61b",
+            "rawModeData": ""
+        }
+    ]
+}
