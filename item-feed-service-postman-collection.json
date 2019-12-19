@@ -1,0 +1,186 @@
+{
+    "id": "673b477abf89f0a32f8f1f0e7bc11c28",
+    "name": "Item Feed Service",
+    "description": null,
+    "auth": null,
+    "events": null,
+    "variables": [],
+    "order": [],
+    "folders_order": [],
+    "folders": [],
+    "requests": [
+        {
+            "id": "567d9e3688a9ef9728a0e0627681a3b4",
+            "name": "",
+            "url": "http:\/\/api.ebay.com\/buy\/feed\/v1_beta\/item",
+            "description": "The Item feed file is generated each day. This call lets you download a daily TSV_GZIP (tab separated value gzip) Item feed file of all the items that were listed on a specific day in a specific category. For each item, the primary item details are returned, except for the item description. The description of each item is excluded because these can be huge and items in an item group (an item with variations, such as size and color) can share the same description. The item descriptions are return",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "feed_scope",
+                    "description": "Specifies the type of file to return. Valid Values: NEWLY_LISTED - Returns the file containing all items that were listed on the day specified by the date parameter in the category specified by the category_id parameter. The items will be Good 'Til Cancelled and non-Good 'Til Cancelled items. If the item is a non-Good 'Til Cancelled item, the item's end date will be returned in the itemEndDate column. \/item?feed_scope=NEWLY_LISTED&amp;category_id=15032&amp;date=20170925 ALL_ACTIVE (bootstrap) - ",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "category_id",
+                    "description": "An eBay top-level category ID of the items to be returned in the feed file. The list of eBay category IDs changes over time and category IDs are not the same across all the eBay marketplaces. To get a list of the top-level categories for a marketplaces, you can use the Taxonomy API getCategoryTree call. This call retrieves the complete category tree for the marketplace. The top-level categories are identified by the categoryTreeNodeLevel field. For example: &nbsp;&nbsp;&quot;categoryTreeNodeLeve",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "date",
+                    "description": "The date of the feed file you want. The Item feed files are generated every day and there are always 7 daily feed files available. Important: The daily generated files are available each day after 9AM MST (US Mountain Standard Time), which is -7 hours UTC time. There is a 48 hour latency when generating the files, however it can take up to 72 hours for some of the larger files. This means you can download the file for July 10th on July 12 after 9AM MST. Format: yyyyMMdd Requirement: Must be with",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "673b477abf89f0a32f8f1f0e7bc11c28",
+            "rawModeData": ""
+        },
+        {
+            "id": "9f4590b2dfc32aa358a2dadd4bdc26ac",
+            "name": "",
+            "url": "http:\/\/api.ebay.com\/buy\/feed\/v1_beta\/item_description",
+            "description": "The Description feed file is generated each day for every top-level (L1) category. This call lets you download a daily TSV_GZIP (tab separated value gzip) Description feed file containing the description of the items the Item feed file for a specific day and category including all its child categories. To store all the item details provided by the Feed API, you would use the getItemFeed and getItemDescriptionFeed calls with the same parameters. For example: &nbsp;&nbsp;&nbsp; \/item?feed_scope=NE",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "feed_scope",
+                    "description": "Specifies the type of file to return. Valid Values: NEWLY_LISTED - Returns the file containing all items that were listed on the day specified by the date parameter in the category specified by the category_id parameter. The items will be Good 'Til Cancelled and non-Good 'Til Cancelled items. If the item is a non-Good 'Til Cancelled item, the item's end date will be returned in the itemEndDate column. \/item?feed_scope=NEWLY_LISTED&amp;category_id=15032&amp;date=20170925 ALL_ACTIVE (bootstrap) - ",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "category_id",
+                    "description": "An eBay top-level category ID of the items to be returned in the feed file. The list of eBay category IDs changes over time and category IDs are not the same across all the eBay marketplaces. To get a list of the top-level categories for a marketplaces, you can use the Taxonomy API getCategoryTree call. This call retrieves the complete category tree for the marketplace. The top-level categories are identified by the categoryTreeNodeLevel field. For example: &nbsp;&nbsp;&quot;categoryTreeNodeLeve",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "date",
+                    "description": "The date of the feed file you want. The Item feed files are generated every day and there are always 7 daily feed files available. Important: The daily generated files are available each day after 9AM MST (US Mountain Standard Time), which is -7 hours UTC time. There is a 48 hour latency when generating the files, however it can take up to 72 hours for some of the larger files. This means you can download the file for July 10th on July 12 after 9AM MST. Format: yyyyMMdd Requirement: Must be with",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "673b477abf89f0a32f8f1f0e7bc11c28",
+            "rawModeData": ""
+        },
+        {
+            "id": "aa6d38dd491fe86267de9ac9fb91b443",
+            "name": "",
+            "url": "http:\/\/api.ebay.com\/buy\/feed\/v1_beta\/item_group",
+            "description": "Each day an Item feed file is generated for every top-level (L1) category. This file contains all the newly listed items for that day that are in the category including all its child categories. The service reads this Item feed file and if an item in the feed file has a primaryItemGroupId value, which indicates the item is part of an item group, the service uses that value to return the item group (parent item) information for that item in the Item Group feed file for that day and category. This",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "feed_scope",
+                    "description": "Specifies the type of file to return. Valid Values: NEWLY_LISTED - Returns the file containing all items that were listed on the day specified by the date parameter in the category specified by the category_id parameter. The items will be Good 'Til Cancelled and non-Good 'Til Cancelled items. If the item is a non-Good 'Til Cancelled item, the item's end date will be returned in the itemEndDate column. \/item?feed_scope=NEWLY_LISTED&amp;category_id=15032&amp;date=20170925 ALL_ACTIVE (bootstrap) - ",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "category_id",
+                    "description": "An eBay top-level category ID of the items to be returned in the feed file. The list of eBay category IDs changes over time and category IDs are not the same across all the eBay marketplaces. To get a list of the top-level categories for a marketplaces, you can use the Taxonomy API getCategoryTree call. This call retrieves the complete category tree for the marketplace. The top-level categories are identified by the categoryTreeNodeLevel field. For example: &nbsp;&nbsp;&quot;categoryTreeNodeLeve",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "date",
+                    "description": "The date of the feed file you want. The Item feed files are generated every day and there are always 7 daily feed files available. Important: The daily generated files are available each day after 9AM MST (US Mountain Standard Time), which is -7 hours UTC time. There is a 48 hour latency when generating the files, however it can take up to 72 hours for some of the larger files. This means you can download the file for July 10th on July 12 after 9AM MST. Format: yyyyMMdd Requirement: Must be with",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "673b477abf89f0a32f8f1f0e7bc11c28",
+            "rawModeData": ""
+        },
+        {
+            "id": "283df6c4ce65ff6edec913a52682f340",
+            "name": "",
+            "url": "http:\/\/api.ebay.com\/buy\/feed\/v1_beta\/item_snapshot",
+            "description": "The Hourly Snapshot feed file is generated each hour every day for all categories. This call lets you download an Hourly Snapshot TSV_GZIP (tab separated value gzip) feed file containing the details of all the items that have changed within the specified day and hour for a specific category. This means to generate the 8AM file of items that have changed from 8AM and 8:59AM, the service starts at 9AM. You can retrieve the 8AM snapshot file at 10AM. You can use the response from this call to updat",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "category_id",
+                    "description": "An eBay top-level category ID of the items to be returned in the feed file. The list of eBay category IDs changes over time and category IDs are not the same across all the eBay marketplaces. To get a list of the top-level categories for a marketplaces, you can use the Taxonomy API getCategoryTree call. This call retrieves the complete category tree for the marketplace. The top-level categories are identified by the categoryTreeNodeLevel field. For example: &nbsp;&nbsp;&quot;categoryTreeNodeLeve",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "snapshot_date",
+                    "description": "The hour of the incremental feed file you want, for a particular day. There are always 7 days of Hourly Snapshot feed files available. If you specify that you want the 9AM file for July 15, 2017 (2017-07-15T09:00:00.000Z), the data in the feed file will be items that changed after 9AM on July 15, 2017. Restrictions: Files are generated on the hour, so minutes and seconds are always zeros. &nbsp;&nbsp;&nbsp;(2017-07-12T09:00:00.000Z) Format: UTC format (yyyy-MM-ddThh:00:00.000Z)",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "673b477abf89f0a32f8f1f0e7bc11c28",
+            "rawModeData": ""
+        }
+    ]
+}
