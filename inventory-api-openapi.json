@@ -1,0 +1,1868 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "v1.6.0",
+        "title": "Inventory API",
+        "description": "The Inventory API is used to create and manage inventory, and then to publish and manage this inventory on an eBay marketplace. There is also a call in this API that will convert eligible, active eBay listings into the Inventory API model.",
+        "termsOfService": "http:\/\/exmple.com\/license\/"
+    },
+    "servers": [
+        "http:\/\/api.ebay.com\/sell\/inventory\/v1"
+    ],
+    "paths": {
+        "\/location\/{merchantLocationKey}": {
+            "get": {
+                "summary": "",
+                "description": "This call retrieves all defined details of the inventory location that is specified by the <b>merchantLocationKey<\/b> path parameter. <p>The <code>authorization<\/code> HTTP header is the only required request header for this call. <\/p><p>A successful call will return an HTTP status value of <i>200 OK<\/i>.<\/p>",
+                "operationId": "GetInventoryLocation",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "merchantLocationKey",
+                        "in": "path",
+                        "description": "A unique merchant-defined key (ID) for an inventory location. This value is passed in at the end of the call URI to specify the inventory location to retrieve. <br><br><b>Max length<\/b>: 36"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/InventoryLocationResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "",
+                "description": "<p>Use this call to create a new inventory location. In order to create and publish an offer (and create an eBay listing), a seller must have at least one inventory location, as every offer must be associated with a location.<\/p><p>Upon first creating an inventory location, only a seller-defined location identifier and a physical location is required, and once set, these values can not be changed. The unique identifier value (<i>merchantLocationKey<\/i>) is passed in at the end of the call URI. T",
+                "operationId": "CreateInventoryLocation",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "merchantLocationKey",
+                        "in": "path",
+                        "description": "A unique merchant-defined key (ID) for an inventory location. This value is passed in at the end of the call URI to specify the inventory location to retrieve. <br><br><b>Max length<\/b>: 36"
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Address": {
+                "type": "object",
+                "properties": {
+                    "addressLine1": {
+                        "description": "The first line of a street address. This field is required for store inventory locations that will be holding In-Store Pickup inventory. A street address is not required if the inventory location is not holding In-Store Pickup Inventory. This field will be returned if defined for an inventory location. <br><br><b>Max length<\/b>: 128",
+                        "type": "string"
+                    },
+                    "addressLine2": {
+                        "description": "The second line of a street address. This field can be used for additional address information, such as a suite or apartment number. A street address is not required if the inventory location is not holding In-Store Pickup Inventory. This field will be returned if defined for an inventory location. <br><br><b>Max length<\/b>: 128",
+                        "type": "string"
+                    },
+                    "city": {
+                        "description": "The city in which the inventory location resides. This field is required for store inventory locations that will be holding In-Store Pickup inventory. For warehouse locations, this field is technically optional, as a <strong>postalCode<\/strong> can be used instead of  <strong>city<\/strong>\/<strong>stateOrProvince<\/strong> pair, and then the city is just derived from this postal\/zip code. This field is returned if defined for an inventory location. <br><br><b>Max length<\/b>: 128",
+                        "type": "string"
+                    },
+                    "country": {
+                        "description": "The country in which the address resides, represented as two-letter <a href=\"http:\/\/www.iso.org\/iso\/country_codes\" target=\"_blank\">ISO 3166-1 Alpha-2<\/a> country code. For example, <code>US<\/code> represents the United States, and <code>DE<\/code> represents Germany. <br><br><b>Max length<\/b>: 2 For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/CountryCodeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "county": {
+                        "description": "The county in which the address resides. This field is returned if defined for an inventory location.",
+                        "type": "string"
+                    },
+                    "postalCode": {
+                        "description": "The postal\/zip code of the address. eBay uses postal codes to surface In-Store Pickup items within the vicinity of a buyer's location, and it also user postal codes (origin and destination) to estimate shipping costs when the seller uses calculated shipping. A <strong>city<\/strong>\/<strong>stateOrProvince<\/strong> pair can be used instead of a <strong>postalCode<\/strong> value, and then the postal code is just derived from the city and state\/province. This field is returned if defined for an inventory location. <br><br><b>Max length<\/b>: 16",
+                        "type": "string"
+                    },
+                    "stateOrProvince": {
+                        "description": "The state\/province in which the inventory location resides. This field is required for store inventory locations that will be holding In-Store Pickup inventory. For warehouse locations, this field is technically optional, as a <strong>postalCode<\/strong> can be used instead of <strong>city<\/strong>\/<strong>stateOrProvince<\/strong> pair, and then the state or province is just derived from this postal\/zip code. <br><br><b>Max length<\/b>: 128",
+                        "type": "string"
+                    }
+                }
+            },
+            "Interval": {
+                "type": "object",
+                "properties": {
+                    "close": {
+                        "description": "The <strong>close<\/strong> value is actually the time that the store closes. Local time (in Military format) is used. So, if a store closed at 8 PM local time, the <strong>close<\/strong> time would look like the following: <code>20:00:00<\/code>. This field is conditionally required if the <strong>intervals<\/strong> container is used to specify working hours or special hours for a store. <br><br>This field is returned if set for the store location.",
+                        "type": "string"
+                    },
+                    "open": {
+                        "description": "The <strong>open<\/strong> value is actually the time that the store opens. Local time (in Military format) is used. So, if a store opens at 9 AM local time, the <strong>close<\/strong> time would look like the following: <code>09:00:00<\/code>. This field is conditionally required if the <strong>intervals<\/strong> container is used to specify working hours or special hours for a store. <br><br>This field is returned if set for the store location.",
+                        "type": "string"
+                    }
+                }
+            },
+            "InventoryLocation": {
+                "type": "object",
+                "properties": {
+                    "locationAdditionalInformation": {
+                        "description": "This text field is used by the merchant to provide\/update additional information about an inventory location. Whatever text is passed in this field will replace the current text string defined for this field. If the text will not change, the same text should be passed in once again. <br><br><b>Max length<\/b>: 256",
+                        "type": "string"
+                    },
+                    "locationInstructions": {
+                        "description": "This text field is generally used by the merchant to provide\/update special pickup instructions for a store inventory location. Although this field is optional, it is recommended that merchants provide this field to create a pleasant and easy pickup experience for In-Store Pickup and Click and Collect orders. If this field is not included in the call request payload, eBay will use the default pickup instructions contained in the merchant's profile (if available). Whatever text is passed in this field will replace the current text string defined for this field. If the text will not change, the same text should be passed in once again. <br><br><b>Max length<\/b>: 1000",
+                        "type": "string"
+                    },
+                    "locationWebUrl": {
+                        "description": "This text field is used by the merchant to provide\/update the Website address (URL) associated with the inventory location. The URL that is passed in this field will replace any other URL that may be defined for this field. <br><br><b>Max length<\/b>: 512",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "This text field is used by the merchant to update the name of the inventory location. This name should be a human-friendly name as it will be in In-Store Pickup and Click and Collect listings. A name is not required for warehouse inventory locations. For store inventory locations, this field is not immediately required, but will be required before an offer enabled with the In-Store Pickup or Click and Collect capability can be published. So, if the seller omitted this field in the <strong>createInventoryLocation<\/strong> call, it is required for an <strong>updateInventoryLocation<\/strong> call. The name that is passed in this field will replace any other name that may be defined for this field.",
+                        "type": "string"
+                    },
+                    "operatingHours": {
+                        "description": "This container is used to provide\/update the regular operating hours for a store location during the days of the week. A <strong>dayOfWeekEnum<\/strong> field and an <strong>intervals<\/strong> container will be needed for each day of the week that the store location is open. Note that if operating hours are already set for an inventory location for a specific day of the week, whatever is set through an <strong>updateInventoryLocation<\/strong> call will override those existing hours.",
+                        "type": "array"
+                    },
+                    "phone": {
+                        "description": "This text field is used by the merchant to provide\/update the phone number for the inventory location. The phone number that is passed in this field will replace any other phone number that may be defined for this field. <br><br><b>Max length<\/b>: 36",
+                        "type": "string"
+                    },
+                    "specialHours": {
+                        "description": "This container is used to provide\/update the special operating hours for a store location on a specific date, such as a holiday. The special hours specified for the specific date will override the normal operating hours for that particular day of the week. If special hours have already been set up for an inventory location, specifying special hours through an <strong>updateInventoryLocation<\/strong> call will only add to the list, unless the date(s) used are the same special date(s) already set up, in which case, the special hours set up through the <strong>updateInventoryLocation<\/strong> call will override the existing special hours.",
+                        "type": "array"
+                    }
+                }
+            },
+            "operatingHours": {
+                "type": "array"
+            },
+            "specialHours": {
+                "type": "array"
+            },
+            "InventoryLocationFull": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "locationAdditionalInformation": {
+                        "description": "This text field is used by the merchant to provide\/update additional information about an inventory location. Whatever text is passed in this field will replace the current text string defined for this field. If the text will not change, the same text should be passed in once again. <br><br><b>Max length<\/b>: 256",
+                        "type": "string"
+                    },
+                    "locationInstructions": {
+                        "description": "This text field is generally used by the merchant to provide\/update special pickup instructions for a store inventory location. Although this field is optional, it is recommended that merchants provide this field to create a pleasant and easy pickup experience for In-Store Pickup and Click and Collect orders. If this field is not included in the call request payload, eBay will use the default pickup instructions contained in the merchant's profile (if available). Whatever text is passed in this field will replace the current text string defined for this field. If the text will not change, the same text should be passed in once again. <br><br><b>Max length<\/b>: 1000",
+                        "type": "string"
+                    },
+                    "locationTypes": {
+                        "description": "This container is used to define the function of the inventory location. Typically, an inventory location will serve as a store or a warehouse, but in some cases, an inventory location may be both. <br><br> If this container is omitted, the location type of the inventory location will default to <code>WAREHOUSE<\/code>. See <a href=\"\/api-docs\/sell\/inventory\/types\/api:StoreTypeEnum\">StoreTypeEnum<\/a> for the supported values.<br\/><br\/><b>Default<\/b>: WAREHOUSE",
+                        "type": "array"
+                    },
+                    "locationWebUrl": {
+                        "description": "This text field is used by the merchant to provide\/update the Website address (URL) associated with the inventory location. The URL that is passed in this field will replace any other URL that may be defined for this field. <br><br><b>Max length<\/b>: 512",
+                        "type": "string"
+                    },
+                    "merchantLocationStatus": {
+                        "description": "This field is used to indicate whether the inventory location will be enabled (inventory can be loaded to location) or disabled (inventory can not be loaded to location). If this field is omitted, a successful <strong>createInventoryLocation<\/strong> call will automatically enable the inventory location. A merchant may want to create a new inventory location but leave it as disabled if the inventory location is not yet ready for active inventory. Once the inventory location is ready, the merchant can use the <strong>enableInventoryLocation<\/strong> call to enable an inventory location that is in a disabled state. See <a href=\"\/api-docs\/sell\/inventory\/types\/api:StatusEnum\">StatusEnum<\/a> for the supported values.  <br\/><br\/><b>Default<\/b>: ENABLED For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/StatusEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "This text field is used by the merchant to update the name of the inventory location. This name should be a human-friendly name as it will be in In-Store Pickup and Click and Collect listings. A name is not required for warehouse inventory locations. For store inventory locations, this field is not immediately required, but will be required before an offer enabled with the In-Store Pickup or Click and Collect capability can be published. So, if the seller omitted this field in the <strong>createInventoryLocation<\/strong> call, it is required for an <strong>updateInventoryLocation<\/strong> call. The name that is passed in this field will replace any other name that may be defined for this field.",
+                        "type": "string"
+                    },
+                    "operatingHours": {
+                        "description": "This container is used to provide\/update the regular operating hours for a store location during the days of the week. A <strong>dayOfWeekEnum<\/strong> field and an <strong>intervals<\/strong> container will be needed for each day of the week that the store location is open. Note that if operating hours are already set for an inventory location for a specific day of the week, whatever is set through an <strong>updateInventoryLocation<\/strong> call will override those existing hours.",
+                        "type": "array"
+                    },
+                    "phone": {
+                        "description": "This text field is used by the merchant to provide\/update the phone number for the inventory location. The phone number that is passed in this field will replace any other phone number that may be defined for this field. <br><br><b>Max length<\/b>: 36",
+                        "type": "string"
+                    },
+                    "specialHours": {
+                        "description": "This container is used to provide\/update the special operating hours for a store location on a specific date, such as a holiday. The special hours specified for the specific date will override the normal operating hours for that particular day of the week. If special hours have already been set up for an inventory location, specifying special hours through an <strong>updateInventoryLocation<\/strong> call will only add to the list, unless the date(s) used are the same special date(s) already set up, in which case, the special hours set up through the <strong>updateInventoryLocation<\/strong> call will override the existing special hours.",
+                        "type": "array"
+                    }
+                }
+            },
+            "location": {
+                "type": "object",
+                "properties": {
+                    "Address": {
+                        "description": "This type is used to define the physical address of an inventory location.",
+                        "type": "object"
+                    },
+                    "address": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "geoCoordinates": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "locationId": {
+                        "description": "A unique eBay-assigned ID for the location. <br><br> <span class=\"tablenote\"> <strong>Note:<\/strong> This field should not be confused with the seller-defined <b>merchantLocationKey<\/b> value. It is the <b>merchantLocationKey<\/b> value which is used to identify an inventory location when working with inventory location API calls. The <strong>locationId<\/strong> value is only used internally by eBay.<\/span>",
+                        "type": "string"
+                    }
+                }
+            },
+            "locationTypes": {
+                "type": "array"
+            },
+            "InventoryLocationResponse": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "locationAdditionalInformation": {
+                        "description": "This text field is used by the merchant to provide\/update additional information about an inventory location. Whatever text is passed in this field will replace the current text string defined for this field. If the text will not change, the same text should be passed in once again. <br><br><b>Max length<\/b>: 256",
+                        "type": "string"
+                    },
+                    "locationInstructions": {
+                        "description": "This text field is generally used by the merchant to provide\/update special pickup instructions for a store inventory location. Although this field is optional, it is recommended that merchants provide this field to create a pleasant and easy pickup experience for In-Store Pickup and Click and Collect orders. If this field is not included in the call request payload, eBay will use the default pickup instructions contained in the merchant's profile (if available). Whatever text is passed in this field will replace the current text string defined for this field. If the text will not change, the same text should be passed in once again. <br><br><b>Max length<\/b>: 1000",
+                        "type": "string"
+                    },
+                    "locationTypes": {
+                        "description": "This container is used to define the function of the inventory location. Typically, an inventory location will serve as a store or a warehouse, but in some cases, an inventory location may be both. <br><br> If this container is omitted, the location type of the inventory location will default to <code>WAREHOUSE<\/code>. See <a href=\"\/api-docs\/sell\/inventory\/types\/api:StoreTypeEnum\">StoreTypeEnum<\/a> for the supported values.<br\/><br\/><b>Default<\/b>: WAREHOUSE",
+                        "type": "array"
+                    },
+                    "locationWebUrl": {
+                        "description": "This text field is used by the merchant to provide\/update the Website address (URL) associated with the inventory location. The URL that is passed in this field will replace any other URL that may be defined for this field. <br><br><b>Max length<\/b>: 512",
+                        "type": "string"
+                    },
+                    "merchantLocationKey": {
+                        "description": "The unique identifier of the inventory location. This identifier is set up by the merchant when the inventory location is first created with the <strong>createInventoryLocation<\/strong> call. Once this value is set for an inventory location, it cannot be modified. <br><br><b>Max length<\/b>: 36",
+                        "type": "string"
+                    },
+                    "merchantLocationStatus": {
+                        "description": "This field is used to indicate whether the inventory location will be enabled (inventory can be loaded to location) or disabled (inventory can not be loaded to location). If this field is omitted, a successful <strong>createInventoryLocation<\/strong> call will automatically enable the inventory location. A merchant may want to create a new inventory location but leave it as disabled if the inventory location is not yet ready for active inventory. Once the inventory location is ready, the merchant can use the <strong>enableInventoryLocation<\/strong> call to enable an inventory location that is in a disabled state. See <a href=\"\/api-docs\/sell\/inventory\/types\/api:StatusEnum\">StatusEnum<\/a> for the supported values.  <br\/><br\/><b>Default<\/b>: ENABLED For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/StatusEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "This text field is used by the merchant to update the name of the inventory location. This name should be a human-friendly name as it will be in In-Store Pickup and Click and Collect listings. A name is not required for warehouse inventory locations. For store inventory locations, this field is not immediately required, but will be required before an offer enabled with the In-Store Pickup or Click and Collect capability can be published. So, if the seller omitted this field in the <strong>createInventoryLocation<\/strong> call, it is required for an <strong>updateInventoryLocation<\/strong> call. The name that is passed in this field will replace any other name that may be defined for this field.",
+                        "type": "string"
+                    },
+                    "operatingHours": {
+                        "description": "This container is used to provide\/update the regular operating hours for a store location during the days of the week. A <strong>dayOfWeekEnum<\/strong> field and an <strong>intervals<\/strong> container will be needed for each day of the week that the store location is open. Note that if operating hours are already set for an inventory location for a specific day of the week, whatever is set through an <strong>updateInventoryLocation<\/strong> call will override those existing hours.",
+                        "type": "array"
+                    },
+                    "phone": {
+                        "description": "This text field is used by the merchant to provide\/update the phone number for the inventory location. The phone number that is passed in this field will replace any other phone number that may be defined for this field. <br><br><b>Max length<\/b>: 36",
+                        "type": "string"
+                    },
+                    "specialHours": {
+                        "description": "This container is used to provide\/update the special operating hours for a store location on a specific date, such as a holiday. The special hours specified for the specific date will override the normal operating hours for that particular day of the week. If special hours have already been set up for an inventory location, specifying special hours through an <strong>updateInventoryLocation<\/strong> call will only add to the list, unless the date(s) used are the same special date(s) already set up, in which case, the special hours set up through the <strong>updateInventoryLocation<\/strong> call will override the existing special hours.",
+                        "type": "array"
+                    }
+                }
+            },
+            "geoCoordinates": {
+                "type": "object",
+                "properties": {
+                    "latitude": {
+                        "description": "The latitude (North-South) component of the geographic coordinate. This field is required if a <strong>geoCoordinates<\/strong> container is used. <br><br>This field is returned if geographical coordinates are set for the inventory location.",
+                        "type": "number"
+                    },
+                    "longitude": {
+                        "description": "The longitude (East-West) component of the geographic coordinate. This field is required if a <strong>geoCoordinates<\/strong> container is used. <br><br>This field is returned if geographical coordinates are set for the inventory location.",
+                        "type": "number"
+                    }
+                }
+            },
+            "LocationDetails": {
+                "type": "object",
+                "properties": {
+                    "Address": {
+                        "description": "This type is used to define the physical address of an inventory location.",
+                        "type": "object"
+                    },
+                    "address": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "geoCoordinates": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "LocationResponse": {
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "description": "This is the URL to the current page of inventory locations. <br><br><b>Max length<\/b>: 2048",
+                        "type": "string"
+                    },
+                    "limit": {
+                        "description": "This integer value is the the number of inventory locations that will be displayed on each results page.",
+                        "type": "integer"
+                    },
+                    "locations": {
+                        "description": "An array of one or more of the merchant's inventory locations.",
+                        "type": "array"
+                    },
+                    "next": {
+                        "description": "This is the URL to the next page of inventory locations. This field is returned only if there are additional inventory locations to view. <br><br><b>Max length<\/b>: 2048",
+                        "type": "string"
+                    },
+                    "offset": {
+                        "description": "Returns how many result sets were skipped before the currently returned result set. If this value is <code>0<\/code>, it indicates that you're looking at the first result set.",
+                        "type": "integer"
+                    },
+                    "prev": {
+                        "description": "This is the URL to the previous page of inventory locations. This field is returned only if there are previous inventory locations to view. <br><br><b>Max length<\/b>: 2048",
+                        "type": "string"
+                    },
+                    "total": {
+                        "description": "Returns the total number of inventory locations in the paginated collection.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "locations": {
+                "type": "array"
+            },
+            "OperatingHours": {
+                "type": "object",
+                "properties": {
+                    "dayOfWeekEnum": {
+                        "description": "A <strong>dayOfWeekEnum<\/strong> value is required for each day of the week that the store location has regular operating hours. <br><br>This field is returned if operating hours are defined for the store location. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/DayOfWeekEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "intervals": {
+                        "description": "This container is used to define the opening and closing times of a store's working day (defined in the <strong>dayOfWeekEnum<\/strong> field). An <strong>intervals<\/strong> container is needed for each day of the week that the store location is open. If a store location closes for lunch (or any other period during the day) and then reopens, multiple <strong>open<\/strong> and <strong>close<\/strong> pairs are needed <br><br>This container is returned if operating hours are defined for the store location.",
+                        "type": "array"
+                    }
+                }
+            },
+            "intervals": {
+                "type": "array"
+            },
+            "SpecialHours": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "description": "A <strong>date<\/strong> value is required for each specific date that the store location has special operating hours. The date is actually expressed as a time stamp specified in <a href=\"http:\/\/www.iso.org\/iso\/home\/standards\/iso8601.htm\" target=\"_blank\">ISO 8601<\/a> format, which uses the 24-hour Coordinated Universal Time (UTC) clock. The following examples show (1) the format of the time-stamp, and (2) an example time value in ISO 8601 format: <br><br><b>Format:<\/b> <code>yyyy-MM-ddThh:mm:ssZ<\/code> <br \/><b>Example:<\/b> <code>2016-10-19T00:09:00Z<\/code> <br><br>This field is returned if set for the store location.",
+                        "type": "string"
+                    },
+                    "intervals": {
+                        "description": "This container is used to define the opening and closing times of a store's working day (defined in the <strong>dayOfWeekEnum<\/strong> field). An <strong>intervals<\/strong> container is needed for each day of the week that the store location is open. If a store location closes for lunch (or any other period during the day) and then reopens, multiple <strong>open<\/strong> and <strong>close<\/strong> pairs are needed <br><br>This container is returned if operating hours are defined for the store location.",
+                        "type": "array"
+                    }
+                }
+            },
+            "PricingSummary": {
+                "type": "object",
+                "properties": {
+                    "minimumAdvertisedPrice": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "pricingVisibility": {
+                        "description": "This field is needed if the Minimum Advertised Price (MAP) feature will be used in the offer. This field is only applicable if an eligible US seller is using the Minimum Advertised Price (MAP) feature and a <strong>minimumAdvertisedPrice<\/strong> has been specified. The value set in this field will determine whether the MAP price is shown to a prospective buyer prior to checkout through a pop-up window accessed from the View Item page, or if the MAP price is not shown until the checkout flow after the buyer has already committed to buying the item. To show the MAP price prior to checkout, the seller will set this value to <code>PRE_CHECKOUT<\/code>. To show the MAP price after the buyer already commits to buy the item, the seller will set this value to <code>DURING_CHECKOUT<\/code>. This field will be ignored if the seller and\/or the listing is not eligible for the MAP feature.<br\/><br\/>This field will be returned if set for the offer. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/MinimumAdvertisedPriceHandlingEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "originallySoldForRetailPriceOn": {
+                        "description": "This field is needed if the Strikethrough Pricing (STP) feature will be used in the offer. This field indicates that the product was sold for the price in the <strong>originalRetailPrice<\/strong> field on an eBay site, or sold for that price by a third-party retailer. When using the <strong>createOffer<\/strong> or <strong>updateOffer<\/strong> calls, the seller will pass in a value of <code>ON_EBAY<\/code> to indicate that the product was sold for the <strong>originalRetailPrice<\/strong> on an eBay site, or the seller will pass in a value of <code>OFF_EBAY<\/code> to indicate that the product was sold for the <strong>originalRetailPrice<\/strong> through a third-party retailer. This field and the <strong>originalRetailPrice<\/strong> field are only applicable if the seller and listing are eligible to use the Strikethrough Pricing feature, a feature which is limited to the US (core site and Motors), UK, Germany, Canada (English and French versions), France, Italy, and Spain sites.<br\/><br\/>This field will be returned if set for the offer. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/SoldOnEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "originalRetailPrice": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "price": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "minimumAdvertisedPrice": {
+                "type": "object"
+            },
+            "originalRetailPrice": {
+                "type": "object"
+            },
+            "price": {
+                "type": "object"
+            },
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "aspects": {
+                        "description": "This is an array of item specific pairs that provide more information about the product and might make it easier for buyers to find. To view required\/recommended product aspects\/item specifics names (and corresponding values) for a specific eBay category, sellers can use the <a href=\"https:\/\/developer.ebay.com\/Devzone\/XML\/docs\/Reference\/eBay\/GetCategorySpecifics.html\"  target=\"_blank\">GetCategorySpecifics<\/a> call of the Trading API. Alternatively, sellers can view similar items on eBay.com in the same category to get an idea of what other sellers are using for product aspects\/item specifics.<br\/><br\/>Sellers also have the option of specifying an eBay Product ID (ePID) or optionally, a Global Trade Item Number (GTIN) through the corresponding fields in the <strong>product<\/strong> container in an attempt to find a product match in the eBay Catalog. If a match is found based on the ePID or GTIN value, the product aspects that are defined for the eBay Catalog product will automatically get picked up by the newly created\/updated inventory item. <br\/><br\/>Below is an example of the proper JSON syntax to use when manually inputting item specifics:<br\/><br\/> <pre><code>\"aspects\": {<br\/> \"Brand\": [\"GoPro\"],<br\/> \"Storage Type\": [\"Removable\"]<br\/> }<\/code><\/pre><br\/>Note that inventory items that will become part of an inventory item group and multiple-variation listing should have the same attributes that are defined for the inventory item group.<br\/><br\/>This container will be retu",
+                        "type": "object"
+                    },
+                    "brand": {
+                        "description": "The brand of the product. This field is often paired with the <strong>mpn<\/strong> field to identify a specific product by Manufacture Part Number. This field is conditionally required if the eBay category requires a Manufacturer Part Number (MPN) value. If eBay is able to find a product match in the eBay Catalog when an eBay Product ID (ePID) or GTIN value (UPC, ISBN, or EAN) is supplied, all product details of that eBay Catalog product is picked up by the inventory item record (including brand) if the <strong>createOrUpdateInventoryItem<\/strong> call is successful. <br\/><br\/>This field is returned if defined for an inventory item. If a brand was passed in as an item specific name-value pair through the <strong>aspects<\/strong> array in a <strong>createOrReplaceInventoryItem<\/strong> call, this value is also picked up by the <strong>brand<\/strong> field.<br\/><br\/><strong>Max Length<\/strong>: 65",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "The description of the product. The description of an existing inventory item can be added or modified with a <strong>createOrReplaceInventoryItem<\/strong> call. The description of an inventory item is automatically populated if the seller specifies an eBay Product ID (ePID) or a Global Trade Item Number (GTIN) and eBay is able to find a matching product in the eBay Catalog.<br\/><br\/>Note that this field is optional but recommended. If a <strong>listingDescription<\/strong> field is omitted when creating and publishing a single-variation offer, the text in this field will be used instead. If neither the <strong>product.description<\/strong> field for the inventory item nor the <strong>listingDescription<\/strong> field for the offer exist, the <strong>publishOffer<\/strong> call will fail. If the inventory item will be part of an inventory item group\/multiple-variation listing, this field should definitely be used to specify how the corresponding product variation is different (e.g. <em>This is the green, extra-large version of the shirt<\/em>). However, in the case of an inventory item group, the text in the <strong>description<\/strong> field of the inventory item group will become the listing description of the actual eBay listing instead of the text in this field.<br\/><br\/>Basic HTML tags are supported, including the following tags:<ul><li>&lt;b&gt;<\/li><li>&lt;strong&gt;<\/li><li>&lt;br&gt;<\/li><li>&lt;ol&gt;<\/li><li>&lt;ul&gt;<\/li><li>&lt;li&gt;<\/li><li>Table tags including &l",
+                        "type": "string"
+                    },
+                    "imageUrls": {
+                        "description": "An array of one or more links to images for the product. URLs must use the \"HTTPS\" protocol. Images can be self-hosted by the seller, or sellers can use the <a href=\"https:\/\/developer.ebay.com\/Devzone\/XML\/docs\/Reference\/eBay\/UploadSiteHostedPictures.html\"  target=\"_blank\">UploadSiteHostedPictures<\/a> call of the Trading API to upload images to an eBay Picture Server. If successful, the response of the <a href=\"https:\/\/developer.ebay.com\/Devzone\/XML\/docs\/Reference\/eBay\/UploadSiteHostedPictures.html\" target=\"_blank\">UploadSiteHostedPictures<\/a> call will contain a full URL to the image on an eBay Picture Server. This is the URL that will be passed in through the <strong>imageUrls<\/strong> array. Before an offer can be published, at least one image must exist for the inventory item. Most eBay sites support up to 12 pictures free of charge, and eBay Motors listings can have up to 24 pictures.<br\/><br\/>A link to a stock image for a product may automatically be populated for an inventory item if the seller specifies an eBay Product ID (ePID) or a Global Trade Item Number (GTIN) and eBay is able to find a matching product in the eBay Catalog.<br\/><br\/>This container will always be returned for an inventory item that is part of a published offer since a published offer will always have at least one picture, but this container will only be returned if defined for inventory items that are not a part of a published offer.",
+                        "type": "array"
+                    },
+                    "mpn": {
+                        "description": "The Manufacturer Part Number (MPN) of a product. This field is paired with the <strong>brand<\/strong> field to identify a product. Some eBay categories require MPN values. The <a href=\"https:\/\/developer.ebay.com\/Devzone\/XML\/docs\/Reference\/eBay\/GetCategorySpecifics.html\"  target=\"_blank\">GetCategorySpecifics<\/a> call of the Trading API can be used to see if a category requires an MPN. The MPN value for a product may automatically be populated for an inventory item if the seller specifies an eBay Product ID (ePID) or a Global Trade Item Number (GTIN) and eBay is able to find a matching product in the eBay Catalog. <br\/><br\/>This field is returned if defined for an inventory item. If an MPN was passed in as an item specific name-value pair through the <strong>aspects<\/strong> array in a <strong>createOrReplaceInventoryItem<\/strong> call, this value is also picked up by the <strong>mpn<\/strong> field.<br\/><br\/><strong>Max Length<\/strong>: 65",
+                        "type": "string"
+                    },
+                    "subtitle": {
+                        "description": "A subtitle is an optional listing feature that allows the seller to provide more information about the product, possibly including keywords that may assist with search results. An additional listing fee will be charged to the seller if a subtitle is used. For more information on using listing subtitles on the US site, see the <a href=\"https:\/\/pages.ebay.com\/help\/sell\/itemsubtitle.html\" target=\"_blank\">Adding a subtitle to your listings<\/a> help page. The subtitle of an existing inventory item can added, modified, or removed with a <strong>createOrReplaceInventoryItem<\/strong> call.<br\/><br\/>Note that the same <strong>subtitle<\/strong> text should be used for each inventory item that will be part of an inventory item group, and ultimately become one product variation within a multiple-variation listing.<br\/><br\/>This field will only be returned if set for an inventory item.<br\/><br\/><strong>Max Length<\/strong>: 55",
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "The title of an inventory item can be added or modified with a <strong>createOrReplaceInventoryItem<\/strong> call. Although not immediately required, a title will be needed before an offer with the inventory item is published. The title of an inventory item is automatically populated if the seller specifies an eBay Product ID (ePID) or a Global Trade Item Number (GTIN) and eBay is able to find a matching product in the eBay Catalog. If the inventory item will become part of a single-variation offer, and the listing is not a product-based listing, the text in this field will become the actual listing title for the published offer. However, if the inventory item will become part of a multiple-variation offer, the text in <strong>title<\/strong> field of the inventory item group entity will actually become the listing title for the published offer instead, although a title can still be provided for the inventory item, and it will actually become the title of the variation.<br\/><br\/>This field will always be returned for an inventory item that is part of a published offer since a published offer will always have a listing title, but this field will only be returned if defined for inventory items that are not a part of a published offer.<br\/><br\/><strong>Max Length<\/strong>: 80",
+                        "type": "string"
+                    },
+                    "isbn": {
+                        "description": "The International Standard Book Number (ISBN) value for the product. Although an ePID value is preferred when trying to find a product match in the eBay Catalog, this field can also be used in an attempt to find a product match in the eBay Catalog. If a product match is found in the eBay Catalog, the inventory item is automatically populated with available product details such as a title, a product description, product aspects (including the specified ISBN value), and a link to any stock image that exists for the catalog product.<br\/><br\/>This field is returned if defined for an inventory item. If an ISBN was passed in as an item specific name-value pair through the <strong>aspects<\/strong> array in a <strong>createOrReplaceInventoryItem<\/strong> call, this value is also picked up by the <strong>isbn<\/strong> field.",
+                        "type": "array"
+                    },
+                    "upc": {
+                        "description": "The Universal Product Code (UPC) value for the product. Although an ePID value is preferred when trying to find a product match in the eBay Catalog, this field can also be used in an attempt to find a product match in the eBay Catalog. If a product match is found in the eBay Catalog, the inventory item is automatically populated with available product details such as a title, a product description, product aspects (including the specified UPC value), and a link to any stock image that exists for the catalog product.<br\/><br\/>This field is returned if defined for an inventory item. If a UPC was passed in as an item specific name-value pair through the <strong>aspects<\/strong> array in a <strong>createOrReplaceInventoryItem<\/strong> call, this value is also picked up by the <strong>upc<\/strong> field.",
+                        "type": "array"
+                    },
+                    "ean": {
+                        "description": "The European Article Number\/International Article Number (EAN) for the product. Although an ePID value is preferred when trying to find a product match in the eBay Catalog, this field can also be used in an attempt to find a product match in the eBay Catalog. If a product match is found in the eBay Catalog, the inventory item is automatically populated with available product details such as a title, a product description, product aspects (including the specified EAN value), and a link to any stock image that exists for the catalog product.<br\/><br\/>This field is returned if defined for an inventory item. If an EAN was passed in as an item specific name-value pair through the <strong>aspects<\/strong> array in a <strong>createOrReplaceInventoryItem<\/strong> call, this value is also picked up by the <strong>ean<\/strong> field.",
+                        "type": "array"
+                    },
+                    "epid": {
+                        "description": "The eBay Product Identifier (ePID) for the product. This field can be used to directly identify an eBay Catalog product. Based on its specified ePID value, eBay will search for the product in the eBay Catalog, and if a match is found, the inventory item is automatically populated with available product details such as product title, product description, product aspects, and a link to any stock image that exists for the catalog product.<br\/><br\/>This field is returned if defined for an inventory item.<br\/><br\/><span class=\"tablenote\"> <strong>Note:<\/strong> For the US, UK, CA (English), and AU sites, eBay is starting to require that some products in certain eBay categories be associated with an eBay Catalog product. For more information on this requirement, see the <a href=\"\/api-docs\/sell\/static\/inventory\/pbse_playbook_intro.html\">Product-Based Shopping Experience Playbook<\/a> topic in the <strong>Selling Integration Guide<\/strong>. In an attempt to find a eBay Catalog product match, an ePID value is always preferred over the other product identifiers, since it is possible that one GTIN value can be associated with multiple eBay Catalog products, and if multiple products are found, product details will not be picked up by the Inventory Item object.<\/span>",
+                        "type": "string"
+                    }
+                }
+            },
+            "aspects": {
+                "type": "object"
+            },
+            "imageUrls": {
+                "type": "array"
+            },
+            "isbn": {
+                "type": "array"
+            },
+            "upc": {
+                "type": "array"
+            },
+            "ean": {
+                "type": "array"
+            },
+            "BulkGetInventoryItem": {
+                "type": "object",
+                "properties": {
+                    "requests": {
+                        "description": "The seller passes in multiple SKU values under this container to retrieve multiple inventory item records. Up to 25 inventory item records can be retrieved at one time.",
+                        "type": "array"
+                    }
+                }
+            },
+            "requests": {
+                "type": "array"
+            },
+            "Weight": {
+                "type": "object",
+                "properties": {
+                    "unit": {
+                        "description": "The unit of measurement used to specify the weight of a shipping package. Both the <strong>unit<\/strong> and <strong>value<\/strong> fields are required if the <strong>weight<\/strong> container is used. If the English system of measurement is being used, the applicable values for weight units are <code>POUND<\/code> and <code>OUNCE<\/CODE>. If the metric system of measurement is being used, the applicable values for weight units are <code>KILOGRAM<\/code> and <code>GRAM<\/code>. The metric system is used by most countries outside of the US. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/WeightUnitOfMeasureEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The actual weight (in the measurement unit specified in the <strong>unit<\/strong> field) of the shipping package. Both the <strong>unit<\/strong> and <strong>value<\/strong> fields are required if the <strong>weight<\/strong> container is used. If a shipping package weighed 20.5 ounces, the container would look as follows: <br\/><pre>\"weight\": {<br\/> \"value\": 20.5,<br\/> \"unit\": \"OUNCE\"<br\/> }<\/pre>",
+                        "type": "number"
+                    }
+                }
+            },
+            "InventoryItemResponse": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "description": "The HTTP status code returned in this field indicates the success or failure of creating or updating the inventory item record for the inventory item indicated in the <strong>sku<\/strong> field. See the <strong>HTTP status codes<\/strong> table to see which each status code indicates.",
+                        "type": "integer"
+                    },
+                    "errors": {
+                        "description": "This container will be returned if there were one or more errors associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "locale": {
+                        "description": "This field is for future use only. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/LocaleEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "errors": {
+                "type": "array"
+            },
+            "warnings": {
+                "type": "array"
+            },
+            "BulkInventoryItem": {
+                "type": "object",
+                "properties": {
+                    "requests": {
+                        "description": "The seller passes in multiple SKU values under this container to retrieve multiple inventory item records. Up to 25 inventory item records can be retrieved at one time.",
+                        "type": "array"
+                    }
+                }
+            },
+            "Dimension": {
+                "type": "object",
+                "properties": {
+                    "height": {
+                        "description": "The actual height (in the measurement unit specified in the <strong>unit<\/strong> field) of the shipping package. All fields of the <strong>dimensions<\/strong> container are required if package dimensions are specified. <br\/><br\/> If a shipping package measured 21.5 inches in length, 15.0 inches in width, and 12.0 inches in height, the <strong>dimensions<\/strong> container would look as follows: <br\/> <pre><code>\"dimensions\": {<br\/> \"length\": 21.5,<br\/> \"width\": 15.0,<br\/> \"height\": 12.0,<br\/> \"unit\": \"INCH\"<br\/> } <\/pre><\/code>",
+                        "type": "number"
+                    },
+                    "length": {
+                        "description": "The actual length (in the measurement unit specified in the <strong>unit<\/strong> field) of the shipping package. All fields of the <strong>dimensions<\/strong> container are required if package dimensions are specified. <br\/><br\/> If a shipping package measured 21.5 inches in length, 15.0 inches in width, and 12.0 inches in height,  the <strong>dimensions<\/strong> container would look as follows: <br\/> <pre><code>\"dimensions\": {<br\/> \"length\": 21.5,<br\/> \"width\": 15.0,<br\/> \"height\": 12.0,<br\/> \"unit\": \"INCH\"<br\/> } <\/pre><\/code>",
+                        "type": "number"
+                    },
+                    "unit": {
+                        "description": "The unit of measurement used to specify the weight of a shipping package. Both the <strong>unit<\/strong> and <strong>value<\/strong> fields are required if the <strong>weight<\/strong> container is used. If the English system of measurement is being used, the applicable values for weight units are <code>POUND<\/code> and <code>OUNCE<\/CODE>. If the metric system of measurement is being used, the applicable values for weight units are <code>KILOGRAM<\/code> and <code>GRAM<\/code>. The metric system is used by most countries outside of the US. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/WeightUnitOfMeasureEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "width": {
+                        "description": "The actual width (in the measurement unit specified in the <strong>unit<\/strong> field) of the shipping package. All fields of the <strong>dimensions<\/strong> container are required if package dimensions are specified.<br\/><br\/> If a shipping package measured 21.5 inches in length, 15.0 inches in width, and 12.0 inches in height,  the <strong>dimensions<\/strong> container would look as follows: <br\/> <pre><code>\"dimensions\": {<br\/> \"length\": 21.5,<br\/> \"width\": 15.0,<br\/> \"height\": 12.0,<br\/> \"unit\": \"INCH\"<br\/> } <\/pre><\/code>",
+                        "type": "number"
+                    }
+                }
+            },
+            "OfferKeyWithId": {
+                "type": "object",
+                "properties": {
+                    "offerId": {
+                        "description": "The unique identifier of an unpublished offer for which expected listing fees will be retrieved. One to 250 <strong>offerId<\/strong> values can be passed in to the <strong>offers<\/strong> container for one <strong>getListingFees<\/strong> call. Errors will occur if <strong>offerId<\/strong> values representing published offers are passed in.",
+                        "type": "string"
+                    }
+                }
+            },
+            "Availability": {
+                "type": "object",
+                "properties": {
+                    "pickupAtLocationAvailability": {
+                        "description": "This container consists of an array of one or more of the merchant's physical store locations where the inventory item is available for In-Store Pickup orders. The merchant's location, the quantity available, and the fulfillment time (how soon the item will be ready for pickup after the order takes place) are all in this container. In-Store Pickup is only available to large merchants selling on the US, UK, Germany, and Australia sites.",
+                        "type": "array"
+                    },
+                    "shipToLocationAvailability": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "pickupAtLocationAvailability": {
+                "type": "array"
+            },
+            "shipToLocationAvailability": {
+                "type": "object",
+                "properties": {
+                    "quantity": {
+                        "description": "This integer value indicates the quantity of the inventory item that is available for In-Store Pickup at the store identified by the  <strong>merchantLocationKey<\/strong> value.  The value of <strong>quantity<\/strong> should be an integer value greater than <code>0<\/code>, unless the inventory item is out of stock. This field is required if the <strong>pickupAtLocationAvailability<\/strong> container is used, and is always returned with the <strong>pickupAtLocationAvailability<\/strong> container.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "InventoryItem": {
+                "type": "object",
+                "properties": {
+                    "Availability": {
+                        "description": "This type is used to specify the quantity of the inventory item that is available for purchase if the item will be shipped to the buyer, and the quantity of the inventory item that is available for In-Store Pickup at one or more of the merchant's physical stores. In-Store Pickup is only available to large merchants selling on the US, UK, Germany, and Australia sites.",
+                        "type": "object"
+                    },
+                    "availability": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "condition": {
+                        "description": "This enumeration value indicates the condition of the item. Supported item condition values will vary by eBay site and category. To see which item condition values that a particular eBay category supports, use the <strong>getItemConditionPolicies<\/strong> call of the <strong>Metadata API<\/strong>, passing in the category ID as a query parameter. The proper syntax to use can be found on the <strong>getItemConditionPolicies<\/strong> Call Reference page. The supported item conditions will be returned under the <strong>itemConditions<\/strong> container of the <strong>getItemConditionPolicies<\/strong> response. The <strong>itemConditions<\/strong> container will consist of <strong>conditionId<\/strong> and <strong>conditionDescription<\/strong> values. The <strong>conditionId<\/strong> values must be matched to the enumeration values defined in the <a href=\"\/api-docs\/sell\/inventory\/types\/slr:ConditionEnum\">ConditionEnum<\/a> type. See this type document for the mapping information, as one of the values in this type must be specified in the <strong>condition<\/strong> field.<br\/><br\/> This field is optional up until the seller is ready to publish an offer with the SKU, at which time it becomes required.<br \/><br \/> Since the condition of an inventory item must be specified before being published in an offer, this field is always returned in the 'Get' calls for SKUs that are part of a published offer. If a SKU is not part of a published offer, this container will only be returned if set f",
+                        "type": "string"
+                    },
+                    "conditionDescription": {
+                        "description": "This string field is used by the seller to more clearly describe the condition of a used inventory item, or an inventory item whose <strong>condition<\/strong> value is not <code>NEW<\/code>, <code>LIKE_NEW<\/code>, <code>NEW_OTHER<\/code>, or <code>NEW_WITH_DEFECTS<\/code>.<br\/><br\/> The <strong>conditionDescription<\/strong> field is available for all eBay categories. If the <strong>conditionDescription<\/strong> field is used with an item in one of the new conditions (mentioned in previous paragraph), eBay will simply ignore this field if included, and eBay will return a warning message to the user. <br\/><br\/> This field should only be used to further clarify the condition of the used item. It should not be used for branding, promotions, shipping, returns, payment or other information unrelated to the condition of the used item. Make sure that the <strong>condition<\/strong> value, condition description, listing description, and the item's pictures do not contradict one another. <br \/><br \/> This field is not always required, but is required if an inventory item is being updated and a condition description already exists for that inventory item. <br \/><br \/> This field is returned in the <strong>getInventoryItem<\/strong> and <strong>getInventoryItems<\/strong> calls if a condition description was provided for a used inventory item.<br\/><br\/><strong>Max Length<\/strong>: 1000.",
+                        "type": "string"
+                    },
+                    "packageWeightAndSize": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "Product": {
+                        "description": "This type is used to define the product details, such as a title, a product description, product aspects\/item specifics, and links to images for the product. Optionally, in a <strong>createOrReplaceInventoryItem<\/strong> call, a seller can pass in an eBay Product Identifier (ePID) or a Global Trade Item Number (GTIN) value, such as an EAN, an ISBN, a UPC, to identify a product to be matched with a product in the eBay Catalog. The information in this type is also returned in the <strong>getInventoryItem<\/strong>, <strong>getInventoryItems<\/strong>, and <strong>bulkGetInventoryItem<\/strong> calls if defined.",
+                        "type": "object"
+                    },
+                    "product": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "packageWeightAndSize": {
+                "type": "object",
+                "properties": {
+                    "Dimension": {
+                        "description": "This type is used to specify the dimensions (and the unit used to measure those dimensions) of a shipping package. The <strong>dimensions<\/strong> container is conditionally required if the seller will be offering calculated shipping rates to determine shipping cost. See the <a href=\"https:\/\/pages.ebay.com\/help\/pay\/calculated-shipping.html\" target=\"_blank\">Calculated shipping<\/a> help page for more information on calculated shipping.",
+                        "type": "object"
+                    },
+                    "dimensions": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "packageType": {
+                        "description": "This enumeration value indicates the type of shipping package used to ship the inventory item. The supported values for this field can be found in the <a href=\"\/api-docs\/sell\/inventory\/types\/slr:PackageTypeEnum\">PackageTypeEnum<\/a> type.<br\/><br\/>This field will be returned if the package type is set for the inventory item. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/PackageTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "Weight": {
+                        "description": "This type is used to specify the weight (and the unit used to measure that weight) of a shipping package. The <strong>weight<\/strong> container is conditionally required if the seller will be offering calculated shipping rates to determine shipping cost, or is using flat-rate costs, but charging a weight surcharge. See the <a href=\"https:\/\/pages.ebay.com\/help\/pay\/calculated-shipping.html\" target=\"_blank\">Calculated shipping<\/a> help page for more information on calculated shipping.",
+                        "type": "object"
+                    },
+                    "weight": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "Compatibility": {
+                "type": "object",
+                "properties": {
+                    "compatibleProducts": {
+                        "description": "This container consists of an array of motor vehicles (make, model, year, trim, engine) that are compatible with the motor vehicle part or accessory specified by the sku value.",
+                        "type": "array"
+                    },
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    }
+                }
+            },
+            "compatibleProducts": {
+                "type": "array"
+            },
+            "InventoryItems": {
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "description": "This is the URL to the current page of inventory locations. <br><br><b>Max length<\/b>: 2048",
+                        "type": "string"
+                    },
+                    "inventoryItems": {
+                        "description": "This container is an array of one or more inventory items, with detailed information on each inventory item.",
+                        "type": "array"
+                    },
+                    "next": {
+                        "description": "This is the URL to the next page of inventory locations. This field is returned only if there are additional inventory locations to view. <br><br><b>Max length<\/b>: 2048",
+                        "type": "string"
+                    },
+                    "limit": {
+                        "description": "This integer value is the the number of inventory locations that will be displayed on each results page.",
+                        "type": "integer"
+                    },
+                    "prev": {
+                        "description": "This is the URL to the previous page of inventory locations. This field is returned only if there are previous inventory locations to view. <br><br><b>Max length<\/b>: 2048",
+                        "type": "string"
+                    },
+                    "size": {
+                        "description": "This integer value indicates the total number of pages of results that are available. This number will depend on the total number of inventory items available for viewing, and on the <strong>limit<\/strong> value.",
+                        "type": "integer"
+                    },
+                    "total": {
+                        "description": "Returns the total number of inventory locations in the paginated collection.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "inventoryItems": {
+                "type": "array"
+            },
+            "Amount": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "description": "A string representation of a dollar value expressed in the currency specified in the <strong>currency<\/strong> field. Both the <strong>value<\/strong> and <strong>currency<\/strong> fields are required\/always returned when expressing prices.",
+                        "type": "string"
+                    },
+                    "currency": {
+                        "description": "A three-digit string value respresenting the type of currency being used. Both the <strong>value<\/strong> and <strong>currency<\/strong> fields are required\/always returned when expressing prices. See the <strong>CurrencyCodeEnum<\/strong> type for the full list of currencies and their corresponding three-digit string values.",
+                        "type": "string"
+                    }
+                }
+            },
+            "BulkEbayOfferDetailsWithKeys": {
+                "type": "object",
+                "properties": {
+                    "requests": {
+                        "description": "The seller passes in multiple SKU values under this container to retrieve multiple inventory item records. Up to 25 inventory item records can be retrieved at one time.",
+                        "type": "array"
+                    }
+                }
+            },
+            "OfferPriceQuantity": {
+                "type": "object",
+                "properties": {
+                    "offerId": {
+                        "description": "The unique identifier of an unpublished offer for which expected listing fees will be retrieved. One to 250 <strong>offerId<\/strong> values can be passed in to the <strong>offers<\/strong> container for one <strong>getListingFees<\/strong> call. Errors will occur if <strong>offerId<\/strong> values representing published offers are passed in.",
+                        "type": "string"
+                    },
+                    "availableQuantity": {
+                        "description": "This field is used if the seller wants to modify the current quantity of the inventory item that will be available for purchase in the offer (identified by the corresponding <strong>offerId<\/strong> value). Either the <strong>availableQuantity<\/strong> field or the <strong>price<\/strong> container is required, but not necessarily both.",
+                        "type": "integer"
+                    },
+                    "Amount": {
+                        "description": "This type is used to express a dollar value and the applicable currency.",
+                        "type": "object"
+                    },
+                    "price": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "Offers": {
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "description": "This is the URL to the current page of inventory locations. <br><br><b>Max length<\/b>: 2048",
+                        "type": "string"
+                    },
+                    "offers": {
+                        "description": "This container is an array of one or more of the seller's offers for the SKU value that is passed in through the required <strong>sku<\/strong> query parameter.<br\/><br\/> <span class=\"tablenote\"> <strong>Note:<\/strong> Currently, the Inventory API does not support the same SKU across multiple eBay marketplaces, so the <strong>getOffers<\/strong> call will only return one offer.<\/span><br\/><br\/><strong>Max Occurs:<\/strong> 25",
+                        "type": "array"
+                    },
+                    "next": {
+                        "description": "This is the URL to the next page of inventory locations. This field is returned only if there are additional inventory locations to view. <br><br><b>Max length<\/b>: 2048",
+                        "type": "string"
+                    },
+                    "limit": {
+                        "description": "This integer value is the the number of inventory locations that will be displayed on each results page.",
+                        "type": "integer"
+                    },
+                    "prev": {
+                        "description": "This is the URL to the previous page of inventory locations. This field is returned only if there are previous inventory locations to view. <br><br><b>Max length<\/b>: 2048",
+                        "type": "string"
+                    },
+                    "size": {
+                        "description": "This integer value indicates the total number of pages of results that are available. This number will depend on the total number of inventory items available for viewing, and on the <strong>limit<\/strong> value.",
+                        "type": "integer"
+                    },
+                    "total": {
+                        "description": "Returns the total number of inventory locations in the paginated collection.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "offers": {
+                "type": "array"
+            },
+            "BulkPublishResponse": {
+                "type": "object",
+                "properties": {
+                    "responses": {
+                        "description": "A node is returned under the <strong>responses<\/strong> container to indicate the success or failure of each offer that the seller was attempting to publish.",
+                        "type": "array"
+                    }
+                }
+            },
+            "responses": {
+                "type": "array"
+            },
+            "Tax": {
+                "type": "object",
+                "properties": {
+                    "applyTax": {
+                        "description": "This field will be included and set to <code>true<\/code> if the seller would like to reference their account-level Sales Tax Table to calculate sales tax for an order. A seller's Sales Tax Table can be created and managed manually in My eBay's Payment Preferences. This Sales Tax Table contains all tax jurisdictions for the seller's country (individual states and territories in US), and the seller can set the sales tax rate for these individual tax jurisdictions. <br\/><br\/> The Trading API has a <a href=\"https:\/\/developer.ebay.com\/Devzone\/XML\/docs\/Reference\/eBay\/SetTaxTable.html\" target=\"_blank\">SetTaxTable<\/a> call to add\/modify sales tax rates for one or more tax jurisdictions, and a <a href=\"https:\/\/developer.ebay.com\/Devzone\/XML\/docs\/Reference\/eBay\/GetTaxTable.html\" target=\"_blank\">GetTaxTable<\/a> call that will retrieve all tax jurisdictions and related data, such as the sales tax rate (if defined) and a boolean field to indicate if sales tax is applied to shipping and handling costs.<br\/><br\/> The Account API has a <strong>getSalesTaxTable<\/strong> call to retrieve all tax jurisdictions that have a defined sales tax rate, a <strong>getSalesTaxTableEntry<\/strong> call to retrieve a sales tax rate for a specific tax jurisdiction, a <strong>createSalesTaxTableEntry<\/strong> call to set\/modify a sales tax rate for a specific tax jurisdiction, and a <strong>deleteSalesTaxTableEntry<\/strong> call to remove a sales tax rate from a specific tax jurisdiction. <br\/><br\/>Note that ",
+                        "type": "boolean"
+                    },
+                    "thirdPartyTaxCategory": {
+                        "description": "The tax exception category code. If this field is used, sales tax will also apply to a service\/fee, and not just the item price. This is to be used only by sellers who have opted into sales tax being calculated by a sales tax calculation vendor. If you are interested in becoming a tax calculation vendor partner with eBay, contact <a href=\"mailto:developer-relations@ebay.com\">developer-relations@ebay.com<\/a>. One supported value for this field is <code>WASTE_RECYCLING_FEE<\/code>. If this field is used, the <strong>applyTax<\/strong> field must also be used and set to <code>true<\/code><br\/><br\/>This field will be returned if set for the offer.",
+                        "type": "string"
+                    },
+                    "vatPercentage": {
+                        "description": "This value is the Value Add Tax (VAT) rate for the item, if any. When a VAT percentage is specified, the item's VAT information appears on the listing's View Item page. In addition, the seller can choose to print an invoice that includes the item's net price, VAT percent, VAT amount, and total price. Since VAT rates vary depending on the item and on the user's country of residence, a seller is responsible for entering the correct VAT rate; it is not calculated by eBay. <br\/><br\/> To use VAT, a seller must be a business seller with a VAT-ID registered with eBay, and must be listing the item on a VAT-enabled site. Max applicable length is 6 characters, including the decimal (e.g., 12.345). The scale is 3 decimal places. (If you pass in 12.3456, eBay may round up the value to 12.346).<br\/><br\/>This field will be returned if set for the offer.",
+                        "type": "number"
+                    }
+                }
+            },
+            "FeeSummary": {
+                "type": "object",
+                "properties": {
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "marketplaceId": {
+                        "description": "This is the unique identifier of the eBay site for which  listing fees for the offer are applicable. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/MarketplaceEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "fees": {
+                        "description": "This container is an array of listing fees that can be expected to be applied to an offer on the specified eBay marketplace (<strong>marketplaceId<\/strong> value). Many fee types will get returned even when they are <code>0.0<\/code>.<br\/><br\/>See the <a href=\"https:\/\/pages.ebay.com\/help\/sell\/fees.html\" target=\"_blank\">Standard selling fees<\/a> help page for more information on listing fees.",
+                        "type": "array"
+                    }
+                }
+            },
+            "fees": {
+                "type": "array"
+            },
+            "Specification": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "This text field is used by the merchant to update the name of the inventory location. This name should be a human-friendly name as it will be in In-Store Pickup and Click and Collect listings. A name is not required for warehouse inventory locations. For store inventory locations, this field is not immediately required, but will be required before an offer enabled with the In-Store Pickup or Click and Collect capability can be published. So, if the seller omitted this field in the <strong>createInventoryLocation<\/strong> call, it is required for an <strong>updateInventoryLocation<\/strong> call. The name that is passed in this field will replace any other name that may be defined for this field.",
+                        "type": "string"
+                    },
+                    "values": {
+                        "description": "This is an array of values pertaining to the corresponding product variation aspect (specified in the <strong>name<\/strong> field). Below is a sample of how these values will appear under a <strong>specifications<\/strong> container: <br\/> <pre><code>\"specifications\": [{<br\/> \"name\": \"Size\",<br\/> \"values\": [\"Small\",<br\/> \"Medium\",<br\/> \"Large\"]<br\/> },<br\/> { <br\/> \"name\": \"Color\",<br\/> \"values\": [\"Blue\",<br\/> \"White\",<br\/> \"Red\"] <br\/> }] <\/pre><\/code><span class=\"tablenote\"> <strong>Note:<\/strong> Each member of the inventory item group should have these same aspect names, and each individual inventory item should have each variation of the product aspect values specified through the <strong>product.aspects<\/strong> container when the inventory item is created with the <strong>createOrReplaceInventoryItem<\/strong> or <strong>bulkCreateOrReplaceInventoryItem<\/strong> call. <\/span><br\/><strong>Max Length<\/strong>: 50",
+                        "type": "array"
+                    }
+                }
+            },
+            "values": {
+                "type": "array"
+            },
+            "InventoryItemGroup": {
+                "type": "object",
+                "properties": {
+                    "aspects": {
+                        "description": "This is an array of item specific pairs that provide more information about the product and might make it easier for buyers to find. To view required\/recommended product aspects\/item specifics names (and corresponding values) for a specific eBay category, sellers can use the <a href=\"https:\/\/developer.ebay.com\/Devzone\/XML\/docs\/Reference\/eBay\/GetCategorySpecifics.html\"  target=\"_blank\">GetCategorySpecifics<\/a> call of the Trading API. Alternatively, sellers can view similar items on eBay.com in the same category to get an idea of what other sellers are using for product aspects\/item specifics.<br\/><br\/>Sellers also have the option of specifying an eBay Product ID (ePID) or optionally, a Global Trade Item Number (GTIN) through the corresponding fields in the <strong>product<\/strong> container in an attempt to find a product match in the eBay Catalog. If a match is found based on the ePID or GTIN value, the product aspects that are defined for the eBay Catalog product will automatically get picked up by the newly created\/updated inventory item. <br\/><br\/>Below is an example of the proper JSON syntax to use when manually inputting item specifics:<br\/><br\/> <pre><code>\"aspects\": {<br\/> \"Brand\": [\"GoPro\"],<br\/> \"Storage Type\": [\"Removable\"]<br\/> }<\/code><\/pre><br\/>Note that inventory items that will become part of an inventory item group and multiple-variation listing should have the same attributes that are defined for the inventory item group.<br\/><br\/>This container will be retu",
+                        "type": "object"
+                    },
+                    "description": {
+                        "description": "The description of the product. The description of an existing inventory item can be added or modified with a <strong>createOrReplaceInventoryItem<\/strong> call. The description of an inventory item is automatically populated if the seller specifies an eBay Product ID (ePID) or a Global Trade Item Number (GTIN) and eBay is able to find a matching product in the eBay Catalog.<br\/><br\/>Note that this field is optional but recommended. If a <strong>listingDescription<\/strong> field is omitted when creating and publishing a single-variation offer, the text in this field will be used instead. If neither the <strong>product.description<\/strong> field for the inventory item nor the <strong>listingDescription<\/strong> field for the offer exist, the <strong>publishOffer<\/strong> call will fail. If the inventory item will be part of an inventory item group\/multiple-variation listing, this field should definitely be used to specify how the corresponding product variation is different (e.g. <em>This is the green, extra-large version of the shirt<\/em>). However, in the case of an inventory item group, the text in the <strong>description<\/strong> field of the inventory item group will become the listing description of the actual eBay listing instead of the text in this field.<br\/><br\/>Basic HTML tags are supported, including the following tags:<ul><li>&lt;b&gt;<\/li><li>&lt;strong&gt;<\/li><li>&lt;br&gt;<\/li><li>&lt;ol&gt;<\/li><li>&lt;ul&gt;<\/li><li>&lt;li&gt;<\/li><li>Table tags including &l",
+                        "type": "string"
+                    },
+                    "inventoryItemGroupKey": {
+                        "description": "This is the unique identifier of the inventory item group. This identifier is created by the seller when an inventory item group is created. This field is only applicable to the <strong>getInventoryItemGroup<\/strong> call and not to the <strong>createOrReplaceInventoryItemGroup<\/strong> call. In the <strong>createOrReplaceInventoryItemGroup<\/strong> call, the <strong>inventoryItemGroupKey<\/strong> value is passed into the end of the call URI instead. ",
+                        "type": "string"
+                    },
+                    "imageUrls": {
+                        "description": "An array of one or more links to images for the product. URLs must use the \"HTTPS\" protocol. Images can be self-hosted by the seller, or sellers can use the <a href=\"https:\/\/developer.ebay.com\/Devzone\/XML\/docs\/Reference\/eBay\/UploadSiteHostedPictures.html\"  target=\"_blank\">UploadSiteHostedPictures<\/a> call of the Trading API to upload images to an eBay Picture Server. If successful, the response of the <a href=\"https:\/\/developer.ebay.com\/Devzone\/XML\/docs\/Reference\/eBay\/UploadSiteHostedPictures.html\" target=\"_blank\">UploadSiteHostedPictures<\/a> call will contain a full URL to the image on an eBay Picture Server. This is the URL that will be passed in through the <strong>imageUrls<\/strong> array. Before an offer can be published, at least one image must exist for the inventory item. Most eBay sites support up to 12 pictures free of charge, and eBay Motors listings can have up to 24 pictures.<br\/><br\/>A link to a stock image for a product may automatically be populated for an inventory item if the seller specifies an eBay Product ID (ePID) or a Global Trade Item Number (GTIN) and eBay is able to find a matching product in the eBay Catalog.<br\/><br\/>This container will always be returned for an inventory item that is part of a published offer since a published offer will always have at least one picture, but this container will only be returned if defined for inventory items that are not a part of a published offer.",
+                        "type": "array"
+                    },
+                    "subtitle": {
+                        "description": "A subtitle is an optional listing feature that allows the seller to provide more information about the product, possibly including keywords that may assist with search results. An additional listing fee will be charged to the seller if a subtitle is used. For more information on using listing subtitles on the US site, see the <a href=\"https:\/\/pages.ebay.com\/help\/sell\/itemsubtitle.html\" target=\"_blank\">Adding a subtitle to your listings<\/a> help page. The subtitle of an existing inventory item can added, modified, or removed with a <strong>createOrReplaceInventoryItem<\/strong> call.<br\/><br\/>Note that the same <strong>subtitle<\/strong> text should be used for each inventory item that will be part of an inventory item group, and ultimately become one product variation within a multiple-variation listing.<br\/><br\/>This field will only be returned if set for an inventory item.<br\/><br\/><strong>Max Length<\/strong>: 55",
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "The title of an inventory item can be added or modified with a <strong>createOrReplaceInventoryItem<\/strong> call. Although not immediately required, a title will be needed before an offer with the inventory item is published. The title of an inventory item is automatically populated if the seller specifies an eBay Product ID (ePID) or a Global Trade Item Number (GTIN) and eBay is able to find a matching product in the eBay Catalog. If the inventory item will become part of a single-variation offer, and the listing is not a product-based listing, the text in this field will become the actual listing title for the published offer. However, if the inventory item will become part of a multiple-variation offer, the text in <strong>title<\/strong> field of the inventory item group entity will actually become the listing title for the published offer instead, although a title can still be provided for the inventory item, and it will actually become the title of the variation.<br\/><br\/>This field will always be returned for an inventory item that is part of a published offer since a published offer will always have a listing title, but this field will only be returned if defined for inventory items that are not a part of a published offer.<br\/><br\/><strong>Max Length<\/strong>: 80",
+                        "type": "string"
+                    },
+                    "variantSKUs": {
+                        "description": "This required container is used to assign individual inventory items to the inventory item group. Multiple SKU values are passed in to this container. If updating an existing inventory item group, the seller should make sure that all member SKU values are passed in, as long as the seller wants that SKU to remain in the group.<br><br> It is also possible to add or remove SKUs with a <strong>createOrReplaceInventoryItemGroup<\/strong> call. If the seller wants to remove a SKU from the group, that seller will just omit that SKU value from this container to remove that inventory item\/SKU from the inventory item group and any published, multiple-variation listing. However, a variation cannot be removed from the group if that variation has one or more sales for that listing. A workaround for this is to set that variation's quantity to <code>0<\/code> and it will be 'grayed out' in the View Item page.<br><br>This container is always returned.",
+                        "type": "array"
+                    },
+                    "variesBy": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "variantSKUs": {
+                "type": "array"
+            },
+            "variesBy": {
+                "type": "object",
+                "properties": {
+                    "aspectsImageVariesBy": {
+                        "description": "This container is used if the seller wants to include multiple images to demonstrate how variations within a multiple-variation listing differ. In this string field, the seller will specify the product aspect where the variations of the inventory item group vary, such as color. If <code>Color<\/code> is specified in this field, <code>Color<\/code> must also be one of the <strong>specifications.name<\/strong> values, and all available colors must appear in the corresponding <strong>specifications.values<\/strong> array.<br><br>If the <strong>aspectsImageVariesBy<\/strong> container is used, links to images of each variation should be specified through the <strong>imageUrls<\/strong> container of the inventory item group, or the seller can choose to include those links to images in each inventory item record for the inventory items in the group.",
+                        "type": "array"
+                    },
+                    "specifications": {
+                        "description": "This container consists of an array of one or more product aspects where each variation differs, and values for each of those product aspects. This container is not immediately required, but will be required before the first offer of the inventory item group is published. <br><br>If a product aspect is specified in the <strong>aspectsImageVariesBy<\/strong> container, this product aspect (along with all variations of that product aspect) must be included in the <strong>specifications<\/strong> container. Before offers related to the inventory item group are published, the product aspects and values specified through the <strong>specifications<\/strong> container should be in synch with the name-value pairs specified through the <strong>product.aspects<\/strong> containers of the inventory items contained in the group. For example, if <code>Color<\/code> and <code>Size<\/code> are in this <strong>specifications<\/strong> container, each inventory item of the group should also have <code>Color<\/code> and <code>Size<\/code> as aspect names in their inventory item records.<br><br\/>This container is always returned if one or more offers associated with the inventory item group have been published. For inventory item groups that have yet to have any published offers, this container is only returned if set.",
+                        "type": "array"
+                    }
+                }
+            },
+            "TimeDuration": {
+                "type": "object",
+                "properties": {
+                    "unit": {
+                        "description": "The unit of measurement used to specify the weight of a shipping package. Both the <strong>unit<\/strong> and <strong>value<\/strong> fields are required if the <strong>weight<\/strong> container is used. If the English system of measurement is being used, the applicable values for weight units are <code>POUND<\/code> and <code>OUNCE<\/CODE>. If the metric system of measurement is being used, the applicable values for weight units are <code>KILOGRAM<\/code> and <code>GRAM<\/code>. The metric system is used by most countries outside of the US. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/WeightUnitOfMeasureEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The integer value in this field, along with the time unit in the <strong>unit<\/strong> field, will indicate how soon after an In-Store Pickup purchase can the buyer pick up the item at the designated store location. If the value of this field is <code>4<\/code>, and the value of the <strong>unit<\/strong> field is <code>HOUR<\/code>, then the fulfillment time for the In-Store Pickup order is four hours, which means that the buyer will be able to pick up the item at the store four hours after the transaction took place.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "GetInventoryItemResponse": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "description": "The HTTP status code returned in this field indicates the success or failure of creating or updating the inventory item record for the inventory item indicated in the <strong>sku<\/strong> field. See the <strong>HTTP status codes<\/strong> table to see which each status code indicates.",
+                        "type": "integer"
+                    },
+                    "errors": {
+                        "description": "This container will be returned if there were one or more errors associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "inventoryItem": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "inventoryItem": {
+                "type": "object"
+            },
+            "GetInventoryItem": {
+                "type": "object",
+                "properties": {
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    }
+                }
+            },
+            "FeesSummaryResponse": {
+                "type": "object",
+                "properties": {
+                    "feeSummaries": {
+                        "description": "This container consists of an array of one or more listing fees that the seller can expect to pay for unpublished offers specified in the call request. Many fee types will get returned even when they are <code>0.0<\/code>.",
+                        "type": "array"
+                    }
+                }
+            },
+            "feeSummaries": {
+                "type": "array"
+            },
+            "PublishResponse": {
+                "type": "object",
+                "properties": {
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "listingId": {
+                        "description": "The unique identifier of the newly created eBay listing. This field is returned if the single offer (if <strong>publishOffer<\/strong> call was used) or group of offers in an inventory item group (if <strong>publishOfferByInventoryItemGroup<\/strong> call was used) was successfully converted into an eBay listing.",
+                        "type": "string"
+                    }
+                }
+            },
+            "OfferResponseWithListingId": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "description": "The HTTP status code returned in this field indicates the success or failure of creating or updating the inventory item record for the inventory item indicated in the <strong>sku<\/strong> field. See the <strong>HTTP status codes<\/strong> table to see which each status code indicates.",
+                        "type": "integer"
+                    },
+                    "errors": {
+                        "description": "This container will be returned if there were one or more errors associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "offerId": {
+                        "description": "The unique identifier of an unpublished offer for which expected listing fees will be retrieved. One to 250 <strong>offerId<\/strong> values can be passed in to the <strong>offers<\/strong> container for one <strong>getListingFees<\/strong> call. Errors will occur if <strong>offerId<\/strong> values representing published offers are passed in.",
+                        "type": "string"
+                    },
+                    "listingId": {
+                        "description": "The unique identifier of the newly created eBay listing. This field is returned if the single offer (if <strong>publishOffer<\/strong> call was used) or group of offers in an inventory item group (if <strong>publishOfferByInventoryItemGroup<\/strong> call was used) was successfully converted into an eBay listing.",
+                        "type": "string"
+                    }
+                }
+            },
+            "EbayOfferDetailsWithAll": {
+                "type": "object",
+                "properties": {
+                    "availableQuantity": {
+                        "description": "This field is used if the seller wants to modify the current quantity of the inventory item that will be available for purchase in the offer (identified by the corresponding <strong>offerId<\/strong> value). Either the <strong>availableQuantity<\/strong> field or the <strong>price<\/strong> container is required, but not necessarily both.",
+                        "type": "integer"
+                    },
+                    "categoryId": {
+                        "description": "The unique identifier of the primary eBay category that the inventory item is listed under. This field is always returned for published offers, but is only returned if set for unpublished offers.",
+                        "type": "string"
+                    },
+                    "listingDescription": {
+                        "description": "The description of the eBay listing that is part of the unpublished or published offer. This field is always returned for published offers, but is only returned if set for unpublished offers.<br\/><br\/><strong>Max Length<\/strong>: 500000",
+                        "type": "string"
+                    },
+                    "listingPolicies": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "merchantLocationKey": {
+                        "description": "The unique identifier of the inventory location. This identifier is set up by the merchant when the inventory location is first created with the <strong>createInventoryLocation<\/strong> call. Once this value is set for an inventory location, it cannot be modified. <br><br><b>Max length<\/b>: 36",
+                        "type": "string"
+                    },
+                    "PricingSummary": {
+                        "description": "This type is used to specify the listing price for the product and settings for the Minimum Advertised Price and Strikethrough Pricing features. The <strong>price<\/strong> field must be supplied before an offer is published, but a seller may create an offer without supplying a price initially. The Minimum Advertised Price feature is only available on the US site. Strikethrough Pricing is available on the US, eBay Motors, UK, Germany, Canada (English and French), France, Italy, and Spain sites.",
+                        "type": "object"
+                    },
+                    "pricingSummary": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "quantityLimitPerBuyer": {
+                        "description": "This field is only applicable and set if the seller wishes to set a restriction on the purchase quantity of an inventory item per seller. If this field is set by the seller for the offer, then each distinct buyer may purchase up to, but not exceed the quantity in this field. So, if this field's value is <code>5<\/code>, each buyer may purchase a quantity of the inventory item between one and five, and the purchases can occur in one multiple-quantity purchase, or over multiple transactions. If a buyer attempts to purchase one or more of these products, and the cumulative quantity will take the buyer beyond the quantity limit, that buyer will be blocked from that purchase.<br\/>",
+                        "type": "integer"
+                    },
+                    "Tax": {
+                        "description": "This type is used to enable the use of a sales tax table, to pass in a tax exception category code, or to specify a VAT percentage.",
+                        "type": "object"
+                    },
+                    "tax": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "storeCategoryNames": {
+                        "description": "This container is returned if the seller chose to place the inventory item into one or two eBay store categories that the seller has set up for their eBay store. The string value(s) in this container will be the full path(s) to the eBay store categories, as shown below:<br> <pre><code>\"storeCategoryNames\": [<br\/> \"\/Fashion\/Men\/Shirts\", <br\/> \"\/Fashion\/Men\/Accessories\" ], <\/pre><\/code>",
+                        "type": "array"
+                    },
+                    "lotSize": {
+                        "description": "This field is only applicable and returned if the listing is a lot listing. A lot listing is a listing that has multiple quantity of the same product. An example would be a set of four identical car tires. The integer value in this field is the number of identical items being sold through the lot listing.",
+                        "type": "integer"
+                    },
+                    "format": {
+                        "description": "This enumerated value indicates the listing format of the offer. Currently, the only supported value for this field is <code>FIXED_PRICE<\/code>. <br\/> For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/FormatTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "marketplaceId": {
+                        "description": "This is the unique identifier of the eBay site for which  listing fees for the offer are applicable. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/MarketplaceEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "offerId": {
+                        "description": "The unique identifier of an unpublished offer for which expected listing fees will be retrieved. One to 250 <strong>offerId<\/strong> values can be passed in to the <strong>offers<\/strong> container for one <strong>getListingFees<\/strong> call. Errors will occur if <strong>offerId<\/strong> values representing published offers are passed in.",
+                        "type": "string"
+                    },
+                    "listing": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "status": {
+                        "description": "The enumeration value in this field specifies the status of the offer - either <code>PUBLISHED<\/code> or <code>UNPUBLISHED<\/code>. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/OfferStatusEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "listingPolicies": {
+                "type": "object",
+                "properties": {
+                    "paymentPolicyId": {
+                        "description": "This unique identifier indicates the payment listing policy that will be used once an offer is published and converted to an eBay listing. This payment listing policy will set all payment-related settings for the eBay listing.<br\/><br\/>Listing policies are not immediately required for offers, but are required before an offer can be published. The seller should review the payment listing policy before assigning it to the offer, as the following must be true for the payment listing policy to be compatible with the offer:<ul><li>The <strong>marketplaceId<\/strong> value should reflect where the offer is being published<\/li><li>The <strong>immediatePay<\/strong> field value must be set to <code>true<\/code> since Inventory API offers only support immediate payment<\/li><li>The only specified payment method should be 'PayPal', since immediate payment requires 'PayPal'<\/li><\/ul>Listing policies can be created and managed in My eBay or with the <strong>Account API<\/strong>. To get a list of all payment policies associated with a seller's account on a specific eBay Marketplace, use the Account API's <strong>getPaymentPolicies<\/strong> call. There are also calls in the <strong>Account API<\/strong> to retrieve a payment policy by policy ID or policy name.<br\/><br\/>This field will be returned in the <strong>getOffer<\/strong> and <strong>getOffers<\/strong> calls if set for the offer.",
+                        "type": "string"
+                    },
+                    "returnPolicyId": {
+                        "description": "This unique identifier indicates the return listing policy that will be used once an offer is published and converted to an eBay listing. This return listing policy will set all return policy settings for the eBay listing.<br\/><br\/>Listing policies are not immediately required for offers, but are required before an offer can be published. The seller should review the return listing policy before assigning it to the offer to make sure it is compatible with the inventory item and the offer settings.<br\/><br\/>Listing policies can be created and managed in My eBay or with the <strong>Account API<\/strong>. To get a list of all return policies associated with a seller's account on a specific eBay Marketplace, use the Account API's <strong>getReturnPolicies<\/strong> call. There are also calls in the <strong>Account API<\/strong> to retrieve a return policy by policy ID or policy name.<br\/><br\/>This field will be returned in the <strong>getOffer<\/strong> and <strong>getOffers<\/strong> calls if set for the offer.",
+                        "type": "string"
+                    },
+                    "shippingCostOverrides": {
+                        "description": "This container is used if the seller wishes to override the shipping costs or surcharge for one or more domestic or international shipping service options defined in the fulfillment listing policy. To override the costs of a specific domestic or international shipping service option, the seller must know the priority\/order of that shipping service in the fulfillment listing policy. The name of a shipping service option can be found in the <strong>shippingOptions.shippingServices.shippingServiceCode<\/strong> field of the fulfillment policy, and the priority\/order of that shipping service option is found in the <strong>shippingOptions.shippingServices.sortOrderId<\/strong> field. Both of these values can be retrieved by searching for that fulfillment policy with the <strong>getFulfillmentPolicies<\/strong> or <strong>getFulfillmentPolicyByName<\/strong> calls of the <strong>Account API<\/strong>. The <strong>shippingCostOverrides.priority<\/strong> value should match the <strong>shippingOptions.shippingServices.sortOrderId<\/strong> in order to override the shipping costs for that shipping service option. The seller must also ensure that the <strong>shippingServiceType<\/strong> value is set to <code>DOMESTIC<\/code> to override a domestic shipping service option, or to <code>INTERNATIONAL<\/code> to override an international shipping service option.<br\/><br\/>A separate <strong>ShippingCostOverrides<\/strong> node is needed for each shipping service option whose costs are being overridde",
+                        "type": "array"
+                    },
+                    "fulfillmentPolicyId": {
+                        "description": "This unique identifier indicates the fulfillment listing policy that will be used once an offer is published and converted to an eBay listing. This fulfillment listing policy will set all fulfillment-related settings for the eBay listing.<br\/><br\/>Listing policies are not immediately required for offers, but are required before an offer can be published. The seller should review the fulfillment listing policy before assigning it to the offer to make sure it is compatible with the inventory item and the offer settings. The seller may also want to review the shipping service costs in the fulfillment policy, and that seller might decide to override the shipping costs for one or more shipping service options by using the <strong>shippingCostOverrides<\/strong> container.<br\/><br\/>Listing policies can be created and managed in My eBay or with the <strong>Account API<\/strong>. To get a list of all return policies associated with a seller's account on a specific eBay Marketplace, use the Account API's <strong>getFulfillmentPolicies<\/strong> call. There are also calls in the <strong>Account API<\/strong> to retrieve a fulfillment policy by policy ID or policy name.<br\/><br\/>This field will be returned in the <strong>getOffer<\/strong> and <strong>getOffers<\/strong> calls if set for the offer.",
+                        "type": "string"
+                    },
+                    "ebayPlusIfEligible": {
+                        "description": "This field is included in an offer and set to <code>true<\/code> if a Top-Rated seller is opted in to the eBay Plus program. With the eBay Plus program, qualified sellers must commit to next-day delivery of the item, and the buyers must have an eBay Plus subscription to be eligible to receive the benefits of this program, which are free, next-day delivery, as well as free returns.<br><br>Currently, this program is only available on the Germany and Australian sites.<br\/><br\/>This field will be returned in the <strong>getOffer<\/strong> and <strong>getOffers<\/strong> calls if set for the offer.",
+                        "type": "boolean"
+                    }
+                }
+            },
+            "storeCategoryNames": {
+                "type": "array"
+            },
+            "listing": {
+                "type": "object"
+            },
+            "EbayOfferDetailsWithKeys": {
+                "type": "object",
+                "properties": {
+                    "availableQuantity": {
+                        "description": "This field is used if the seller wants to modify the current quantity of the inventory item that will be available for purchase in the offer (identified by the corresponding <strong>offerId<\/strong> value). Either the <strong>availableQuantity<\/strong> field or the <strong>price<\/strong> container is required, but not necessarily both.",
+                        "type": "integer"
+                    },
+                    "categoryId": {
+                        "description": "The unique identifier of the primary eBay category that the inventory item is listed under. This field is always returned for published offers, but is only returned if set for unpublished offers.",
+                        "type": "string"
+                    },
+                    "listingDescription": {
+                        "description": "The description of the eBay listing that is part of the unpublished or published offer. This field is always returned for published offers, but is only returned if set for unpublished offers.<br\/><br\/><strong>Max Length<\/strong>: 500000",
+                        "type": "string"
+                    },
+                    "listingPolicies": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "merchantLocationKey": {
+                        "description": "The unique identifier of the inventory location. This identifier is set up by the merchant when the inventory location is first created with the <strong>createInventoryLocation<\/strong> call. Once this value is set for an inventory location, it cannot be modified. <br><br><b>Max length<\/b>: 36",
+                        "type": "string"
+                    },
+                    "PricingSummary": {
+                        "description": "This type is used to specify the listing price for the product and settings for the Minimum Advertised Price and Strikethrough Pricing features. The <strong>price<\/strong> field must be supplied before an offer is published, but a seller may create an offer without supplying a price initially. The Minimum Advertised Price feature is only available on the US site. Strikethrough Pricing is available on the US, eBay Motors, UK, Germany, Canada (English and French), France, Italy, and Spain sites.",
+                        "type": "object"
+                    },
+                    "pricingSummary": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "quantityLimitPerBuyer": {
+                        "description": "This field is only applicable and set if the seller wishes to set a restriction on the purchase quantity of an inventory item per seller. If this field is set by the seller for the offer, then each distinct buyer may purchase up to, but not exceed the quantity in this field. So, if this field's value is <code>5<\/code>, each buyer may purchase a quantity of the inventory item between one and five, and the purchases can occur in one multiple-quantity purchase, or over multiple transactions. If a buyer attempts to purchase one or more of these products, and the cumulative quantity will take the buyer beyond the quantity limit, that buyer will be blocked from that purchase.<br\/>",
+                        "type": "integer"
+                    },
+                    "Tax": {
+                        "description": "This type is used to enable the use of a sales tax table, to pass in a tax exception category code, or to specify a VAT percentage.",
+                        "type": "object"
+                    },
+                    "tax": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "storeCategoryNames": {
+                        "description": "This container is returned if the seller chose to place the inventory item into one or two eBay store categories that the seller has set up for their eBay store. The string value(s) in this container will be the full path(s) to the eBay store categories, as shown below:<br> <pre><code>\"storeCategoryNames\": [<br\/> \"\/Fashion\/Men\/Shirts\", <br\/> \"\/Fashion\/Men\/Accessories\" ], <\/pre><\/code>",
+                        "type": "array"
+                    },
+                    "lotSize": {
+                        "description": "This field is only applicable and returned if the listing is a lot listing. A lot listing is a listing that has multiple quantity of the same product. An example would be a set of four identical car tires. The integer value in this field is the number of identical items being sold through the lot listing.",
+                        "type": "integer"
+                    },
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "marketplaceId": {
+                        "description": "This is the unique identifier of the eBay site for which  listing fees for the offer are applicable. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/MarketplaceEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "format": {
+                        "description": "This enumerated value indicates the listing format of the offer. Currently, the only supported value for this field is <code>FIXED_PRICE<\/code>. <br\/> For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/FormatTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "EbayOfferDetailsWithId": {
+                "type": "object",
+                "properties": {
+                    "availableQuantity": {
+                        "description": "This field is used if the seller wants to modify the current quantity of the inventory item that will be available for purchase in the offer (identified by the corresponding <strong>offerId<\/strong> value). Either the <strong>availableQuantity<\/strong> field or the <strong>price<\/strong> container is required, but not necessarily both.",
+                        "type": "integer"
+                    },
+                    "categoryId": {
+                        "description": "The unique identifier of the primary eBay category that the inventory item is listed under. This field is always returned for published offers, but is only returned if set for unpublished offers.",
+                        "type": "string"
+                    },
+                    "listingDescription": {
+                        "description": "The description of the eBay listing that is part of the unpublished or published offer. This field is always returned for published offers, but is only returned if set for unpublished offers.<br\/><br\/><strong>Max Length<\/strong>: 500000",
+                        "type": "string"
+                    },
+                    "listingPolicies": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "merchantLocationKey": {
+                        "description": "The unique identifier of the inventory location. This identifier is set up by the merchant when the inventory location is first created with the <strong>createInventoryLocation<\/strong> call. Once this value is set for an inventory location, it cannot be modified. <br><br><b>Max length<\/b>: 36",
+                        "type": "string"
+                    },
+                    "PricingSummary": {
+                        "description": "This type is used to specify the listing price for the product and settings for the Minimum Advertised Price and Strikethrough Pricing features. The <strong>price<\/strong> field must be supplied before an offer is published, but a seller may create an offer without supplying a price initially. The Minimum Advertised Price feature is only available on the US site. Strikethrough Pricing is available on the US, eBay Motors, UK, Germany, Canada (English and French), France, Italy, and Spain sites.",
+                        "type": "object"
+                    },
+                    "pricingSummary": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "quantityLimitPerBuyer": {
+                        "description": "This field is only applicable and set if the seller wishes to set a restriction on the purchase quantity of an inventory item per seller. If this field is set by the seller for the offer, then each distinct buyer may purchase up to, but not exceed the quantity in this field. So, if this field's value is <code>5<\/code>, each buyer may purchase a quantity of the inventory item between one and five, and the purchases can occur in one multiple-quantity purchase, or over multiple transactions. If a buyer attempts to purchase one or more of these products, and the cumulative quantity will take the buyer beyond the quantity limit, that buyer will be blocked from that purchase.<br\/>",
+                        "type": "integer"
+                    },
+                    "Tax": {
+                        "description": "This type is used to enable the use of a sales tax table, to pass in a tax exception category code, or to specify a VAT percentage.",
+                        "type": "object"
+                    },
+                    "tax": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "storeCategoryNames": {
+                        "description": "This container is returned if the seller chose to place the inventory item into one or two eBay store categories that the seller has set up for their eBay store. The string value(s) in this container will be the full path(s) to the eBay store categories, as shown below:<br> <pre><code>\"storeCategoryNames\": [<br\/> \"\/Fashion\/Men\/Shirts\", <br\/> \"\/Fashion\/Men\/Accessories\" ], <\/pre><\/code>",
+                        "type": "array"
+                    },
+                    "lotSize": {
+                        "description": "This field is only applicable and returned if the listing is a lot listing. A lot listing is a listing that has multiple quantity of the same product. An example would be a set of four identical car tires. The integer value in this field is the number of identical items being sold through the lot listing.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "Fee": {
+                "type": "object",
+                "properties": {
+                    "feeType": {
+                        "description": "The value returned in this field indicates the type of listing fee that the seller may incur if one or more unpublished offers (offers are specified in the call request) are published on the marketplace specified in the <strong>marketplaceId<\/strong> field. Applicable listing fees will often include things such as <code>InsertionFee<\/code> or <code>SubtitleFee<\/code>, but many fee types will get returned even when they are <code>0.0<\/code>.<br\/><br\/>See the <a href=\"https:\/\/pages.ebay.com\/help\/sell\/fees.html\" target=\"_blank\">Standard selling fees<\/a> help page for more information on listing fees.",
+                        "type": "string"
+                    },
+                    "Amount": {
+                        "description": "This type is used to express a dollar value and the applicable currency.",
+                        "type": "object"
+                    },
+                    "amount": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "promotionalDiscount": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "ProductIdentifier": {
+                "type": "object",
+                "properties": {
+                    "epid": {
+                        "description": "The eBay Product Identifier (ePID) for the product. This field can be used to directly identify an eBay Catalog product. Based on its specified ePID value, eBay will search for the product in the eBay Catalog, and if a match is found, the inventory item is automatically populated with available product details such as product title, product description, product aspects, and a link to any stock image that exists for the catalog product.<br\/><br\/>This field is returned if defined for an inventory item.<br\/><br\/><span class=\"tablenote\"> <strong>Note:<\/strong> For the US, UK, CA (English), and AU sites, eBay is starting to require that some products in certain eBay categories be associated with an eBay Catalog product. For more information on this requirement, see the <a href=\"\/api-docs\/sell\/static\/inventory\/pbse_playbook_intro.html\">Product-Based Shopping Experience Playbook<\/a> topic in the <strong>Selling Integration Guide<\/strong>. In an attempt to find a eBay Catalog product match, an ePID value is always preferred over the other product identifiers, since it is possible that one GTIN value can be associated with multiple eBay Catalog products, and if multiple products are found, product details will not be picked up by the Inventory Item object.<\/span>",
+                        "type": "string"
+                    },
+                    "gtin": {
+                        "description": "This field can be used if the seller knows the Global Trade Item Number for the motor vehicle that is to be added to the compatible product list. If this GTIN value is found in the eBay product catalog, the motor vehicle properties (e.g. make, model, year, engine, and trim will automatically get picked up for that motor vehicle.<br\/><br\/><span class=\"tablenote\"> <strong>Note:<\/strong> This field and the <strong>productIdentifier<\/strong> type are for future use only.<\/span>",
+                        "type": "string"
+                    },
+                    "ktype": {
+                        "description": "This field can be used if the seller knows the K Type Number for the motor vehicle that is to be added to the compatible product list. If this K Type value is found in the eBay product catalog, the motor vehicle properties (e.g. make, model, year, engine, and trim) will automatically get picked up for that motor vehicle. <br\/><br\/> Only the DE, UK, and AU sites support the use of K Type Numbers.<br\/><br\/><span class=\"tablenote\"> <strong>Note:<\/strong> This field and the <strong>productIdentifier<\/strong> type is for future use only.<\/span> ",
+                        "type": "string"
+                    }
+                }
+            },
+            "InventoryItemWithSkuLocale": {
+                "type": "object",
+                "properties": {
+                    "Availability": {
+                        "description": "This type is used to specify the quantity of the inventory item that is available for purchase if the item will be shipped to the buyer, and the quantity of the inventory item that is available for In-Store Pickup at one or more of the merchant's physical stores. In-Store Pickup is only available to large merchants selling on the US, UK, Germany, and Australia sites.",
+                        "type": "object"
+                    },
+                    "availability": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "condition": {
+                        "description": "This enumeration value indicates the condition of the item. Supported item condition values will vary by eBay site and category. To see which item condition values that a particular eBay category supports, use the <strong>getItemConditionPolicies<\/strong> call of the <strong>Metadata API<\/strong>, passing in the category ID as a query parameter. The proper syntax to use can be found on the <strong>getItemConditionPolicies<\/strong> Call Reference page. The supported item conditions will be returned under the <strong>itemConditions<\/strong> container of the <strong>getItemConditionPolicies<\/strong> response. The <strong>itemConditions<\/strong> container will consist of <strong>conditionId<\/strong> and <strong>conditionDescription<\/strong> values. The <strong>conditionId<\/strong> values must be matched to the enumeration values defined in the <a href=\"\/api-docs\/sell\/inventory\/types\/slr:ConditionEnum\">ConditionEnum<\/a> type. See this type document for the mapping information, as one of the values in this type must be specified in the <strong>condition<\/strong> field.<br\/><br\/> This field is optional up until the seller is ready to publish an offer with the SKU, at which time it becomes required.<br \/><br \/> Since the condition of an inventory item must be specified before being published in an offer, this field is always returned in the 'Get' calls for SKUs that are part of a published offer. If a SKU is not part of a published offer, this container will only be returned if set f",
+                        "type": "string"
+                    },
+                    "conditionDescription": {
+                        "description": "This string field is used by the seller to more clearly describe the condition of a used inventory item, or an inventory item whose <strong>condition<\/strong> value is not <code>NEW<\/code>, <code>LIKE_NEW<\/code>, <code>NEW_OTHER<\/code>, or <code>NEW_WITH_DEFECTS<\/code>.<br\/><br\/> The <strong>conditionDescription<\/strong> field is available for all eBay categories. If the <strong>conditionDescription<\/strong> field is used with an item in one of the new conditions (mentioned in previous paragraph), eBay will simply ignore this field if included, and eBay will return a warning message to the user. <br\/><br\/> This field should only be used to further clarify the condition of the used item. It should not be used for branding, promotions, shipping, returns, payment or other information unrelated to the condition of the used item. Make sure that the <strong>condition<\/strong> value, condition description, listing description, and the item's pictures do not contradict one another. <br \/><br \/> This field is not always required, but is required if an inventory item is being updated and a condition description already exists for that inventory item. <br \/><br \/> This field is returned in the <strong>getInventoryItem<\/strong> and <strong>getInventoryItems<\/strong> calls if a condition description was provided for a used inventory item.<br\/><br\/><strong>Max Length<\/strong>: 1000.",
+                        "type": "string"
+                    },
+                    "packageWeightAndSize": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "Product": {
+                        "description": "This type is used to define the product details, such as a title, a product description, product aspects\/item specifics, and links to images for the product. Optionally, in a <strong>createOrReplaceInventoryItem<\/strong> call, a seller can pass in an eBay Product Identifier (ePID) or a Global Trade Item Number (GTIN) value, such as an EAN, an ISBN, a UPC, to identify a product to be matched with a product in the eBay Catalog. The information in this type is also returned in the <strong>getInventoryItem<\/strong>, <strong>getInventoryItems<\/strong>, and <strong>bulkGetInventoryItem<\/strong> calls if defined.",
+                        "type": "object"
+                    },
+                    "product": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "locale": {
+                        "description": "This field is for future use only. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/LocaleEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "BaseResponse": {
+                "type": "object",
+                "properties": {
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    }
+                }
+            },
+            "ProductFamilyProperties": {
+                "type": "object",
+                "properties": {
+                    "make": {
+                        "description": "This field indicates the make of the vehicle (e.g. <code>Toyota<\/code>).",
+                        "type": "string"
+                    },
+                    "model": {
+                        "description": "This field indicates the model of the vehicle (e.g. <code>Camry<\/code>).",
+                        "type": "string"
+                    },
+                    "year": {
+                        "description": "This field indicates the year of the vehicle (e.g. <code>2016<\/code>).",
+                        "type": "string"
+                    },
+                    "trim": {
+                        "description": "This field indicates the trim of the vehicle (e.g. <code>2-door Coupe<\/code>). This field is conditionally required, but should be supplied if known\/applicable.",
+                        "type": "string"
+                    },
+                    "engine": {
+                        "description": "This field indicates the specifications of the engine, including its size, block type, and fuel type. An example is <code>2.7L V6 gas DOHC naturally aspirated<\/code>. This field is conditionally required, but should be supplied if known\/applicable.",
+                        "type": "string"
+                    }
+                }
+            },
+            "BulkOffer": {
+                "type": "object",
+                "properties": {
+                    "requests": {
+                        "description": "The seller passes in multiple SKU values under this container to retrieve multiple inventory item records. Up to 25 inventory item records can be retrieved at one time.",
+                        "type": "array"
+                    }
+                }
+            },
+            "BulkGetInventoryItemResponse": {
+                "type": "object",
+                "properties": {
+                    "responses": {
+                        "description": "A node is returned under the <strong>responses<\/strong> container to indicate the success or failure of each offer that the seller was attempting to publish.",
+                        "type": "array"
+                    }
+                }
+            },
+            "PriceQuantity": {
+                "type": "object",
+                "properties": {
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "shipToLocationAvailability": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "offers": {
+                        "description": "This container is an array of one or more of the seller's offers for the SKU value that is passed in through the required <strong>sku<\/strong> query parameter.<br\/><br\/> <span class=\"tablenote\"> <strong>Note:<\/strong> Currently, the Inventory API does not support the same SKU across multiple eBay marketplaces, so the <strong>getOffers<\/strong> call will only return one offer.<\/span><br\/><br\/><strong>Max Occurs:<\/strong> 25",
+                        "type": "array"
+                    }
+                }
+            },
+            "BulkPriceQuantity": {
+                "type": "object",
+                "properties": {
+                    "requests": {
+                        "description": "The seller passes in multiple SKU values under this container to retrieve multiple inventory item records. Up to 25 inventory item records can be retrieved at one time.",
+                        "type": "array"
+                    }
+                }
+            },
+            "ListingDetails": {
+                "type": "object",
+                "properties": {
+                    "listingId": {
+                        "description": "The unique identifier of the newly created eBay listing. This field is returned if the single offer (if <strong>publishOffer<\/strong> call was used) or group of offers in an inventory item group (if <strong>publishOfferByInventoryItemGroup<\/strong> call was used) was successfully converted into an eBay listing.",
+                        "type": "string"
+                    },
+                    "listingStatus": {
+                        "description": "The enumeration value returned in this field indicates the status of the listing that is associated with the published offer. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/ListingStatusEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "soldQuantity": {
+                        "description": "This integer value indicates the quantity of the product that has been sold for the published offer.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "OfferKeysWithId": {
+                "type": "object",
+                "properties": {
+                    "offers": {
+                        "description": "This container is an array of one or more of the seller's offers for the SKU value that is passed in through the required <strong>sku<\/strong> query parameter.<br\/><br\/> <span class=\"tablenote\"> <strong>Note:<\/strong> Currently, the Inventory API does not support the same SKU across multiple eBay marketplaces, so the <strong>getOffers<\/strong> call will only return one offer.<\/span><br\/><br\/><strong>Max Occurs:<\/strong> 25",
+                        "type": "array"
+                    }
+                }
+            },
+            "BulkInventoryItemResponse": {
+                "type": "object",
+                "properties": {
+                    "responses": {
+                        "description": "A node is returned under the <strong>responses<\/strong> container to indicate the success or failure of each offer that the seller was attempting to publish.",
+                        "type": "array"
+                    }
+                }
+            },
+            "PickupAtLocationAvailability": {
+                "type": "object",
+                "properties": {
+                    "availabilityType": {
+                        "description": "The enumeration value in this field indicates the availability status of the inventory item at the merchant's physical store specified by the <strong>pickupAtLocationAvailability.merchantLocationKey<\/strong> field. This field is required if the <strong>pickupAtLocationAvailability<\/strong> container is used, and is always returned with the <strong>pickupAtLocationAvailability<\/strong> container.  <br\/><br\/> See <a href=\"\/api-docs\/sell\/inventory\/types\/slr:AvailabilityTypeEnum\">AvailabilityTypeEnum<\/a> for more information about how\/when you use each enumeration value. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/AvailabilityTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "TimeDuration": {
+                        "description": "This type is used by the <strong>fulfillmentTime<\/strong> container of the <strong>PickupAtLocationAvailability<\/strong> type to specify how soon orders will be ready for In-Store pickup after the purchase has occurred.",
+                        "type": "object"
+                    },
+                    "fulfillmentTime": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "merchantLocationKey": {
+                        "description": "The unique identifier of the inventory location. This identifier is set up by the merchant when the inventory location is first created with the <strong>createInventoryLocation<\/strong> call. Once this value is set for an inventory location, it cannot be modified. <br><br><b>Max length<\/b>: 36",
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "description": "This integer value indicates the quantity of the inventory item that is available for In-Store Pickup at the store identified by the  <strong>merchantLocationKey<\/strong> value.  The value of <strong>quantity<\/strong> should be an integer value greater than <code>0<\/code>, unless the inventory item is out of stock. This field is required if the <strong>pickupAtLocationAvailability<\/strong> container is used, and is always returned with the <strong>pickupAtLocationAvailability<\/strong> container.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "Version": {
+                "type": "object",
+                "properties": {
+                    "Version": {
+                        "description": "This type is used to show the version number and instance of the service or API.",
+                        "type": "object"
+                    },
+                    "instance": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "version": {
+                        "description": "The version number of the service or API.",
+                        "type": "string"
+                    }
+                }
+            },
+            "shippingCostOverrides": {
+                "type": "array"
+            },
+            "CompatibleProduct": {
+                "type": "object",
+                "properties": {
+                    "ProductFamilyProperties": {
+                        "description": "This type is used to specify the details of a motor vehicle that is compatible with the inventory item specified through the SKU value in the call URI.",
+                        "type": "object"
+                    },
+                    "productFamilyProperties": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "ProductIdentifier": {
+                        "description": "<span class=\"tablenote\"> <strong>Note:<\/strong> This type is for future use only.<\/span>This type will be used to identify a motor vehicle that is compatible with the corresponding inventory item (the SKU that is passed in as part of the call URI). The motor vehicle can be identified through an eBay Product ID, a K type value, or a Global Trade Item Number. If the specified motor vehicle is found in the eBay product catalog, the motor vehicle properties (engine, make, model, trim, and year) will automatically get picked up for that motor vehicle.<br\/><br\/><span class=\"tablenote\"> <strong>Note:<\/strong> Once this functionality becomes available for use, it will only be used to identify motor vehicles in the eBay catalog. However, it is possible that the Product Compatibility feature is expanded to other (non-vehicle) products in the future. <\/span>",
+                        "type": "object"
+                    },
+                    "productIdentifier": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "notes": {
+                        "description": "This field is optionally used by the seller to input any notes pertaining to the parts compatibility being specified. The seller might use this field to specify the placement of the part on a vehicle or other applicable information. This field will only be returned if specified by the seller.<br\/><br\/><strong>Max Length<\/strong>: 500<br\/>",
+                        "type": "string"
+                    }
+                }
+            },
+            "BulkOfferResponse": {
+                "type": "object",
+                "properties": {
+                    "responses": {
+                        "description": "A node is returned under the <strong>responses<\/strong> container to indicate the success or failure of each offer that the seller was attempting to publish.",
+                        "type": "array"
+                    }
+                }
+            },
+            "OfferSkuResponse": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "description": "The HTTP status code returned in this field indicates the success or failure of creating or updating the inventory item record for the inventory item indicated in the <strong>sku<\/strong> field. See the <strong>HTTP status codes<\/strong> table to see which each status code indicates.",
+                        "type": "integer"
+                    },
+                    "errors": {
+                        "description": "This container will be returned if there were one or more errors associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "offerId": {
+                        "description": "The unique identifier of an unpublished offer for which expected listing fees will be retrieved. One to 250 <strong>offerId<\/strong> values can be passed in to the <strong>offers<\/strong> container for one <strong>getListingFees<\/strong> call. Errors will occur if <strong>offerId<\/strong> values representing published offers are passed in.",
+                        "type": "string"
+                    },
+                    "marketplaceId": {
+                        "description": "This is the unique identifier of the eBay site for which  listing fees for the offer are applicable. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/MarketplaceEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "format": {
+                        "description": "This enumerated value indicates the listing format of the offer. Currently, the only supported value for this field is <code>FIXED_PRICE<\/code>. <br\/> For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/FormatTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "InventoryItemListing": {
+                "type": "object",
+                "properties": {
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "offerId": {
+                        "description": "The unique identifier of an unpublished offer for which expected listing fees will be retrieved. One to 250 <strong>offerId<\/strong> values can be passed in to the <strong>offers<\/strong> container for one <strong>getListingFees<\/strong> call. Errors will occur if <strong>offerId<\/strong> values representing published offers are passed in.",
+                        "type": "string"
+                    }
+                }
+            },
+            "InventoryItemWithSkuLocaleGroupid": {
+                "type": "object",
+                "properties": {
+                    "Availability": {
+                        "description": "This type is used to specify the quantity of the inventory item that is available for purchase if the item will be shipped to the buyer, and the quantity of the inventory item that is available for In-Store Pickup at one or more of the merchant's physical stores. In-Store Pickup is only available to large merchants selling on the US, UK, Germany, and Australia sites.",
+                        "type": "object"
+                    },
+                    "availability": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "condition": {
+                        "description": "This enumeration value indicates the condition of the item. Supported item condition values will vary by eBay site and category. To see which item condition values that a particular eBay category supports, use the <strong>getItemConditionPolicies<\/strong> call of the <strong>Metadata API<\/strong>, passing in the category ID as a query parameter. The proper syntax to use can be found on the <strong>getItemConditionPolicies<\/strong> Call Reference page. The supported item conditions will be returned under the <strong>itemConditions<\/strong> container of the <strong>getItemConditionPolicies<\/strong> response. The <strong>itemConditions<\/strong> container will consist of <strong>conditionId<\/strong> and <strong>conditionDescription<\/strong> values. The <strong>conditionId<\/strong> values must be matched to the enumeration values defined in the <a href=\"\/api-docs\/sell\/inventory\/types\/slr:ConditionEnum\">ConditionEnum<\/a> type. See this type document for the mapping information, as one of the values in this type must be specified in the <strong>condition<\/strong> field.<br\/><br\/> This field is optional up until the seller is ready to publish an offer with the SKU, at which time it becomes required.<br \/><br \/> Since the condition of an inventory item must be specified before being published in an offer, this field is always returned in the 'Get' calls for SKUs that are part of a published offer. If a SKU is not part of a published offer, this container will only be returned if set f",
+                        "type": "string"
+                    },
+                    "conditionDescription": {
+                        "description": "This string field is used by the seller to more clearly describe the condition of a used inventory item, or an inventory item whose <strong>condition<\/strong> value is not <code>NEW<\/code>, <code>LIKE_NEW<\/code>, <code>NEW_OTHER<\/code>, or <code>NEW_WITH_DEFECTS<\/code>.<br\/><br\/> The <strong>conditionDescription<\/strong> field is available for all eBay categories. If the <strong>conditionDescription<\/strong> field is used with an item in one of the new conditions (mentioned in previous paragraph), eBay will simply ignore this field if included, and eBay will return a warning message to the user. <br\/><br\/> This field should only be used to further clarify the condition of the used item. It should not be used for branding, promotions, shipping, returns, payment or other information unrelated to the condition of the used item. Make sure that the <strong>condition<\/strong> value, condition description, listing description, and the item's pictures do not contradict one another. <br \/><br \/> This field is not always required, but is required if an inventory item is being updated and a condition description already exists for that inventory item. <br \/><br \/> This field is returned in the <strong>getInventoryItem<\/strong> and <strong>getInventoryItems<\/strong> calls if a condition description was provided for a used inventory item.<br\/><br\/><strong>Max Length<\/strong>: 1000.",
+                        "type": "string"
+                    },
+                    "packageWeightAndSize": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "Product": {
+                        "description": "This type is used to define the product details, such as a title, a product description, product aspects\/item specifics, and links to images for the product. Optionally, in a <strong>createOrReplaceInventoryItem<\/strong> call, a seller can pass in an eBay Product Identifier (ePID) or a Global Trade Item Number (GTIN) value, such as an EAN, an ISBN, a UPC, to identify a product to be matched with a product in the eBay Catalog. The information in this type is also returned in the <strong>getInventoryItem<\/strong>, <strong>getInventoryItems<\/strong>, and <strong>bulkGetInventoryItem<\/strong> calls if defined.",
+                        "type": "object"
+                    },
+                    "product": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "locale": {
+                        "description": "This field is for future use only. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/LocaleEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "groupIds": {
+                        "description": "This returns the groupid-id this inventory item is associated with for MSKU listings",
+                        "type": "array"
+                    },
+                    "inventoryItemGroupKeys": {
+                        "description": "This returns the inventoryItemGroupKeys this inventory item is associated with for MSKU listings",
+                        "type": "array"
+                    }
+                }
+            },
+            "groupIds": {
+                "type": "array"
+            },
+            "inventoryItemGroupKeys": {
+                "type": "array"
+            },
+            "PriceQuantityResponse": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "description": "The HTTP status code returned in this field indicates the success or failure of creating or updating the inventory item record for the inventory item indicated in the <strong>sku<\/strong> field. See the <strong>HTTP status codes<\/strong> table to see which each status code indicates.",
+                        "type": "integer"
+                    },
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "offerId": {
+                        "description": "The unique identifier of an unpublished offer for which expected listing fees will be retrieved. One to 250 <strong>offerId<\/strong> values can be passed in to the <strong>offers<\/strong> container for one <strong>getListingFees<\/strong> call. Errors will occur if <strong>offerId<\/strong> values representing published offers are passed in.",
+                        "type": "string"
+                    },
+                    "errors": {
+                        "description": "This container will be returned if there were one or more errors associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    }
+                }
+            },
+            "WithdrawResponse": {
+                "type": "object",
+                "properties": {
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "listingId": {
+                        "description": "The unique identifier of the newly created eBay listing. This field is returned if the single offer (if <strong>publishOffer<\/strong> call was used) or group of offers in an inventory item group (if <strong>publishOfferByInventoryItemGroup<\/strong> call was used) was successfully converted into an eBay listing.",
+                        "type": "string"
+                    }
+                }
+            },
+            "BulkPriceQuantityResponse": {
+                "type": "object",
+                "properties": {
+                    "responses": {
+                        "description": "A node is returned under the <strong>responses<\/strong> container to indicate the success or failure of each offer that the seller was attempting to publish.",
+                        "type": "array"
+                    }
+                }
+            },
+            "aspectsImageVariesBy": {
+                "type": "array"
+            },
+            "specifications": {
+                "type": "array"
+            },
+            "InventoryItemWithSkuLocaleGroupKeys": {
+                "type": "object",
+                "properties": {
+                    "Availability": {
+                        "description": "This type is used to specify the quantity of the inventory item that is available for purchase if the item will be shipped to the buyer, and the quantity of the inventory item that is available for In-Store Pickup at one or more of the merchant's physical stores. In-Store Pickup is only available to large merchants selling on the US, UK, Germany, and Australia sites.",
+                        "type": "object"
+                    },
+                    "availability": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "condition": {
+                        "description": "This enumeration value indicates the condition of the item. Supported item condition values will vary by eBay site and category. To see which item condition values that a particular eBay category supports, use the <strong>getItemConditionPolicies<\/strong> call of the <strong>Metadata API<\/strong>, passing in the category ID as a query parameter. The proper syntax to use can be found on the <strong>getItemConditionPolicies<\/strong> Call Reference page. The supported item conditions will be returned under the <strong>itemConditions<\/strong> container of the <strong>getItemConditionPolicies<\/strong> response. The <strong>itemConditions<\/strong> container will consist of <strong>conditionId<\/strong> and <strong>conditionDescription<\/strong> values. The <strong>conditionId<\/strong> values must be matched to the enumeration values defined in the <a href=\"\/api-docs\/sell\/inventory\/types\/slr:ConditionEnum\">ConditionEnum<\/a> type. See this type document for the mapping information, as one of the values in this type must be specified in the <strong>condition<\/strong> field.<br\/><br\/> This field is optional up until the seller is ready to publish an offer with the SKU, at which time it becomes required.<br \/><br \/> Since the condition of an inventory item must be specified before being published in an offer, this field is always returned in the 'Get' calls for SKUs that are part of a published offer. If a SKU is not part of a published offer, this container will only be returned if set f",
+                        "type": "string"
+                    },
+                    "conditionDescription": {
+                        "description": "This string field is used by the seller to more clearly describe the condition of a used inventory item, or an inventory item whose <strong>condition<\/strong> value is not <code>NEW<\/code>, <code>LIKE_NEW<\/code>, <code>NEW_OTHER<\/code>, or <code>NEW_WITH_DEFECTS<\/code>.<br\/><br\/> The <strong>conditionDescription<\/strong> field is available for all eBay categories. If the <strong>conditionDescription<\/strong> field is used with an item in one of the new conditions (mentioned in previous paragraph), eBay will simply ignore this field if included, and eBay will return a warning message to the user. <br\/><br\/> This field should only be used to further clarify the condition of the used item. It should not be used for branding, promotions, shipping, returns, payment or other information unrelated to the condition of the used item. Make sure that the <strong>condition<\/strong> value, condition description, listing description, and the item's pictures do not contradict one another. <br \/><br \/> This field is not always required, but is required if an inventory item is being updated and a condition description already exists for that inventory item. <br \/><br \/> This field is returned in the <strong>getInventoryItem<\/strong> and <strong>getInventoryItems<\/strong> calls if a condition description was provided for a used inventory item.<br\/><br\/><strong>Max Length<\/strong>: 1000.",
+                        "type": "string"
+                    },
+                    "packageWeightAndSize": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "Product": {
+                        "description": "This type is used to define the product details, such as a title, a product description, product aspects\/item specifics, and links to images for the product. Optionally, in a <strong>createOrReplaceInventoryItem<\/strong> call, a seller can pass in an eBay Product Identifier (ePID) or a Global Trade Item Number (GTIN) value, such as an EAN, an ISBN, a UPC, to identify a product to be matched with a product in the eBay Catalog. The information in this type is also returned in the <strong>getInventoryItem<\/strong>, <strong>getInventoryItems<\/strong>, and <strong>bulkGetInventoryItem<\/strong> calls if defined.",
+                        "type": "object"
+                    },
+                    "product": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "sku": {
+                        "description": "The seller-defined Stock-Keeping Unit (SKU) of the inventory item. The seller should have a unique SKU value for every product that they sell.",
+                        "type": "string"
+                    },
+                    "locale": {
+                        "description": "This field is for future use only. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/LocaleEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "inventoryItemGroupKeys": {
+                        "description": "This returns the inventoryItemGroupKeys this inventory item is associated with for MSKU listings",
+                        "type": "array"
+                    }
+                }
+            },
+            "ShippingCostOverride": {
+                "type": "object",
+                "properties": {
+                    "Amount": {
+                        "description": "This type is used to express a dollar value and the applicable currency.",
+                        "type": "object"
+                    },
+                    "surcharge": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "additionalShippingCost": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "priority": {
+                        "description": "The integer value input into this field, along with the <strong>shippingServiceType<\/strong> value, sets which domestic or international shipping service option in the fulfillment policy will be modified with updated shipping costs. Specifically, the <strong>shippingCostOverrides.shippingServiceType<\/strong> value in a <strong>createOffer<\/strong> or <strong>updateOffer<\/strong> call must match the <strong>shippingOptions.optionType<\/strong> value in a fulfillment listing policy, and the <strong>shippingCostOverrides.priority<\/strong> value in a <strong>createOffer<\/strong> or <strong>updateOffer<\/strong> call must match the <strong>shippingOptions.shippingServices.sortOrderId<\/strong> value in a fulfillment listing policy.<br><br>This field is always required when overriding the shipping costs of a shipping service option, and will be always be returned for each shipping service option whose costs are being overridden.",
+                        "type": "integer"
+                    },
+                    "shippingCost": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "shippingServiceType": {
+                        "description": "This enumerated value indicates whether the shipping service specified in the <strong>priority<\/strong> field is a domestic or an international shipping service option. To override the shipping costs for a specific domestic shipping service in the fulfillment listing policy, this field should be set to <code>DOMESTIC<\/code>, and to override the shipping costs for each international shipping service, this field should be set to <code>INTERNATIONAL<\/code>. This value, along with <strong>priority<\/strong> value, sets which domestic or international shipping service option in the fulfillment policy that will be modified with updated shipping costs. Specifically, the <strong>shippingCostOverrides.shippingServiceType<\/strong> value in a <strong>createOffer<\/strong> or <strong>updateOffer<\/strong> call must match the <strong>shippingOptions.optionType<\/strong> value in a fulfillment listing policy, and the <strong>shippingCostOverrides.priority<\/strong> value in a <strong>createOffer<\/strong> or <strong>updateOffer<\/strong> call must match the <strong>shippingOptions.shippingServices.sortOrderId<\/strong> value in a fulfillment listing policy.<br><br>This field is always required when overriding the shipping costs of a shipping service option, and will be always be returned for each shipping service option whose costs are being overridden. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/ShippingServiceTypeEnum.html'>eBay API ",
+                        "type": "string"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "errorId": {
+                        "description": "A unique code that identifies the particular error or warning that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.",
+                        "type": "integer"
+                    },
+                    "domain": {
+                        "description": "The name of the domain in which the error or warning occurred.",
+                        "type": "string"
+                    },
+                    "subdomain": {
+                        "description": "The name of the subdomain in which the error or warning occurred.",
+                        "type": "string"
+                    },
+                    "category": {
+                        "description": "This string value indicates the error category. There are three categories of errors: request errors, application errors, and system errors. ",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "A description of the condition that caused the error or warning.",
+                        "type": "string"
+                    },
+                    "parameters": {
+                        "description": "Various warning and error messages return one or more variables that contain contextual information about the error or waring. This is often the field or value that triggered the error or warning.",
+                        "type": "array"
+                    },
+                    "longMessage": {
+                        "description": "A detailed description of the condition that caused the error or warning, and information on what to do to correct the problem.",
+                        "type": "string"
+                    },
+                    "inputRefIds": {
+                        "description": "An array of one or more reference IDs which identify the specific request element(s) most closely associated to the error or warning, if any.",
+                        "type": "array"
+                    },
+                    "outputRefIds": {
+                        "description": "An array of one or more reference IDs which identify the specific response element(s) most closely associated to the error or warning, if any.",
+                        "type": "array"
+                    }
+                }
+            },
+            "parameters": {
+                "type": "array"
+            },
+            "inputRefIds": {
+                "type": "array"
+            },
+            "outputRefIds": {
+                "type": "array"
+            },
+            "PublishByInventoryItemGroupRequest": {
+                "type": "object",
+                "properties": {
+                    "inventoryItemGroupKey": {
+                        "description": "This is the unique identifier of the inventory item group. This identifier is created by the seller when an inventory item group is created. This field is only applicable to the <strong>getInventoryItemGroup<\/strong> call and not to the <strong>createOrReplaceInventoryItemGroup<\/strong> call. In the <strong>createOrReplaceInventoryItemGroup<\/strong> call, the <strong>inventoryItemGroupKey<\/strong> value is passed into the end of the call URI instead. ",
+                        "type": "string"
+                    },
+                    "marketplaceId": {
+                        "description": "This is the unique identifier of the eBay site for which  listing fees for the offer are applicable. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/MarketplaceEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "ErrorParameter": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "description": "A string representation of a dollar value expressed in the currency specified in the <strong>currency<\/strong> field. Both the <strong>value<\/strong> and <strong>currency<\/strong> fields are required\/always returned when expressing prices.",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "This text field is used by the merchant to update the name of the inventory location. This name should be a human-friendly name as it will be in In-Store Pickup and Click and Collect listings. A name is not required for warehouse inventory locations. For store inventory locations, this field is not immediately required, but will be required before an offer enabled with the In-Store Pickup or Click and Collect capability can be published. So, if the seller omitted this field in the <strong>createInventoryLocation<\/strong> call, it is required for an <strong>updateInventoryLocation<\/strong> call. The name that is passed in this field will replace any other name that may be defined for this field.",
+                        "type": "string"
+                    }
+                }
+            },
+            "OfferResponse": {
+                "type": "object",
+                "properties": {
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "offerId": {
+                        "description": "The unique identifier of an unpublished offer for which expected listing fees will be retrieved. One to 250 <strong>offerId<\/strong> values can be passed in to the <strong>offers<\/strong> container for one <strong>getListingFees<\/strong> call. Errors will occur if <strong>offerId<\/strong> values representing published offers are passed in.",
+                        "type": "string"
+                    }
+                }
+            },
+            "BulkMigrateListingResponse": {
+                "type": "object",
+                "properties": {
+                    "responses": {
+                        "description": "A node is returned under the <strong>responses<\/strong> container to indicate the success or failure of each offer that the seller was attempting to publish.",
+                        "type": "array"
+                    }
+                }
+            },
+            "WithdrawByInventoryItemGroupRequest": {
+                "type": "object",
+                "properties": {
+                    "inventoryItemGroupKey": {
+                        "description": "This is the unique identifier of the inventory item group. This identifier is created by the seller when an inventory item group is created. This field is only applicable to the <strong>getInventoryItemGroup<\/strong> call and not to the <strong>createOrReplaceInventoryItemGroup<\/strong> call. In the <strong>createOrReplaceInventoryItemGroup<\/strong> call, the <strong>inventoryItemGroupKey<\/strong> value is passed into the end of the call URI instead. ",
+                        "type": "string"
+                    },
+                    "marketplaceId": {
+                        "description": "This is the unique identifier of the eBay site for which  listing fees for the offer are applicable. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/MarketplaceEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "MigrateListing": {
+                "type": "object",
+                "properties": {
+                    "listingId": {
+                        "description": "The unique identifier of the newly created eBay listing. This field is returned if the single offer (if <strong>publishOffer<\/strong> call was used) or group of offers in an inventory item group (if <strong>publishOfferByInventoryItemGroup<\/strong> call was used) was successfully converted into an eBay listing.",
+                        "type": "string"
+                    }
+                }
+            },
+            "MigrateListingResponse": {
+                "type": "object",
+                "properties": {
+                    "statusCode": {
+                        "description": "The HTTP status code returned in this field indicates the success or failure of creating or updating the inventory item record for the inventory item indicated in the <strong>sku<\/strong> field. See the <strong>HTTP status codes<\/strong> table to see which each status code indicates.",
+                        "type": "integer"
+                    },
+                    "listingId": {
+                        "description": "The unique identifier of the newly created eBay listing. This field is returned if the single offer (if <strong>publishOffer<\/strong> call was used) or group of offers in an inventory item group (if <strong>publishOfferByInventoryItemGroup<\/strong> call was used) was successfully converted into an eBay listing.",
+                        "type": "string"
+                    },
+                    "inventoryItemGroupKey": {
+                        "description": "This is the unique identifier of the inventory item group. This identifier is created by the seller when an inventory item group is created. This field is only applicable to the <strong>getInventoryItemGroup<\/strong> call and not to the <strong>createOrReplaceInventoryItemGroup<\/strong> call. In the <strong>createOrReplaceInventoryItemGroup<\/strong> call, the <strong>inventoryItemGroupKey<\/strong> value is passed into the end of the call URI instead. ",
+                        "type": "string"
+                    },
+                    "marketplaceId": {
+                        "description": "This is the unique identifier of the eBay site for which  listing fees for the offer are applicable. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/inventory\/types\/MarketplaceEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "inventoryItems": {
+                        "description": "This container is an array of one or more inventory items, with detailed information on each inventory item.",
+                        "type": "array"
+                    },
+                    "errors": {
+                        "description": "This container will be returned if there were one or more errors associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    },
+                    "warnings": {
+                        "description": "This container will be returned if there were one or more warnings associated with the creation or update to the inventory item record.",
+                        "type": "array"
+                    }
+                }
+            },
+            "BulkMigrateListing": {
+                "type": "object",
+                "properties": {
+                    "requests": {
+                        "description": "The seller passes in multiple SKU values under this container to retrieve multiple inventory item records. Up to 25 inventory item records can be retrieved at one time.",
+                        "type": "array"
+                    }
+                }
+            }
+        }
+    }
+}
