@@ -1,0 +1,451 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "v1.0.0",
+        "title": "Analytics API",
+        "description": "The Analytics API provides information about a seller's business performance. The getTrafficReport method shows how buyers are engaging with listings and the getSellerStandardsProfile methods show if the seller is meeting buyer expectations.",
+        "termsOfService": "http:\/\/exmple.com\/license\/"
+    },
+    "servers": [
+        "http:\/\/api.ebay.com\/sell\/analytics\/v1"
+    ],
+    "paths": {
+        "\/seller_standards_profile": {
+            "get": {
+                "summary": "",
+                "description": "This call retrieves all the profiles for the associated seller.",
+                "operationId": "FindSellerStandardsProfiles",
+                "deprecated": 0,
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/FindSellerStandardsProfilesResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/seller_standards_profile\/{program}\/{cycle}": {
+            "get": {
+                "summary": "",
+                "description": "This call retrieves seller's profiles based on a program or cycle. Each program has one or two cycles (CURRENT or PROJECTED), where each cycle is limited to a single profile.",
+                "operationId": "GetSellerStandardsProfile",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "cycle",
+                        "in": "path",
+                        "description": "Specifies the cycle of the requested profile."
+                    },
+                    {
+                        "name": "program",
+                        "in": "path",
+                        "description": "Specifies the program of the requested profile."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/FindSellerStandardsProfilesResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/traffic_report": {
+            "get": {
+                "summary": "",
+                "description": "This call returns a report that details the user-traffic a seller's listings receives. This gives sellers the ability to see such things as how often their listing appeared on eBay, how many times the listings are viewed, and how many purchases were made. In addition to the information requested, the traffic report contains general information about the criteria eBay used to generate the report (such as the report's start and end dates and the basis of the report). In the report itself, the metr",
+                "operationId": "GetTrafficReport",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "dimension",
+                        "in": "query",
+                        "description": "Specifies the basis of the report data. For example: If you specify dimension=day and metric=CLICK_THROUGH_RATE, the traffic report would contain the number of times a buyer saw a listing impression and then clicked through to the listing page for each day in the date range. If you specify dimension=listing and metric=LISTING_IMPRESSION_STORE, the traffic report would contain the number of times that listing appeared on the seller's store. Valid values: &nbsp;&nbsp;DAY &nbsp;&nbsp;LISTING Requir"
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Limits the report data returned. You can refine the report data returned using the date_range, listing_ids, and marketplace_ids filters. date_range This limits the report to a date range. You can get up a total of 90 days going back as far as 2 years, defined as 365 * 2 days. eBay returns an error (and not data) if you pass in a date range greater than 90 days, or the start date is after the latest date in which traffic data exists (known as the lastUpdatedDate). If the range is beyond the lastU"
+                    },
+                    {
+                        "name": "metric",
+                        "in": "query",
+                        "description": "Specifies a comma separated list of the metrics you want included in the report. Valid values: CLICK_THROUGH_RATE The number of times a buyer saw a listing impression and then clicked through to the listing page. Localized name: Click through rate LISTING_IMPRESSION_SEARCH_RESULTS_PAGE The number of times the seller's listings appeared on the search results page. However, the listing might not have been visible to the buyer because of its position on the page. Localized name: Listing impressions"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Specifies a single metric to be sorted and whether you want to sort in ascending or descending order. Specifying a metric in this field, sorts that data in ascending order. To sort in descending order add - in front of the metric. This is helpful when the seller wants to see metrics starting with the greatest number, such as the CLICK_THROUGH_RATE (sort=-CLICK_THROUGH_RATE). Default: ascending If null: Sorts by the first metric specified in ascending order Maximum metric: 1 Valid Values: metric "
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/FindSellerStandardsProfilesResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Cycle": {
+                "type": "object",
+                "properties": {
+                    "cycleType": {
+                        "description": "The cycle type, either CURRENT or PROJECTED. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/analytics\/types\/CycleTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "evaluationDate": {
+                        "description": "The date on which the current, effective seller level was computed.",
+                        "type": "string"
+                    },
+                    "evaluationMonth": {
+                        "description": "The month in which the current, effective seller level was computed.",
+                        "type": "string"
+                    }
+                }
+            },
+            "FindSellerStandardsProfilesResponse": {
+                "type": "object",
+                "properties": {
+                    "standardsProfiles": {
+                        "description": "A list standards profiles for the seller. A standardsProfile is a combination of cycle and a program.",
+                        "type": "array"
+                    }
+                }
+            },
+            "standardsProfiles": {
+                "type": "array"
+            },
+            "Metric": {
+                "type": "object",
+                "properties": {
+                    "level": {
+                        "description": "Indicates the seller level for this metric. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/analytics\/types\/StandardsLevelEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "lookbackEndDate": {
+                        "description": "The end date of the period during which the seller was evaluated for the associated metric.",
+                        "type": "string"
+                    },
+                    "lookbackStartDate": {
+                        "description": "The beginning date of the period during which the seller was evaluated for the associated metric.",
+                        "type": "string"
+                    },
+                    "metricKey": {
+                        "description": "The name of the metric. For example, Defect rate.",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The complete name of the metric for which the seller is being evaluated. This value is localized according to the value of the X-EBAY-C-MARKETPLACE-ID request header.",
+                        "type": "string"
+                    },
+                    "thresholdLowerBound": {
+                        "description": "The lower limit of the metric threshold used in the evaluation. Each program can have different threshold levels.",
+                        "type": "object"
+                    },
+                    "thresholdMetaData": {
+                        "description": "Expression for the type of metric, and the inclusive and exclusive characteristics of the upper and lower bounds of the threshold. Thresholds are shown for either a count or a rate. For example, the following metadata means that to maintain the level for this metric, you must continue to have a value of 90 or better, and there is no upper bound for this metric: [90, NA) Metadata values are enclosed by parentheses and\/or square brackets. A parenthesis means the adjacent value is exclusive, while a square bracket means the adjacent value is inclusive.",
+                        "type": "string"
+                    },
+                    "thresholdUpperBound": {
+                        "description": "The upper limit of the metric threshold used in the evaluation. Each program can have different threshold levels.",
+                        "type": "object"
+                    },
+                    "type": {
+                        "description": "Indicates the data type of the returned metric, such as a string or integer value. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/analytics\/types\/DataTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The seller's value, or score, for the metric.",
+                        "type": "object"
+                    }
+                }
+            },
+            "thresholdLowerBound": {
+                "type": "object"
+            },
+            "thresholdUpperBound": {
+                "type": "object"
+            },
+            "value": {
+                "type": "object",
+                "properties": {
+                    "applicable": {
+                        "description": "This indicates if the value is valid. A value is valid if the service was able to computed it. When this value is false it means one of the values in the calculation was zero and will be rare. For example, a buyer is viewing the item at 11:59pm but purchased it at 12:10am, if this was the only view for that day, there would be 1 transaction and no views. For dimensionValues, this will always be set to true.",
+                        "type": "boolean"
+                    },
+                    "value": {
+                        "description": "The seller's value, or score, for the metric.",
+                        "type": "object"
+                    }
+                }
+            },
+            "StandardsProfile": {
+                "type": "object",
+                "properties": {
+                    "Cycle": {
+                        "description": "A complex type that describes a program cycle.",
+                        "type": "object"
+                    },
+                    "cycle": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "defaultProgram": {
+                        "description": "If set to true, it indicates this is the default program. Except for sellers in China, a seller's default program is the site where the seller registered with eBay. Seller's in China select their default program when they register.",
+                        "type": "boolean"
+                    },
+                    "evaluationReason": {
+                        "description": "The type of logic used to calculate your overall seller level. eBay may override your calculated seller level if eBay determines there are special circumstances that warrant an override. In general, overrides performed by eBay protect your seller level.",
+                        "type": "string"
+                    },
+                    "metrics": {
+                        "description": "A list of the metrics that contributed to the evaluation. See the applicable metrics and requirements for each program: eBay Top Rated seller program standards",
+                        "type": "array"
+                    },
+                    "program": {
+                        "description": "Indicates the program to which the profile belongs. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/analytics\/types\/ProgramEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "standardsLevel": {
+                        "description": "Indicates the overall standards level of the seller. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/analytics\/types\/StandardsLevelEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "metrics": {
+                "type": "array"
+            },
+            "Definition": {
+                "type": "object",
+                "properties": {
+                    "dataType": {
+                        "description": "Indicates the date type of the dimension. For example, if the dimension is day, this value will be DATE. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/analytics\/types\/DataTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "key": {
+                        "description": "The value submitted in the dimension field or metric field of the request. Note: For dimension, this will be set to listing_ids if you are passing listing IDs into the filter parameter.",
+                        "type": "string"
+                    },
+                    "localizedName": {
+                        "description": "A value that is translated into the language based on the value of the Accept-Language HTTP request header. For example, if Accept-Language is set to de-DE, the value &quot;day&quot; in the dimension container is returned as &quot;tag&quot; and a metric of TRANSACTION is set to &quot;Transaktionsanzahl&quot;.",
+                        "type": "string"
+                    }
+                }
+            },
+            "Header": {
+                "type": "object",
+                "properties": {
+                    "dimensionKeys": {
+                        "description": "The container that returns the dimension header of the report. The dimension value submitted in the request is returned in the key field.",
+                        "type": "array"
+                    },
+                    "metrics": {
+                        "description": "A list of the metrics that contributed to the evaluation. See the applicable metrics and requirements for each program: eBay Top Rated seller program standards",
+                        "type": "array"
+                    }
+                }
+            },
+            "dimensionKeys": {
+                "type": "array"
+            },
+            "Metadata": {
+                "type": "object",
+                "properties": {
+                    "metadataHeader": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "metadataRecords": {
+                        "description": "The container that returns the metadata records.",
+                        "type": "array"
+                    }
+                }
+            },
+            "metadataHeader": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "description": "The value submitted in the dimension field or metric field of the request. Note: For dimension, this will be set to listing_ids if you are passing listing IDs into the filter parameter.",
+                        "type": "string"
+                    },
+                    "metadataKeys": {
+                        "description": "The container that returns the metadata header information. For example: &nbsp;&quot;metadataKeys&quot;: [ &nbsp;&nbsp;&quot;key&quot;: &quot;LISTING_TITLE&quot;, &nbsp;&nbsp;&quot;localizedName&quot;: &quot;Listing title&quot;, &nbsp;&nbsp;&quot;dataType&quot;: &quot;STRING&quot;",
+                        "type": "array"
+                    }
+                }
+            },
+            "metadataRecords": {
+                "type": "array"
+            },
+            "metadataKeys": {
+                "type": "array"
+            },
+            "MetadataRecord": {
+                "type": "object",
+                "properties": {
+                    "metadataValues": {
+                        "description": "The container that returns the metadata values. For example the listing title: &quot;metadataValues&quot;: [ &nbsp;&nbsp;{ &nbsp;&nbsp;&nbsp;&nbsp;&quot;value&quot;: &quot;Paul Mitchell curls detangling shampoo 8.5oz.&quot;, &nbsp;&nbsp;&nbsp;&nbsp;&quot;applicable&quot;: true &nbsp;&nbsp;} ]",
+                        "type": "array"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "metadataValues": {
+                "type": "array"
+            },
+            "Record": {
+                "type": "object",
+                "properties": {
+                    "dimensionValues": {
+                        "description": "The container for the dimension value. For example: &quot;value&quot;: &quot;142133954229&quot;,, which is the listing ID.",
+                        "type": "array"
+                    },
+                    "metricValues": {
+                        "description": "The container for the metric value and the indicator of whether the service was able to computed this value.",
+                        "type": "array"
+                    }
+                }
+            },
+            "dimensionValues": {
+                "type": "array"
+            },
+            "metricValues": {
+                "type": "array"
+            },
+            "Report": {
+                "type": "object",
+                "properties": {
+                    "dimensionMetadata": {
+                        "description": "The container that returns the metadata of the dimension.",
+                        "type": "array"
+                    },
+                    "endDate": {
+                        "description": "The end date range for the data in this report. If you specify an end date that is beyond the lastUpdatedDate value, eBay returns a report that contains data only up to that date.",
+                        "type": "string"
+                    },
+                    "Header": {
+                        "description": "Type that defines the dimension key and metrics headers of the report.",
+                        "type": "object"
+                    },
+                    "header": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "lastUpdatedDate": {
+                        "description": "The date and time the report was last updated.",
+                        "type": "string"
+                    },
+                    "records": {
+                        "description": "The container for the individual records.",
+                        "type": "array"
+                    },
+                    "startDate": {
+                        "description": "The start of the date range that the report covers.",
+                        "type": "string"
+                    },
+                    "warnings": {
+                        "description": "An array of any process errors or warnings that were generated during the call processing. This is applicable only when you specify a set of listing IDs.",
+                        "type": "array"
+                    }
+                }
+            },
+            "dimensionMetadata": {
+                "type": "array"
+            },
+            "records": {
+                "type": "array"
+            },
+            "warnings": {
+                "type": "array"
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "category": {
+                        "description": "Identifies the type of error.",
+                        "type": "string"
+                    },
+                    "domain": {
+                        "description": "Name for the primary system where the error occurred. This is relevant for application errors.",
+                        "type": "string"
+                    },
+                    "errorId": {
+                        "description": "A unique number to identify the error.",
+                        "type": "integer"
+                    },
+                    "inputRefIds": {
+                        "description": "An array of request elements most closely associated to the error.",
+                        "type": "array"
+                    },
+                    "longMessage": {
+                        "description": "A more detailed explanation of the error.",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "Information on how to correct the problem, in the end user's terms and language where applicable.",
+                        "type": "string"
+                    },
+                    "outputRefIds": {
+                        "description": "An array of request elements most closely associated to the error.",
+                        "type": "array"
+                    },
+                    "parameters": {
+                        "description": "An array of name\/value pairs that describe details the error condition. These are useful when multiple errors are returned.",
+                        "type": "array"
+                    },
+                    "subdomain": {
+                        "description": "Further helps indicate which subsystem the error is coming from. System subcategories include: Initialization, Serialization, Security, Monitoring, Rate Limiting, etc.",
+                        "type": "string"
+                    }
+                }
+            },
+            "inputRefIds": {
+                "type": "array"
+            },
+            "outputRefIds": {
+                "type": "array"
+            },
+            "parameters": {
+                "type": "array"
+            },
+            "ErrorParameter": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "The complete name of the metric for which the seller is being evaluated. This value is localized according to the value of the X-EBAY-C-MARKETPLACE-ID request header.",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The value of the object.",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
