@@ -1,0 +1,2573 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "",
+        "title": "Ebay",
+        "description": "The eBay platform offers an unprecedented opportunity to build a new eBay business or expand your current business, reach new customers, and create a potential new stream of revenue. Leverage the resources of the eBay Developers Program to tap into the eBay Marketplace with millions of active users globally, with tools and services that meet the diverse needs of buyers and sellers.",
+        "termsOfService": ""
+    },
+    "servers": [
+        "httpsapi.ebay.com\/"
+    ],
+    "paths": {
+        "\/item\/get_item_by_legacy_id": {
+            "get": {
+                "summary": "Get Item Get Item By Legacy",
+                "description": "This call is a bridge between the eBay legacy APIs, such as Trading, Shopping, and Finding and the eBay Buy APIs. There are differences between how legacy APIs and RESTful APIs return the identifier of an &quot;item&quot;. There is also a difference in what the item Id represents and in the format of the item Id value returned. This call lets you use the legacy item Ids retrieve the details of a specific item, such as description, price, and other information the buyer needs to make a purchasing",
+                "operationId": "GetItemByLegacyId",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "fieldgroups",
+                        "in": "query",
+                        "description": "This field lets you control what is returned in the response. If you do not set this field, the call returns all the details of the item. Note: In this call, the only value supported is PRODUCT. Valid values: PRODUCT - This adds the additionalImages, additionalProductIdentities, aspectGroups, description, gtins, image, and title fields to the response, which describe the item's product. See Product for more information about these fields."
+                    },
+                    {
+                        "name": "legacy_item_id",
+                        "in": "query",
+                        "description": "Specifies either: The legacy item Id of an item that is not part of a group. The legacy item Id of a group, which is the Id of the &quot;parent&quot; of the group of items. Note: If you pass in a group Id, you must also use the legacy_variation_id field and pass in the legacy Id of the specific item variation (child Id). Legacy Ids are returned by eBay traditional APIs, such as the Trading API or Finding API. The following is an example of using the value of the ItemID field for a specific item "
+                    },
+                    {
+                        "name": "legacy_variation_id",
+                        "in": "query",
+                        "description": "Specifies the legacy item Id of a specific item in an item group, such as the red shirt size L. Legacy Ids are returned by eBay traditional APIs, such as the Trading API or Finding API. Maximum: 1 Requirement: You must always pass in the legacy_item_id with the legacy_variation_id"
+                    },
+                    {
+                        "name": "legacy_variation_sku",
+                        "in": "query",
+                        "description": "Specifics the legacy SKU of the item. SKU are item Ids created by the seller. Legacy SKUs are returned by eBay traditional APIs, such as the Trading API or Finding API. The following is an example of using the value of the ItemID and SKU fields, which were returned by the Trading API, to get the RESTful itemId value. &nbsp;&nbsp;&nbsp; browse\/v1\/item\/get_item_by_legacy_id?legacy_item_id=110039490209&amp;legacy_variation_sku=V-00031-WHM Maximum: 1 Requirement: You must always pass in the legacy_i"
+                    }
+                ]
+            }
+        },
+        "\/item\/get_items_by_item_group": {
+            "get": {
+                "summary": "Get Item Get Items By Item Group",
+                "description": "This call retrieves the details of the individual items in an item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. You pass in the item group Id as a URI parameter. You use this call to show the item details of items with multiple aspects, such as color, size, storage capacity, etc. This call returns two main containers; items and commonDescriptions. The items container has an array of containers with the details of each item in th",
+                "operationId": "GetItemsByItemGroup",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "item_group_id",
+                        "in": "query",
+                        "description": "Identifier of the item group to return. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. This Id is returned in the itemGroupHref field of the search and getItem calls. For Example: https:\/\/api.ebay.com\/buy\/browse\/v1\/item\/get_items_by_item_group?item_group_id=351825690866"
+                    }
+                ]
+            }
+        },
+        "\/item\/{item_id}": {
+            "get": {
+                "summary": "Get Item Item",
+                "description": "This call retrieves the details of a specific item, such as description, price, category, all item aspects, condition, return policies, seller feedback and score, shipping options, shipping costs, estimated delivery, and other information the buyer needs to make a purchasing decision. The Buy APIs are designed to let you create an eBay shopping experience in your app or website. This means you will need to know when something, such as the availability, quantity, etc., has changed in any eBay ite",
+                "operationId": "GetItem",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "fieldgroups",
+                        "in": "query",
+                        "description": "This field lets you control what is returned in the response. If you do not set this field, the call returns all the details of the item. Note: In this call, the only value supported is PRODUCT. Valid values: PRODUCT - This adds the additionalImages, additionalProductIdentities, aspectGroups, description, gtins, image, and title fields to the response, which describe the item's product. See Product for more information about these fields."
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "path",
+                        "description": "The eBay identifier of an item. This Id is returned by the Browse and Feed API calls. The Id must be in RESTful item Id format. For example: v1|262446562346|561248611424 or v1|112330214619|0. For more information about item Id for RESTful APIs, see the Legacy API compatibility section of the Buy APIs Overview."
+                    }
+                ]
+            }
+        },
+        "\/item_summary\/search": {
+            "get": {
+                "summary": "Get Item Summary Search",
+                "description": "This call performs an advanced search for items. You can search by keyword, category, eBay product Id (EPID), or gtin. Or a combination of these. Encoding Parameters and Headers As with all query parameter values, the fields parameter value and request header values must be URL encoded. For better readability, the examples in this document omit the encoding. Example: &nbsp;&nbsp;search?q=world cup soccer ball&amp;aspect_filter=categoryId:20863,Brand:{Nike|Wilson} Encoded Example: &nbsp;&nbsp; se",
+                "operationId": "Search",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "aspect_filter",
+                        "in": "query",
+                        "description": "The aspect name\/value pairs and category, which is required, to use to limit the results. For example, in a clothing category one aspect pair would be Color\/Red. For example, the call below uses the category Id for Women's Clothing. This will return only items for a woman's red shirt. \/buy\/browse\/v1\/item_summary\/search?q=shirt&amp;aspect_filter=categoryId:15724,Color:{Red} To get a list of the aspects pairs and the category, which is returned in the dominantCategoryId field, set fieldgroups to A"
+                    },
+                    {
+                        "name": "category_ids",
+                        "in": "query",
+                        "description": "The category Ids to use to limit the results. This field can have one category Id or a comma separated list of Ids. For example: &nbsp;&nbsp;&nbsp;GET https:\/\/api.ebay.com\/buy\/browse\/v1\/item_summary\/search?category_ids=29792 Note: Currently, you can pass in only one category Id. You can also use any combination of the category_Ids, epid, and q fields. This gives you additional control over the result set. For example, let's say you are looking of a toy phone. If you search for &quot;phone&quot;,"
+                    },
+                    {
+                        "name": "epid",
+                        "in": "query",
+                        "description": "The EPID is the eBay product identifier of a product from the eBay product catalog. Only items in the specified EPID are returned. The Marketing API getMerchandisedProducts call and the getItem, getItemByLegacyId, and getItemsByItemGroup calls return the EPID of the product. &nbsp;&nbsp;&nbsp;\/buy\/browse\/v1\/item_summary\/search?epid:{15032} Maximum: 1 Required: The call must have category_ids, epid, gtin, or q (or any combination of these)"
+                    },
+                    {
+                        "name": "fieldgroups",
+                        "in": "query",
+                        "description": "This field lets you control what is returned in the response. If you do not set this field, the call returns all the details of the item. Note: In this call, the only value supported is PRODUCT. Valid values: PRODUCT - This adds the additionalImages, additionalProductIdentities, aspectGroups, description, gtins, image, and title fields to the response, which describe the item's product. See Product for more information about these fields."
+                    },
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "This field supports multiple field filters that can be used to use to limit\/customize the result set. For example: &nbsp;&nbsp;&nbsp;GET https:\/\/api.ebay.com\/buy\/browse\/v1\/item_summary\/search?q=shirt&amp;filter=price:[10..50] You can also combine filters. &nbsp;&nbsp;&nbsp;GET https:\/\/api.ebay.com\/buy\/browse\/v1\/item_summary\/search?q=shirt&amp;filter=price:[10..50],sellers:{rpseller|bigSal} The following are the supported filters. For details and examples for all the filters, see search Call Fiel"
+                    },
+                    {
+                        "name": "gtin",
+                        "in": "query",
+                        "description": "This field lets you search by the Global Trade Item Number of the item as defined by http:\/\/www.gtin.info. This can be a UPC (Universal Product Code), EAN (European Article Number), or an ISBN (International Standard Book Number) value. &nbsp;&nbsp;&nbsp;\/buy\/browse\/v1\/item_summary\/search?gtin:{099482432621} Maximum: 1 Required: The call must have category_ids, epid, gtin, or q (or any combination of these)"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The number of items in a result set. Default: 50 Maximum per result set: 200 Maximum number of items returned: 10,000"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "The number of items to skip in the result set. This is used with the limit field to control the pagination of the output. If offset is 0 and limit is 10, the call will retrieve items 1-10 from the list of items returned, if offset is 10 and limit is 10, the call will retrieve items 11 thru 20 from the list of items returned. Valid Values: 0-10,000 (inclusive) Default: 0 Maximum number of items returned: 10,000"
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "A string consisting of one or more words that are used for a search of items on eBay. For example: &quot;iphone&quot; or &quot;Harry Potter&quot;. When keywords are separated by a comma, the comma is ignored. So a keyword of &quot;iphone, ipad&quot; is the same as using &quot;iphone ipad&quot;. Both queries return items that have iphone or ipad. Restriction: The * wildcard character is not allowed in this field. Required: The call must have category_ids, epid, gtin, or q (or any combination of t"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Specifies the order and the field name to use to sort the items. To sort in descending order use - before the field name. Currently, you can only sort by price (in ascending or descending order), or by distance (only applicable if the &quot;pickup&quot; filters are used, and only ascending order is supported). If no sort parameter is submitted, the result set is sorted by &quot;Best Match&quot;. The following are examples of using the sort query parameter. Sort Result &amp;sort=price Sorts by pr"
+                    }
+                ]
+            }
+        },
+        "\/item": {
+            "get": {
+                "summary": "Get Item",
+                "description": "The Item feed file is generated each day. This call lets you download a daily TSV_GZIP (tab separated value gzip) Item feed file of all the items that were listed on a specific day in a specific category. For each item, all the item details are returned, except for the item description. The description of each item is excluded because these can be huge and items in an item group (an item with variations, such as size and color) can share the same description. The item descriptions are returned i",
+                "operationId": "GetItemFeed",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "X",
+                        "in": "header",
+                        "description": "The ID for the eBay marketplace where the items are hosted. For example: &nbsp;&nbsp;X-EBAY-C-MARKETPLACE-ID = EBAY-US For a list of supported sites see, API Restrictions."
+                    },
+                    {
+                        "name": "Range",
+                        "in": "header",
+                        "description": "This header specifies the range in bytes of the chunks of the gzip file being returned. Format: bytes=startpos-endpos For example, the following retrieves the first 10 MBs of the feed file. &nbsp;&nbsp;Range bytes=0-10485760 For more information about using this headers, see Retrieving a gzip feed file. Maximum: 100 MB"
+                    },
+                    {
+                        "name": "feed_scope",
+                        "in": "query",
+                        "description": "Controls the contents of the feed file. Valid Value: NEWLY_LISTED - Contains all items that were listed on the day specified by the date parameter in the category specified by the category_id parameter. The items will be Good 'til Cancelled and non-Good 'til Cancelled items. If the item is a non-Good 'til Cancelled item, the item's end date will be returned in the itemEndDate column. \/item?feed_scope=NEWLY_LISTED&amp;category_id=15032&amp;date=20170925"
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "An eBay top-level category ID of the items to be returned in the feed file. The list of eBay category IDs is not published and category IDs are not all the same across all the eBay maketplace. You can use the following techniques to find a category by site. Use the Category Changes page. Use the Taxonomy API getCategoryTree call. For details see Get Categories for Buy APIs. \/commerce\/taxonomy\/v1_beta\/category_tree\/0 Restriction: Must be a top-level category"
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "The date of the feed file you want. The Item feed files are generated every day and there are always 7 daily feed files available. Important: The daily generated files are available each day after 9am MST (US Mountain Standard Time), which is -7 hours UTC time. There is a 48 hour latency when generating the files. This means you can download the file for July 10th on July 12 after 9am MST. Format: yyyyMMdd Requirement: Must be within 3-10 days in the past"
+                    }
+                ]
+            }
+        },
+        "\/item_description": {
+            "get": {
+                "summary": "Get Item Description",
+                "description": "The Description feed file is generated each day. This call lets you download a daily TSV_GZIP (tab separated value gzip) Description feed file containing the descriptions of all the items that were listed on a specific day in a specific category. To store the complete item details, you would always run the getItemFeed and getItemDescriptionFeed calls with the same parameters. &nbsp;&nbsp;&nbsp; \/item?feed_scope=NEWLY_LISTED&amp;category_id=625&amp;date=20170918 &nbsp;&nbsp;&nbsp; \/item_descripti",
+                "operationId": "GetItemDescriptionFeed",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "X",
+                        "in": "header",
+                        "description": "The ID for the eBay marketplace where the items are hosted. For example: &nbsp;&nbsp;X-EBAY-C-MARKETPLACE-ID = EBAY-US For a list of supported sites see, API Restrictions."
+                    },
+                    {
+                        "name": "Range",
+                        "in": "header",
+                        "description": "This header specifies the range in bytes of the chunks of the gzip file being returned. Format: bytes=startpos-endpos For example, the following retrieves the first 10 MBs of the feed file. &nbsp;&nbsp;Range bytes=0-10485760 For more information about using this headers, see Retrieving a gzip feed file. Maximum: 100 MB"
+                    },
+                    {
+                        "name": "feed_scope",
+                        "in": "query",
+                        "description": "Controls the contents of the feed file. Valid Value: NEWLY_LISTED - Contains all items that were listed on the day specified by the date parameter in the category specified by the category_id parameter. The items will be Good 'til Cancelled and non-Good 'til Cancelled items. If the item is a non-Good 'til Cancelled item, the item's end date will be returned in the itemEndDate column. \/item?feed_scope=NEWLY_LISTED&amp;category_id=15032&amp;date=20170925"
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "An eBay top-level category ID of the items to be returned in the feed file. The list of eBay category IDs is not published and category IDs are not all the same across all the eBay maketplace. You can use the following techniques to find a category by site. Use the Category Changes page. Use the Taxonomy API getCategoryTree call. For details see Get Categories for Buy APIs. \/commerce\/taxonomy\/v1_beta\/category_tree\/0 Restriction: Must be a top-level category"
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "The date of the feed file you want. The Item feed files are generated every day and there are always 7 daily feed files available. Important: The daily generated files are available each day after 9am MST (US Mountain Standard Time), which is -7 hours UTC time. There is a 48 hour latency when generating the files. This means you can download the file for July 10th on July 12 after 9am MST. Format: yyyyMMdd Requirement: Must be within 3-10 days in the past"
+                    }
+                ]
+            }
+        },
+        "\/merchandised_product": {
+            "get": {
+                "summary": "Get Merchandised Product",
+                "description": "This call returns an array of products based on the category and metric specified. This includes details of the product, such as the eBay product Id (EPID), title, and user reviews and ratings for the product. You can use the epid returned by this call in the Browse API search call to retrieve items for this product. Restrictions For a list of supported sites and other restrictions, see API Restrictions.",
+                "operationId": "GetMerchandisedProducts",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "aspect_filter",
+                        "in": "query",
+                        "description": "The aspect name\/value pairs and category, which is required, to use to limit the results. For example, in a clothing category one aspect pair would be Color\/Red. For example, the call below uses the category Id for Women's Clothing. This will return only items for a woman's red shirt. \/buy\/browse\/v1\/item_summary\/search?q=shirt&amp;aspect_filter=categoryId:15724,Color:{Red} To get a list of the aspects pairs and the category, which is returned in the dominantCategoryId field, set fieldgroups to A"
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "An eBay top-level category ID of the items to be returned in the feed file. The list of eBay category IDs is not published and category IDs are not all the same across all the eBay maketplace. You can use the following techniques to find a category by site. Use the Category Changes page. Use the Taxonomy API getCategoryTree call. For details see Get Categories for Buy APIs. \/commerce\/taxonomy\/v1_beta\/category_tree\/0 Restriction: Must be a top-level category"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The number of items in a result set. Default: 50 Maximum per result set: 200 Maximum number of items returned: 10,000"
+                    },
+                    {
+                        "name": "metric_name",
+                        "in": "query",
+                        "description": "This value filters the result set by the specified metric. Only products in this metric are returned. Currently, the only metric supported is BEST_SELLING. Default: BEST_SELLING Maximum: 1 Required: 1"
+                    }
+                ]
+            }
+        },
+        "\/merchandised_product\/get_also_bought_products": {
+            "get": {
+                "summary": "Get Merchandised Product Get Also Bought Products",
+                "description": "This call returns products that were also bought when shoppers bought the product specified in the request. Showing 'also bought' products inspires up-selling and cross-selling. You specify the product by one of the following. epid (eBay Product Id) gtin (Global Trade Item Number) brand (brand name such as Nike) plus mpn (Manufacturer's Part Number) Restrictions For a list of supported sites and other restrictions, see API Restrictions. Maximum: A maximum of 12 products are returned. The call wi",
+                "operationId": "GetAlsoBoughtByProduct",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "brand",
+                        "in": "query",
+                        "description": "The brand of the product. Restriction: This must be used along with mpn. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    },
+                    {
+                        "name": "epid",
+                        "in": "query",
+                        "description": "The EPID is the eBay product identifier of a product from the eBay product catalog. Only items in the specified EPID are returned. The Marketing API getMerchandisedProducts call and the getItem, getItemByLegacyId, and getItemsByItemGroup calls return the EPID of the product. &nbsp;&nbsp;&nbsp;\/buy\/browse\/v1\/item_summary\/search?epid:{15032} Maximum: 1 Required: The call must have category_ids, epid, gtin, or q (or any combination of these)"
+                    },
+                    {
+                        "name": "gtin",
+                        "in": "query",
+                        "description": "This field lets you search by the Global Trade Item Number of the item as defined by http:\/\/www.gtin.info. This can be a UPC (Universal Product Code), EAN (European Article Number), or an ISBN (International Standard Book Number) value. &nbsp;&nbsp;&nbsp;\/buy\/browse\/v1\/item_summary\/search?gtin:{099482432621} Maximum: 1 Required: The call must have category_ids, epid, gtin, or q (or any combination of these)"
+                    },
+                    {
+                        "name": "mpn",
+                        "in": "query",
+                        "description": "The manufacturer part number of the product. Restriction: This must be used along with brand. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    }
+                ]
+            }
+        },
+        "\/merchandised_product\/get_also_viewed_products": {
+            "get": {
+                "summary": "Get Merchandised Product Get Also Viewed Products",
+                "description": "This call returns products that were also viewed when shoppers viewed the product specified in the request. Showing 'also viewed' products encourages up-selling and cross-selling. You specify the product by one of the following. epid (eBay Product Id) gtin (Global Trade Item Number) brand (brand name such as Nike) plus mpn (Manufacturer's Part Number) Restrictions For a list of supported sites and other restrictions, see API Restrictions. Maximum: A maximum of 12 products are returned. The call ",
+                "operationId": "GetAlsoViewedByProduct",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "brand",
+                        "in": "query",
+                        "description": "The brand of the product. Restriction: This must be used along with mpn. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    },
+                    {
+                        "name": "epid",
+                        "in": "query",
+                        "description": "The EPID is the eBay product identifier of a product from the eBay product catalog. Only items in the specified EPID are returned. The Marketing API getMerchandisedProducts call and the getItem, getItemByLegacyId, and getItemsByItemGroup calls return the EPID of the product. &nbsp;&nbsp;&nbsp;\/buy\/browse\/v1\/item_summary\/search?epid:{15032} Maximum: 1 Required: The call must have category_ids, epid, gtin, or q (or any combination of these)"
+                    },
+                    {
+                        "name": "gtin",
+                        "in": "query",
+                        "description": "This field lets you search by the Global Trade Item Number of the item as defined by http:\/\/www.gtin.info. This can be a UPC (Universal Product Code), EAN (European Article Number), or an ISBN (International Standard Book Number) value. &nbsp;&nbsp;&nbsp;\/buy\/browse\/v1\/item_summary\/search?gtin:{099482432621} Maximum: 1 Required: The call must have category_ids, epid, gtin, or q (or any combination of these)"
+                    },
+                    {
+                        "name": "mpn",
+                        "in": "query",
+                        "description": "The manufacturer part number of the product. Restriction: This must be used along with brand. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    }
+                ]
+            }
+        },
+        "\/category_tree\/{category_tree_id}": {
+            "get": {
+                "summary": "Get Category Tree Category Tree",
+                "description": "This call retrieves the complete category tree that is identified by the category_tree_id parameter. The value of category_tree_id was returned by the getDefaultCategoryTreeId call in the categoryTreeId field. The response contains details of all nodes of the specified eBay category tree, as well as the eBay marketplaces that use this category tree. Note: This call can return a very large payload, so you are strongly advised to submit the request with the following HTTP header: &nbsp;&nbsp;Accep",
+                "operationId": "GetCategoryTree",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "category_tree_id",
+                        "in": "path",
+                        "description": "The unique identifier of the eBay category tree being requested."
+                    }
+                ]
+            }
+        },
+        "\/category_tree\/{category_tree_id}\/get_category_subtree": {
+            "get": {
+                "summary": "Get Category Tree Category Tree  Get Category Subtree",
+                "description": "This call retrieves the details of all nodes of the category tree hierarchy (the subtree) below a specified category of a category tree. You identify the tree using the category_tree_id parameter, which was returned by the getDefaultCategoryTreeId call in the categoryTreeId field. Note: This call can return a very large payload, so you are strongly advised to submit the request with the following HTTP header: &nbsp;&nbsp;Accept-Encoding: application\/gzip With this header (in addition to the requ",
+                "operationId": "GetCategorySubtree",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "An eBay top-level category ID of the items to be returned in the feed file. The list of eBay category IDs is not published and category IDs are not all the same across all the eBay maketplace. You can use the following techniques to find a category by site. Use the Category Changes page. Use the Taxonomy API getCategoryTree call. For details see Get Categories for Buy APIs. \/commerce\/taxonomy\/v1_beta\/category_tree\/0 Restriction: Must be a top-level category"
+                    },
+                    {
+                        "name": "category_tree_id",
+                        "in": "path",
+                        "description": "The unique identifier of the eBay category tree being requested."
+                    }
+                ]
+            }
+        },
+        "\/category_tree\/{category_tree_id}\/get_category_suggestions": {
+            "get": {
+                "summary": "Get Category Tree Category Tree  Get Category Suggestions",
+                "description": "This call returns an array of category tree leaf nodes in the specified category tree that are considered by eBay to most closely correspond to the query string q. Returned with each suggested node is a localized name for that category (based on the Accept-Language header specified for the call), and details about each of the category's ancestor nodes, extending from its immediate parent up to the root of the category tree. Note: This call can return a large payload, so you are advised to submit",
+                "operationId": "GetCategorySuggestions",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "category_tree_id",
+                        "in": "path",
+                        "description": "The unique identifier of the eBay category tree being requested."
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "A string consisting of one or more words that are used for a search of items on eBay. For example: &quot;iphone&quot; or &quot;Harry Potter&quot;. When keywords are separated by a comma, the comma is ignored. So a keyword of &quot;iphone, ipad&quot; is the same as using &quot;iphone ipad&quot;. Both queries return items that have iphone or ipad. Restriction: The * wildcard character is not allowed in this field. Required: The call must have category_ids, epid, gtin, or q (or any combination of t"
+                    }
+                ]
+            }
+        },
+        "\/category_tree\/{category_tree_id}\/get_item_aspects_for_category": {
+            "get": {
+                "summary": "Get Category Tree Category Tree  Get Item Aspects For Category",
+                "description": "This call returns a list of aspects that are appropriate or necessary for accurately describing items in the specified leaf category. Each aspect identifies an item attribute (for example, color) for which the seller will be required or encouraged to provide a value (or variation values) when offering an item in that category on eBay. For each aspect, getItemAspectsForCategory provides complete metadata, including: The aspect's data type, format, and entry mode Whether the aspect is required in ",
+                "operationId": "GetItemAspectsForCategory",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "An eBay top-level category ID of the items to be returned in the feed file. The list of eBay category IDs is not published and category IDs are not all the same across all the eBay maketplace. You can use the following techniques to find a category by site. Use the Category Changes page. Use the Taxonomy API getCategoryTree call. For details see Get Categories for Buy APIs. \/commerce\/taxonomy\/v1_beta\/category_tree\/0 Restriction: Must be a top-level category"
+                    },
+                    {
+                        "name": "category_tree_id",
+                        "in": "path",
+                        "description": "The unique identifier of the eBay category tree being requested."
+                    }
+                ]
+            }
+        },
+        "\/get_default_category_tree_id": {
+            "get": {
+                "summary": "Get Get Default Category Tree",
+                "description": "A given eBay marketplace might use multiple category trees, but one of those trees is considered to be the default for that marketplace. This call retrieves a reference to the default category tree associated with the specified eBay marketplace ID. The response includes only the tree's unique identifier and version, which you can use to retrieve more details about the tree, its structure, and its individual category nodes.",
+                "operationId": "GetDefaultCategoryTreeId",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "marketplace_id",
+                        "in": "query",
+                        "description": "The ID of the eBay marketplace for which the category tree ID is being requested. For a list of supported marketplace IDs, see Marketplaces with Default Category Trees."
+                    }
+                ]
+            }
+        },
+        "\/order": {
+            "get": {
+                "summary": "Get Order",
+                "description": "Use this call to search for and retrieve one or more orders based on their creation date, last modification date, or fulfillment status using the filter parameter. You can alternatively specify a list of orders using the orderIds parameter. The returned Order objects contain information you can use to create and process fulfillments, including: Information about the buyer and seller Information about the order's line items The plans for packaging, addressing and shipping the order The status of ",
+                "operationId": "GetOrders",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "This field supports multiple field filters that can be used to use to limit\/customize the result set. For example: &nbsp;&nbsp;&nbsp;GET https:\/\/api.ebay.com\/buy\/browse\/v1\/item_summary\/search?q=shirt&amp;filter=price:[10..50] You can also combine filters. &nbsp;&nbsp;&nbsp;GET https:\/\/api.ebay.com\/buy\/browse\/v1\/item_summary\/search?q=shirt&amp;filter=price:[10..50],sellers:{rpseller|bigSal} The following are the supported filters. For details and examples for all the filters, see search Call Fiel"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "The number of items in a result set. Default: 50 Maximum per result set: 200 Maximum number of items returned: 10,000"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "The number of items to skip in the result set. This is used with the limit field to control the pagination of the output. If offset is 0 and limit is 10, the call will retrieve items 1-10 from the list of items returned, if offset is 10 and limit is 10, the call will retrieve items 11 thru 20 from the list of items returned. Valid Values: 0-10,000 (inclusive) Default: 0 Maximum number of items returned: 10,000"
+                    },
+                    {
+                        "name": "orderIds",
+                        "in": "query",
+                        "description": "A comma-separated list of the unique identifiers of the orders to retrieve (maximum 50). These values were originally generated by eBay as a result of the buyer's checkout process; for example, 170009092860-9849164007!140000000544476. These values are also returned in the orders.orderId field by invoking this call with filter parameters. Note: If the orderIds parameter is included in the request, all other query parameters will be ignored."
+                    }
+                ]
+            }
+        },
+        "\/order\/{orderId}": {
+            "get": {
+                "summary": "Get Order Order",
+                "description": "Use this call to retrieve the contents of an order based on its unique identifier, orderId. This value was returned in the getOrders call's orders.orderId field when you searched for orders by creation date, modification date, or fulfillment status. The returned Order object contains information you can use to create and process fulfillments, including: Information about the buyer and seller Information about the order's line items The plans for packaging, addressing and shipping the order The s",
+                "operationId": "GetOrder",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "The unique identifier of the order. This value was returned by the getOrders call in the orders.orderId field; for example, 170009092860-9849164007!140000000544476."
+                    }
+                ]
+            }
+        },
+        "\/order\/{orderId}\/shipping_fulfillment": {
+            "get": {
+                "summary": "Get Order Order Shipping Fulfillment",
+                "description": "Use this call to retrieve the contents of all fulfillments currently defined for a specified order based on the order's unique identifier, orderId. This value is returned in the getOrders call's members.orderId field when you search for orders by creation date or shipment status.",
+                "operationId": "GetShippingFulfillments",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "The unique identifier of the order. This value was returned by the getOrders call in the orders.orderId field; for example, 170009092860-9849164007!140000000544476."
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Add Order Order Shipping Fulfillment",
+                "description": "When you group an order's line items into one or more packages, each package requires a corresponding plan for handling, addressing, and shipping; this is a shipping fulfillment. For each package, execute this call once to generate a shipping fulfillment associated with that package. Note: A single line item in an order can consist of multiple units of a purchased item, and one unit can consist of multiple parts or components. Although these components might be provided by the manufacturer in se",
+                "operationId": "CreateShippingFulfillment",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "The unique identifier of the order. This value was returned by the getOrders call in the orders.orderId field; for example, 170009092860-9849164007!140000000544476."
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "fulfillment payload"
+                    }
+                ]
+            }
+        },
+        "\/order\/{orderId}\/shipping_fulfillment\/{fulfillmentId}": {
+            "get": {
+                "summary": "Get Order Order Shipping Fulfillment Fulfillment",
+                "description": "Use this call to retrieve the contents of a fulfillment based on its unique identifier, fulfillmentId (combined with the associated order's orderId). The fulfillmentId value was originally generated by the createShippingFulfillment call, and is returned by the getShippingFulfillments call in the members.fulfillmentId field.",
+                "operationId": "GetShippingFulfillment",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "fulfillmentId",
+                        "in": "path",
+                        "description": "The unique identifier of the fulfillment. This eBay-generated value was created by the Create Shipping Fulfillment call, and returned by the getShippingFulfillments call in the fulfillments.fulfillmentId field; for example, 9405509699937003457459."
+                    },
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "The unique identifier of the order. This value was returned by the getOrders call in the orders.orderId field; for example, 170009092860-9849164007!140000000544476."
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AdditionalProductIdentity": {
+                "type": "object",
+                "properties": {
+                    "productIdentity": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Address": {
+                "type": "object",
+                "properties": {
+                    "addressLine1": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "addressLine2": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "city": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "country": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "county": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "postalCode": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "stateOrProvince": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "countryCode": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Aspect": {
+                "type": "object",
+                "properties": {
+                    "localizedName": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "localizedValues": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "aspectValues": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "localizedAspectName": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "AspectDistribution": {
+                "type": "object",
+                "properties": {
+                    "aspectValueDistributions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "localizedAspectName": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "AspectGroup": {
+                "type": "object",
+                "properties": {
+                    "aspects": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "localizedGroupName": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "AspectValueDistribution": {
+                "type": "object",
+                "properties": {
+                    "localizedAspectValue": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "matchCount": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refinementHref": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "BuyingOptionDistribution": {
+                "type": "object",
+                "properties": {
+                    "buyingOption": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "matchCount": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refinementHref": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Category": {
+                "type": "object",
+                "properties": {
+                    "categoryId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryName": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "CategoryDistribution": {
+                "type": "object",
+                "properties": {
+                    "categoryId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryName": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "matchCount": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refinementHref": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "CommonDescriptions": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemIds": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ConditionDistribution": {
+                "type": "object",
+                "properties": {
+                    "condition": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "conditionId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "matchCount": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refinementHref": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ConvertedAmount": {
+                "type": "object",
+                "properties": {
+                    "convertedFromCurrency": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "convertedFromValue": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "currency": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "category": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "domain": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "errorId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "inputRefIds": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "longMessage": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "message": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "outputRefIds": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "parameters": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "subdomain": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ErrorParameter": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "EstimatedAvailability": {
+                "type": "object",
+                "properties": {
+                    "availabilityThreshold": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "availabilityThresholdType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "deliveryOptions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "estimatedAvailabilityStatus": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "estimatedAvailableQuantity": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "estimatedSoldQuantity": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Image": {
+                "type": "object",
+                "properties": {
+                    "height": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "imageUrl": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "width": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Item": {
+                "type": "object",
+                "properties": {
+                    "additionalImages": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "adultOnly": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "ageGroup": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "bidCount": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "brand": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "buyingOptions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryPath": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "color": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "condition": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "conditionId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "energyEfficiencyClass": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "epid": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "estimatedAvailabilities": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "gender": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "gtin": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemAffiliateWebUrl": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemEndDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemWebUrl": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "localizedAspects": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "material": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "mpn": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "pattern": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "priceDisplayCondition": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "productFicheWebUrl": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "quantityLimitPerBuyer": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sellerItemRevision": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingOptions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shortDescription": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "size": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sizeSystem": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sizeType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "subtitle": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "taxes": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "title": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "topRatedBuyingExperience": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "uniqueBidderCount": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "unitPricingMeasure": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "warnings": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "acceptedPaymentMethods": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "availability": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "availabilityThreshold": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "availabilityThresholdType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "category": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "estimatedAvailableQuantity": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "imageAlteringProhibited": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "imageUrl": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemLocationCountry": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "priceCurrency": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "priceValue": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "primaryItemGroupId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "primaryItemGroupType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refundMethod": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "restockingFeePercentage": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "returnInstructions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "returnMethod": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "returnPeriodUnit": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "returnPeriodValue": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "returnShippingCostPayer": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "returnsAccepted": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sellerFeedbackPercentage": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sellerFeedbackScore": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sellerTrustLevel": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sellerUsername": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ItemGroupSummary": {
+                "type": "object",
+                "properties": {
+                    "itemGroupAdditionalImages": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemGroupHref": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemGroupId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemGroupTitle": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemGroupType": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ItemLocationImpl": {
+                "type": "object",
+                "properties": {
+                    "addressLine1": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "addressLine2": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "city": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "country": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "county": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "postalCode": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "stateOrProvince": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ItemReturnTerms": {
+                "type": "object",
+                "properties": {
+                    "extendedHolidayReturnsOffered": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refundMethod": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "restockingFeePercentage": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "returnInstructions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "returnMethod": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "returnShippingCostPayer": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "returnsAccepted": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ItemSummary": {
+                "type": "object",
+                "properties": {
+                    "additionalImages": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "adultOnly": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "bidCount": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "buyingOptions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categories": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "condition": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "conditionId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "energyEfficiencyClass": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "epid": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemAffiliateWebUrl": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemGroupHref": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemGroupType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemHref": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemWebUrl": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "pickupOptions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingOptions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "thumbnailImages": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "title": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "unitPricingMeasure": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Items": {
+                "type": "object",
+                "properties": {
+                    "commonDescriptions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "items": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "LegalAddress": {
+                "type": "object",
+                "properties": {
+                    "addressLine1": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "addressLine2": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "city": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "country": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "countryName": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "county": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "postalCode": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "stateOrProvince": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "MarketingPrice": {
+                "type": "object",
+                "properties": {
+                    "discountPercentage": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "PickupOptionSummary": {
+                "type": "object",
+                "properties": {
+                    "pickupLocationType": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Product": {
+                "type": "object",
+                "properties": {
+                    "additionalImages": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "additionalProductIdentities": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "aspectGroups": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "brand": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "gtins": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "mpns": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "title": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ProductIdentity": {
+                "type": "object",
+                "properties": {
+                    "identifierType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "identifierValue": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "RatingHistogram": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "rating": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Refinement": {
+                "type": "object",
+                "properties": {
+                    "aspectDistributions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "buyingOptionDistributions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryDistributions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "conditionDistributions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "dominantCategoryId": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Region": {
+                "type": "object",
+                "properties": {
+                    "regionName": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "regionType": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ReviewRating": {
+                "type": "object",
+                "properties": {
+                    "averageRating": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "ratingHistograms": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "reviewCount": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "SearchPagedCollection": {
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemSummaries": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "limit": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "next": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "offset": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "prev": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "total": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "warnings": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Seller": {
+                "type": "object",
+                "properties": {
+                    "feedbackPercentage": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "feedbackScore": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sellerAccountType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "username": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "SellerLegalInfo": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "fax": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "imprint": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "legalContactFirstName": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "legalContactLastName": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "phone": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "registrationNumber": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "termsOfService": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "vatDetails": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Seller_0": {
+                "type": "object",
+                "properties": {
+                    "feedbackPercentage": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "feedbackScore": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sellerAccountType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "username": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ShipToLocation": {
+                "type": "object",
+                "properties": {
+                    "country": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "postalCode": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ShipToLocations": {
+                "type": "object",
+                "properties": {
+                    "regionExcluded": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "regionIncluded": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ShippingOption": {
+                "type": "object",
+                "properties": {
+                    "cutOffDateUsedForEstimate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "maxEstimatedDeliveryDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "minEstimatedDeliveryDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "quantityUsedForEstimate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingCarrierCode": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingCostType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingServiceCode": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "trademarkSymbol": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ShippingOptionSummary": {
+                "type": "object",
+                "properties": {
+                    "maxEstimatedDeliveryDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "minEstimatedDeliveryDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingCostType": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "TargetLocation": {
+                "type": "object",
+                "properties": {
+                    "unitOfMeasure": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "TaxJurisdiction": {
+                "type": "object",
+                "properties": {
+                    "taxJurisdictionId": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Taxes": {
+                "type": "object",
+                "properties": {
+                    "includedInPrice": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingAndHandlingTaxed": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "taxPercentage": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "taxType": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "TimeDuration": {
+                "type": "object",
+                "properties": {
+                    "unit": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "TypedNameValue": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "VatDetail": {
+                "type": "object",
+                "properties": {
+                    "issuingCountry": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "vatId": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ItemDescription": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemGroupId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemId": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ItemDescriptionResponse": {
+                "type": "object",
+                "properties": {
+                    "itemDescriptions": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ItemResponse": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Amount": {
+                "type": "object",
+                "properties": {
+                    "currency": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "convertedFromCurrency": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "convertedFromValue": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "BestSellingProductResponse": {
+                "type": "object",
+                "properties": {
+                    "merchandisedProducts": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "warnings": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "MarketPriceDetail": {
+                "type": "object",
+                "properties": {
+                    "conditionGroup": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "conditionIds": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "MerchandisedProduct": {
+                "type": "object",
+                "properties": {
+                    "averageRating": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "epid": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "marketPriceDetails": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "ratingAspects": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "ratingCount": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "reviewCount": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "title": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "RatingAspect": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "ratingAspectDistributions": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "RatingAspectDistribution": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "percentage": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "AncestorReference": {
+                "type": "object",
+                "properties": {
+                    "categoryId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryName": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categorySubtreeNodeHref": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryTreeNodeLevel": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "AspectConstraint": {
+                "type": "object",
+                "properties": {
+                    "aspectDataType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "aspectEnabledForVariations": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "aspectFormat": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "aspectMode": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "aspectRequired": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "itemToAspectCardinality": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "AspectMetadata": {
+                "type": "object",
+                "properties": {
+                    "aspects": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "AspectValue": {
+                "type": "object",
+                "properties": {
+                    "localizedValue": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "valueConstraints": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "BaseCategoryTree": {
+                "type": "object",
+                "properties": {
+                    "categoryTreeId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryTreeVersion": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "CategorySubtree": {
+                "type": "object",
+                "properties": {
+                    "categoryTreeId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryTreeVersion": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "CategorySuggestion": {
+                "type": "object",
+                "properties": {
+                    "categoryTreeNodeAncestors": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryTreeNodeLevel": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "relevancy": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "CategorySuggestionResponse": {
+                "type": "object",
+                "properties": {
+                    "categorySuggestions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryTreeId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryTreeVersion": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "CategoryTree": {
+                "type": "object",
+                "properties": {
+                    "applicableMarketplaceIds": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryTreeId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "categoryTreeVersion": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "CategoryTreeNode": {
+                "type": "object",
+                "properties": {
+                    "categoryTreeNodeLevel": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "childCategoryTreeNodes": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "leafCategoryTreeNode": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "parentCategoryTreeNodeHref": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ValueConstraint": {
+                "type": "object",
+                "properties": {
+                    "applicableForLocalizedAspectName": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "applicableForLocalizedAspectValues": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "AppliedPromotion": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "promotionId": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Buyer": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "CancelRequest": {
+                "type": "object",
+                "properties": {
+                    "cancelCompletedDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "cancelInitiator": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "cancelReason": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "cancelRequestId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "cancelRequestState": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "cancelRequestedDate": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "CancelStatus": {
+                "type": "object",
+                "properties": {
+                    "cancelRequests": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "cancelState": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "cancelledDate": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Contact": {
+                "type": "object",
+                "properties": {
+                    "companyName": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "fullName": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "DeliveryCost": {
+                "type": "object"
+            },
+            "FulfillmentStartInstruction": {
+                "type": "object",
+                "properties": {
+                    "ebaySupportedFulfillment": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "fulfillmentInstructionsType": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "maxEstimatedDeliveryDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "minEstimatedDeliveryDate": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "GiftDetails": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "recipientEmail": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "senderName": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "LineItem": {
+                "type": "object",
+                "properties": {
+                    "appliedPromotions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "legacyItemId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "legacyVariationId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "lineItemFulfillmentStatus": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "lineItemId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "listingMarketplaceId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "purchaseMarketplaceId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "quantity": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refunds": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sku": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "soldFormat": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "taxes": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "title": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "LineItemFulfillmentInstructions": {
+                "type": "object",
+                "properties": {
+                    "guaranteedDelivery": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "maxEstimatedDeliveryDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "minEstimatedDeliveryDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shipByDate": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "LineItemProperties": {
+                "type": "object",
+                "properties": {
+                    "buyerProtection": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "fromBestOffer": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "LineItemReference": {
+                "type": "object",
+                "properties": {
+                    "lineItemId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "quantity": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "LineItemRefund": {
+                "type": "object",
+                "properties": {
+                    "refundDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refundReferenceId": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Order": {
+                "type": "object",
+                "properties": {
+                    "buyerCheckoutNotes": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "creationDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "fulfillmentHrefs": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "fulfillmentStartInstructions": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "lastModifiedDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "lineItems": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "orderFulfillmentStatus": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "orderId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "orderPaymentStatus": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sellerId": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "OrderRefund": {
+                "type": "object",
+                "properties": {
+                    "refundDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refundReferenceId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refundStatus": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "OrderSearchPagedCollection": {
+                "type": "object",
+                "properties": {
+                    "href": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "limit": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "next": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "offset": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "orders": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "prev": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "total": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "warnings": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Payment": {
+                "type": "object",
+                "properties": {
+                    "paymentDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "paymentHolds": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "paymentMethod": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "paymentReferenceId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "paymentStatus": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "PaymentHold": {
+                "type": "object",
+                "properties": {
+                    "expectedReleaseDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "holdReason": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "holdState": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "releaseDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "sellerActionsToRelease": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "PaymentSummary": {
+                "type": "object",
+                "properties": {
+                    "payments": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "refunds": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "PhoneNumber": {
+                "type": "object",
+                "properties": {
+                    "phoneNumber": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "PricingSummary": {
+                "type": "object"
+            },
+            "SellerActionsToRelease": {
+                "type": "object",
+                "properties": {
+                    "sellerActionToRelease": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ShippingFulfillment": {
+                "type": "object",
+                "properties": {
+                    "fulfillmentId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "lineItems": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shipmentTrackingNumber": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippedDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingCarrierCode": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ShippingFulfillmentDetails": {
+                "type": "object",
+                "properties": {
+                    "lineItems": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippedDate": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingCarrierCode": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "trackingNumber": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ShippingFulfillmentPagedCollection": {
+                "type": "object",
+                "properties": {
+                    "fulfillments": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "total": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "warnings": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "ShippingStep": {
+                "type": "object",
+                "properties": {
+                    "shipToReferenceId": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingCarrierCode": {
+                        "description": "",
+                        "type": "get"
+                    },
+                    "shippingServiceCode": {
+                        "description": "",
+                        "type": "get"
+                    }
+                }
+            },
+            "Tax": {
+                "type": "object"
+            }
+        }
+    }
+}
