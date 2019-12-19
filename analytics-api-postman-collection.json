@@ -1,0 +1,126 @@
+{
+    "id": "310312a116fad4a5d4ecf3dbf854e594",
+    "name": "Analytics API",
+    "description": null,
+    "auth": null,
+    "events": null,
+    "variables": [],
+    "order": [],
+    "folders_order": [],
+    "folders": [],
+    "requests": [
+        {
+            "id": "54999d9bc5e0a027b58444290b02d78d",
+            "name": "",
+            "url": "http:\/\/api.ebay.com\/sell\/analytics\/v1\/seller_standards_profile",
+            "description": "This call retrieves all the profiles for the associated seller.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "310312a116fad4a5d4ecf3dbf854e594",
+            "rawModeData": ""
+        },
+        {
+            "id": "7177de01c30ef010affe1dc7dfda9686",
+            "name": "",
+            "url": "http:\/\/api.ebay.com\/sell\/analytics\/v1\/seller_standards_profile\/{program}\/{cycle}",
+            "description": "This call retrieves seller's profiles based on a program or cycle. Each program has one or two cycles (CURRENT or PROJECTED), where each cycle is limited to a single profile.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "cycle",
+                    "description": "Specifies the cycle of the requested profile.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "program",
+                    "description": "Specifies the program of the requested profile.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "310312a116fad4a5d4ecf3dbf854e594",
+            "rawModeData": ""
+        },
+        {
+            "id": "5c458c87dbf1224cc100c71c624b96cc",
+            "name": "",
+            "url": "http:\/\/api.ebay.com\/sell\/analytics\/v1\/traffic_report",
+            "description": "This call returns a report that details the user-traffic a seller's listings receives. This gives sellers the ability to see such things as how often their listing appeared on eBay, how many times the listings are viewed, and how many purchases were made. In addition to the information requested, the traffic report contains general information about the criteria eBay used to generate the report (such as the report's start and end dates and the basis of the report). In the report itself, the metr",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "dimension",
+                    "description": "Specifies the basis of the report data. For example: If you specify dimension=day and metric=CLICK_THROUGH_RATE, the traffic report would contain the number of times a buyer saw a listing impression and then clicked through to the listing page for each day in the date range. If you specify dimension=listing and metric=LISTING_IMPRESSION_STORE, the traffic report would contain the number of times that listing appeared on the seller's store. Valid values: &nbsp;&nbsp;DAY &nbsp;&nbsp;LISTING Requir",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "filter",
+                    "description": "Limits the report data returned. You can refine the report data returned using the date_range, listing_ids, and marketplace_ids filters. date_range This limits the report to a date range. You can get up a total of 90 days going back as far as 2 years, defined as 365 * 2 days. eBay returns an error (and not data) if you pass in a date range greater than 90 days, or the start date is after the latest date in which traffic data exists (known as the lastUpdatedDate). If the range is beyond the lastU",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "metric",
+                    "description": "Specifies a comma separated list of the metrics you want included in the report. Valid values: CLICK_THROUGH_RATE The number of times a buyer saw a listing impression and then clicked through to the listing page. Localized name: Click through rate LISTING_IMPRESSION_SEARCH_RESULTS_PAGE The number of times the seller's listings appeared on the search results page. However, the listing might not have been visible to the buyer because of its position on the page. Localized name: Listing impressions",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "sort",
+                    "description": "Specifies a single metric to be sorted and whether you want to sort in ascending or descending order. Specifying a metric in this field, sorts that data in ascending order. To sort in descending order add - in front of the metric. This is helpful when the seller wants to see metrics starting with the greatest number, such as the CLICK_THROUGH_RATE (sort=-CLICK_THROUGH_RATE). Default: ascending If null: Sorts by the first metric specified in ascending order Maximum metric: 1 Valid Values: metric ",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "310312a116fad4a5d4ecf3dbf854e594",
+            "rawModeData": ""
+        }
+    ]
+}
