@@ -1,0 +1,435 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "v1_beta.1.",
+        "title": "Taxonomy",
+        "description": "Use the Taxonomy API to discover the most appropriate eBay categories under which sellers can offer inventory items for sale, and the most likely categories under which buyers can browse or search for items to purchase. In addition, the Taxonomy API provides information about the required and recommended category aspects to include in listings.",
+        "termsOfService": "http:\/\/exmple.com\/license\/"
+    },
+    "servers": [
+        "http:\/\/api.ebay.com\/commerce\/taxonomy\/v1_beta"
+    ],
+    "paths": {
+        "\/category_tree\/{category_tree_id}": {
+            "get": {
+                "summary": "Get a Category Tree",
+                "description": "This call retrieves the complete category tree that is identified by the category_tree_id parameter. The value of category_tree_id was returned by the getDefaultCategoryTreeId call in the categoryTreeId field. The response contains details of all nodes of the specified eBay category tree, as well as the eBay marketplaces that use this category tree. Note: This call can return a very large payload, so you are strongly advised to submit the request with the following HTTP header: &nbsp;&nbsp;Accep",
+                "operationId": "GetCategoryTree",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "category_tree_id",
+                        "in": "path",
+                        "description": "The unique identifier of the eBay category tree being requested."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/CategoryTree"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/category_tree\/{category_tree_id}\/get_category_subtree": {
+            "get": {
+                "summary": "Get a Category Subtree",
+                "description": "This call retrieves the details of all nodes of the category tree hierarchy (the subtree) below a specified category of a category tree. You identify the tree using the category_tree_id parameter, which was returned by the getDefaultCategoryTreeId call in the categoryTreeId field. Note: This call can return a very large payload, so you are strongly advised to submit the request with the following HTTP header: &nbsp;&nbsp;Accept-Encoding: application\/gzip With this header (in addition to the requ",
+                "operationId": "GetCategorySubtree",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "The unique identifier of the category at the top of the subtree being requested. Note: If the category_id submitted identifies the root node of the tree, this call returns an error. To retrieve the complete tree, use this value with the getCategoryTree call. If the category_id submitted identifies a leaf node of the tree, the call response will contain information about only that leaf node, which is a valid subtree."
+                    },
+                    {
+                        "name": "category_tree_id",
+                        "in": "path",
+                        "description": "The unique identifier of the eBay category tree being requested."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/CategoryTree"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/category_tree\/{category_tree_id}\/get_category_suggestions": {
+            "get": {
+                "summary": "Get Suggested Categories",
+                "description": "This call returns an array of category tree leaf nodes in the specified category tree that are considered by eBay to most closely correspond to the query string q. Returned with each suggested node is a localized name for that category (based on the Accept-Language header specified for the call), and details about each of the category's ancestor nodes, extending from its immediate parent up to the root of the category tree. Note: This call can return a large payload, so you are advised to submit",
+                "operationId": "GetCategorySuggestions",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "category_tree_id",
+                        "in": "path",
+                        "description": "The unique identifier of the eBay category tree being requested."
+                    },
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "A quoted string that describes or characterizes the item being offered for sale. The string format is free form, and can contain any combination of phrases or keywords. eBay will parse the string and return suggested categories for the item."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/CategoryTree"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/category_tree\/{category_tree_id}\/get_item_aspects_for_category": {
+            "get": {
+                "summary": "",
+                "description": "This call returns a list of aspects that are appropriate or necessary for accurately describing items in the specified leaf category. Each aspect identifies an item attribute (for example, color) for which the seller will be required or encouraged to provide a value (or variation values) when offering an item in that category on eBay. For each aspect, getItemAspectsForCategory provides complete metadata, including: The aspect's data type, format, and entry mode Whether the aspect is required in ",
+                "operationId": "GetItemAspectsForCategory",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "The unique identifier of the category at the top of the subtree being requested. Note: If the category_id submitted identifies the root node of the tree, this call returns an error. To retrieve the complete tree, use this value with the getCategoryTree call. If the category_id submitted identifies a leaf node of the tree, the call response will contain information about only that leaf node, which is a valid subtree."
+                    },
+                    {
+                        "name": "category_tree_id",
+                        "in": "path",
+                        "description": "The unique identifier of the eBay category tree being requested."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/CategoryTree"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/get_default_category_tree_id": {
+            "get": {
+                "summary": "Get a Default Category Tree ID",
+                "description": "A given eBay marketplace might use multiple category trees, but one of those trees is considered to be the default for that marketplace. This call retrieves a reference to the default category tree associated with the specified eBay marketplace ID. The response includes only the tree's unique identifier and version, which you can use to retrieve more details about the tree, its structure, and its individual category nodes.",
+                "operationId": "GetDefaultCategoryTreeId",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "marketplace_id",
+                        "in": "query",
+                        "description": "The ID of the eBay marketplace for which the category tree ID is being requested. For a list of supported marketplace IDs, see Marketplaces with Default Category Trees."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/CategoryTree"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AncestorReference": {
+                "type": "object",
+                "properties": {
+                    "categoryId": {
+                        "description": "The unique identifier of the eBay ancestor category. Note: The root node of a full default category tree includes the categoryId field, but its value should not be relied upon. It provides no useful information for application development.",
+                        "type": "string"
+                    },
+                    "categoryName": {
+                        "description": "The canonical name of the ancestor category identified by categoryId. Note: Don't depend on category names to be unique within a given category tree.",
+                        "type": "string"
+                    },
+                    "categorySubtreeNodeHref": {
+                        "description": "The href portion of the getCategorySubtree call that retrieves the subtree below the ancestor category node.",
+                        "type": "string"
+                    },
+                    "categoryTreeNodeLevel": {
+                        "description": "The absolute level of the ancestor category node in the hierarchy of its category tree. Note: The root node of any full category tree is always at level 0.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "Aspect": {
+                "type": "object",
+                "properties": {
+                    "aspectConstraint": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "aspectValues": {
+                        "description": "Contains a list of valid values for this aspect (for example: Red, Green, and Blue), along with any constraints on those values.",
+                        "type": "array"
+                    },
+                    "localizedAspectName": {
+                        "description": "The localized name of this aspect (for example: colour on the eBay UK site). Note: This name is always localized for the specified marketplace. There is no canonical aspect name.",
+                        "type": "string"
+                    }
+                }
+            },
+            "aspectConstraint": {
+                "type": "object",
+                "properties": {
+                    "aspectDataType": {
+                        "description": "The data type of this aspect. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/taxonomy\/types\/AspectDataTypeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "aspectEnabledForVariations": {
+                        "description": "A value of true indicates that this aspect can be used to help identify item variations.",
+                        "type": "boolean"
+                    },
+                    "aspectFormat": {
+                        "description": "Returned only if the value of aspectDataType identifies a data type that requires specific formatting. Currently, this field provides formatting hints as follows: DATE: YYYY, YYYYMM, YYYYMMDD NUMBER: int32, double",
+                        "type": "string"
+                    },
+                    "aspectMode": {
+                        "description": "The manner in which values of this aspect must be specified by the seller (as free text or by selecting from available options). For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/taxonomy\/types\/AspectModeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "aspectRequired": {
+                        "description": "A value of true indicates that this aspect is required when offering items in the specified category.",
+                        "type": "boolean"
+                    },
+                    "itemToAspectCardinality": {
+                        "description": "Indicates whether this aspect can accept single or multiple values for items in the specified category. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/taxonomy\/types\/ItemToAspectCardinalityEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    }
+                }
+            },
+            "aspectValues": {
+                "type": "array"
+            },
+            "AspectMetadata": {
+                "type": "object",
+                "properties": {
+                    "aspects": {
+                        "description": "A list of item attributes (for example, color) that are appropriate or necessary for accurately describing items in a particular leaf category. Each category has a different set of aspects and different requirements for aspect values. Sellers will be required or encouraged to provide one or more acceptable values for each aspect when offering an item in that category on eBay.",
+                        "type": "array"
+                    }
+                }
+            },
+            "aspects": {
+                "type": "array"
+            },
+            "AspectValue": {
+                "type": "object",
+                "properties": {
+                    "localizedValue": {
+                        "description": "The localized value of this aspect. Note: This value is always localized for the specified marketplace. There is no canonical version of this value.",
+                        "type": "string"
+                    },
+                    "valueConstraints": {
+                        "description": "Not returned if the value of the localizedValue field can always be selected for this aspect of the specified category. Contains a list of the dependencies that identify when the value of the localizedValue field is available for the current aspect. Each dependency specifies the values of another aspect of the same category (a control aspect), for which the current value of the current aspect can also be selected by the seller. Example: A shirt is available in three sizes and three colors, but only the Small and Medium sizes come in Green. Thus for the Color aspect, the value Green is constrained by its dependency on Size (the control aspect). Only when the Size aspect value is Small or Medium, can the Color aspect value of Green be selected by the seller.",
+                        "type": "array"
+                    }
+                }
+            },
+            "valueConstraints": {
+                "type": "array"
+            },
+            "BaseCategoryTree": {
+                "type": "object",
+                "properties": {
+                    "categoryTreeId": {
+                        "description": "The unique identifier of the eBay category tree for the specified marketplace.",
+                        "type": "string"
+                    },
+                    "categoryTreeVersion": {
+                        "description": "The version of the category tree identified by categoryTreeId. It's a good idea to cache this value for comparison so you can determine if this category tree has been modified in subsequent calls.",
+                        "type": "string"
+                    }
+                }
+            },
+            "Category": {
+                "type": "object",
+                "properties": {
+                    "categoryId": {
+                        "description": "The unique identifier of the eBay ancestor category. Note: The root node of a full default category tree includes the categoryId field, but its value should not be relied upon. It provides no useful information for application development.",
+                        "type": "string"
+                    },
+                    "categoryName": {
+                        "description": "The canonical name of the ancestor category identified by categoryId. Note: Don't depend on category names to be unique within a given category tree.",
+                        "type": "string"
+                    }
+                }
+            },
+            "CategorySubtree": {
+                "type": "object",
+                "properties": {
+                    "categorySubtreeNode": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "categoryTreeId": {
+                        "description": "The unique identifier of the eBay category tree for the specified marketplace.",
+                        "type": "string"
+                    },
+                    "categoryTreeVersion": {
+                        "description": "The version of the category tree identified by categoryTreeId. It's a good idea to cache this value for comparison so you can determine if this category tree has been modified in subsequent calls.",
+                        "type": "string"
+                    }
+                }
+            },
+            "categorySubtreeNode": {
+                "type": "object"
+            },
+            "CategorySuggestion": {
+                "type": "object",
+                "properties": {
+                    "Category": {
+                        "description": "This type contains information about a particular eBay category.",
+                        "type": "object"
+                    },
+                    "category": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "categoryTreeNodeAncestors": {
+                        "description": "An ordered list of category references that describes the location of the suggested category in the specified category tree. The list identifies the category's ancestry as a sequence of parent nodes, from the current node's immediate parent to the root node of the category tree. Note: The root node of a full default category tree includes categoryId and categoryName fields, but their values should not be relied upon. They provide no useful information for application development.",
+                        "type": "array"
+                    },
+                    "categoryTreeNodeLevel": {
+                        "description": "The absolute level of the ancestor category node in the hierarchy of its category tree. Note: The root node of any full category tree is always at level 0.",
+                        "type": "integer"
+                    },
+                    "relevancy": {
+                        "description": "This field is reserved for internal or future use.",
+                        "type": "string"
+                    }
+                }
+            },
+            "categoryTreeNodeAncestors": {
+                "type": "array"
+            },
+            "CategorySuggestionResponse": {
+                "type": "object",
+                "properties": {
+                    "categorySuggestions": {
+                        "description": "Contains details about one or more suggested categories that correspond to the provided keywords. The array of suggested categories is sorted in order of eBay's confidence of the relevance of each category (the first category is the most relevant). Important: This call is not supported in the Sandbox environment. It will return a response payload in which the categoryName fields contain random or boilerplate text regardless of the query submitted.",
+                        "type": "array"
+                    },
+                    "categoryTreeId": {
+                        "description": "The unique identifier of the eBay category tree for the specified marketplace.",
+                        "type": "string"
+                    },
+                    "categoryTreeVersion": {
+                        "description": "The version of the category tree identified by categoryTreeId. It's a good idea to cache this value for comparison so you can determine if this category tree has been modified in subsequent calls.",
+                        "type": "string"
+                    }
+                }
+            },
+            "categorySuggestions": {
+                "type": "array"
+            },
+            "CategoryTree": {
+                "type": "object",
+                "properties": {
+                    "applicableMarketplaceIds": {
+                        "description": "A list of one or more identifiers of the eBay marketplaces that use this category tree.",
+                        "type": "array"
+                    },
+                    "categoryTreeId": {
+                        "description": "The unique identifier of the eBay category tree for the specified marketplace.",
+                        "type": "string"
+                    },
+                    "categoryTreeVersion": {
+                        "description": "The version of the category tree identified by categoryTreeId. It's a good idea to cache this value for comparison so you can determine if this category tree has been modified in subsequent calls.",
+                        "type": "string"
+                    },
+                    "rootCategoryNode": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "applicableMarketplaceIds": {
+                "type": "array"
+            },
+            "rootCategoryNode": {
+                "type": "object"
+            },
+            "CategoryTreeNode": {
+                "type": "object",
+                "properties": {
+                    "Category": {
+                        "description": "This type contains information about a particular eBay category.",
+                        "type": "object"
+                    },
+                    "category": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "categoryTreeNodeLevel": {
+                        "description": "The absolute level of the ancestor category node in the hierarchy of its category tree. Note: The root node of any full category tree is always at level 0.",
+                        "type": "integer"
+                    },
+                    "childCategoryTreeNodes": {
+                        "description": "An array of one or more category tree nodes that are the immediate children of the current category tree node, as well as their children, recursively down to the leaf nodes. Returned only if the the current category tree node is not a leaf node (the value of leafCategoryTreeNode is false).",
+                        "type": "array"
+                    },
+                    "leafCategoryTreeNode": {
+                        "description": "A value of true indicates that the current category tree node is a leaf node (it has no child nodes). A value of false indicates that the current node has one or more child nodes, which are identified by the childCategoryTreeNodes array. Returned only if the value of this field is true.",
+                        "type": "boolean"
+                    },
+                    "parentCategoryTreeNodeHref": {
+                        "description": "The href portion of the getCategorySubtree call that retrieves the subtree below the parent of this category tree node. Not returned if the current category tree node is the root node of its tree.",
+                        "type": "string"
+                    }
+                }
+            },
+            "childCategoryTreeNodes": {
+                "type": "array"
+            },
+            "ValueConstraint": {
+                "type": "object",
+                "properties": {
+                    "applicableForLocalizedAspectName": {
+                        "description": "The name of the control aspect on which the current aspect value depends.",
+                        "type": "string"
+                    },
+                    "applicableForLocalizedAspectValues": {
+                        "description": "Contains a list of the values of the control aspect on which this aspect's value depends. When the control aspect has any of the specified values, the current value of the current aspect will also be available.",
+                        "type": "array"
+                    }
+                }
+            },
+            "applicableForLocalizedAspectValues": {
+                "type": "array"
+            }
+        }
+    }
+}
