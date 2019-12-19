@@ -1,0 +1,368 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "v1_beta.1.",
+        "title": "Buy Marketing",
+        "description": "The Marketing API retrieves eBay products based on a metric, such as Best Selling, as well as products that were also bought and also viewed.",
+        "termsOfService": "http:\/\/exmple.com\/license\/"
+    },
+    "servers": [
+        "http:\/\/api.ebay.com\/buy\/marketing\/v1_beta"
+    ],
+    "paths": {
+        "\/merchandised_product": {
+            "get": {
+                "summary": "",
+                "description": "This call returns an array of products based on the category and metric specified. This includes details of the product, such as the eBay product Id (EPID), title, and user reviews and ratings for the product. You can use the epid returned by this call in the Browse API search call to retrieve items for this product. Restrictions For a list of supported sites and other restrictions, see API Restrictions.",
+                "operationId": "GetMerchandisedProducts",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "aspect_filter",
+                        "in": "query",
+                        "description": "The aspect name\/value pairs used to further refine product results. For example: &nbsp;&nbsp;&nbsp;\/buy\/marketing\/v1_beta\/merchandised_product?category_id=31388&amp;metric_name=BEST_SELLING&amp;aspect_filter=Brand:Canon You can use the Browse API search call with the fieldgroups=ASPECT_REFINEMENTS field to return the aspects of a product. For implementation help, refer to eBay API documentation at https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/marketing\/types\/MarketingAspectFilter.html"
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "This query parameter limits the products returned to a specific eBay category. The list of eBay category Ids is not published and category Ids are not all the same across all the eBay maketplace. You can use the following techniques to find a category by site. Use the Category Changes page. Use the Taxonomy API. For details see Categories for Buy API Calls. Use the Browse API and submit the following call to get the dominantCategoryId for an item. \/buy\/browse\/v1\/item_summary\/search?q=keyword&amp"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "This value specifies the maximum number of products in a result set. Note: Maximum value means the call will return up to that many products per set, but it can be less than this value. If the number of products found is less than this value, the call will return all of the products matching the criteria. Default: 8 Maximum: 100"
+                    },
+                    {
+                        "name": "metric_name",
+                        "in": "query",
+                        "description": "This value filters the result set by the specified metric. Only products in this metric are returned. Currently, the only metric supported is BEST_SELLING. Default: BEST_SELLING Maximum: 1 Required: 1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BestSellingProductResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/merchandised_product\/get_also_bought_products": {
+            "get": {
+                "summary": "",
+                "description": "This call returns products that were also bought when shoppers bought the product specified in the request. Showing 'also bought' products inspires up-selling and cross-selling. You specify the product by one of the following. epid (eBay Product Id) gtin (Global Trade Item Number) brand (brand name such as Nike) plus mpn (Manufacturer's Part Number) Restrictions For a list of supported sites and other restrictions, see API Restrictions. Maximum: A maximum of 12 products are returned.",
+                "operationId": "GetAlsoBoughtByProduct",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "brand",
+                        "in": "query",
+                        "description": "The brand of the product. Restriction: This must be used along with mpn. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    },
+                    {
+                        "name": "epid",
+                        "in": "query",
+                        "description": "The eBay product identifier of a product. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    },
+                    {
+                        "name": "gtin",
+                        "in": "query",
+                        "description": "The unique Global Trade Item Number of the item as defined by http:\/\/www.gtin.info. This can be a UPC (Universal Product Code), EAN (European Article Number), or an ISBN (International Standard Book Number value. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    },
+                    {
+                        "name": "mpn",
+                        "in": "query",
+                        "description": "The manufacturer part number of the product. Restriction: This must be used along with brand. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BestSellingProductResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/merchandised_product\/get_also_viewed_products": {
+            "get": {
+                "summary": "",
+                "description": "This call returns products that were also viewed when shoppers viewed the product specified in the request. Showing 'also viewed' products encourages up-selling and cross-selling. You specify the product by one one of the following. epid (eBay Product Id) gtin (Global Trade Item Number) brand (brand name such as Nike) plus mpn (Manufacturer's Part Number) Restrictions For a list of supported sites and other restrictions, see API Restrictions. Maximum: A maximum of 12 products are returned.",
+                "operationId": "GetAlsoViewedByProduct",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "brand",
+                        "in": "query",
+                        "description": "The brand of the product. Restriction: This must be used along with mpn. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    },
+                    {
+                        "name": "epid",
+                        "in": "query",
+                        "description": "The eBay product identifier of a product. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    },
+                    {
+                        "name": "gtin",
+                        "in": "query",
+                        "description": "The unique Global Trade Item Number of the item as defined by http:\/\/www.gtin.info. This can be a UPC (Universal Product Code), EAN (European Article Number), or an ISBN (International Standard Book Number value. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    },
+                    {
+                        "name": "mpn",
+                        "in": "query",
+                        "description": "The manufacturer part number of the product. Restriction: This must be used along with brand. Required: You must specify one epid, or one gtin, or one brand plus mpn pair."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BestSellingProductResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Amount": {
+                "type": "object",
+                "properties": {
+                    "currency": {
+                        "description": "A three-letter ISO 4217 code that indicates the currency of the amount in the value field. For implementation help, refer to <a href='https:\/\/developer.ebay.com\/devzone\/rest\/api-ref\/marketing\/types\/CurrencyCodeEnum.html'>eBay API documentation<\/a>",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The monetary amount, in the currency specified by the currency field.",
+                        "type": "string"
+                    }
+                }
+            },
+            "BestSellingProductResponse": {
+                "type": "object",
+                "properties": {
+                    "merchandisedProducts": {
+                        "description": "An array of containers for the products.",
+                        "type": "array"
+                    },
+                    "warnings": {
+                        "description": "The container with all the warnings for the input request.",
+                        "type": "array"
+                    }
+                }
+            },
+            "merchandisedProducts": {
+                "type": "array"
+            },
+            "warnings": {
+                "type": "array"
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "category": {
+                        "description": "This string value indicates the error category. There are three categories of errors: request errors, application errors, and system errors.",
+                        "type": "string"
+                    },
+                    "domain": {
+                        "description": "The name of the primary system where the error occurred. This is relevant for application errors.",
+                        "type": "string"
+                    },
+                    "errorId": {
+                        "description": "A unique code that identifies the particular error or warning that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.",
+                        "type": "integer"
+                    },
+                    "inputRefIds": {
+                        "description": "An array of reference Ids that identify the specific request elements most closely associated to the error or warning, if any.",
+                        "type": "array"
+                    },
+                    "longMessage": {
+                        "description": "A detailed description of the condition that caused the error or warning, and information on what to do to correct the problem.",
+                        "type": "string"
+                    },
+                    "message": {
+                        "description": "A description of the condition that caused the error or warning.",
+                        "type": "string"
+                    },
+                    "outputRefIds": {
+                        "description": "An array of reference Ids that identify the specific response elements most closely associated to the error or warning, if any.",
+                        "type": "array"
+                    },
+                    "parameters": {
+                        "description": "An array of warning and error messages that return one or more variables contextual information about the error or warning. This is often the field or value that triggered the error or warning.",
+                        "type": "array"
+                    },
+                    "subdomain": {
+                        "description": "The name of the subdomain in which the error or warning occurred.",
+                        "type": "string"
+                    }
+                }
+            },
+            "inputRefIds": {
+                "type": "array"
+            },
+            "outputRefIds": {
+                "type": "array"
+            },
+            "parameters": {
+                "type": "array"
+            },
+            "ErrorParameter": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "This is the name of input field that caused an issue with the call request.",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The monetary amount, in the currency specified by the currency field.",
+                        "type": "string"
+                    }
+                }
+            },
+            "Image": {
+                "type": "object",
+                "properties": {
+                    "height": {
+                        "description": "Reserved for future use.",
+                        "type": "integer"
+                    },
+                    "imageUrl": {
+                        "description": "The URL of the image.",
+                        "type": "string"
+                    },
+                    "width": {
+                        "description": "Reserved for future use.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "MarketPriceDetail": {
+                "type": "object",
+                "properties": {
+                    "conditionGroup": {
+                        "description": "The name for the condition of the product. For example: NEW",
+                        "type": "string"
+                    },
+                    "conditionIds": {
+                        "description": "An array of condition identifiers for the product.",
+                        "type": "array"
+                    },
+                    "Amount": {
+                        "description": "This type defines the monetary value of an amount and the currency used.",
+                        "type": "object"
+                    },
+                    "estimatedStartPrice": {
+                        "description": "",
+                        "type": ""
+                    }
+                }
+            },
+            "conditionIds": {
+                "type": "array"
+            },
+            "MerchandisedProduct": {
+                "type": "object",
+                "properties": {
+                    "averageRating": {
+                        "description": "The average rating for the product based on eBay user ratings.",
+                        "type": "string"
+                    },
+                    "epid": {
+                        "description": "The eBay product identifier of a product from the eBay product catalog. You can use this value in the Browse API search call to retrieve items for this product.",
+                        "type": "string"
+                    },
+                    "Image": {
+                        "description": "Type the defines the details of an image, such as size and URL. Currently only <b> imageUrl<\/b> is getting populated. The <b> height<\/b> and <b> width<\/b> were added for future use.",
+                        "type": "object"
+                    },
+                    "image": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "marketPriceDetails": {
+                        "description": "An array of containers for the product market price details, such as condition and market price.",
+                        "type": "array"
+                    },
+                    "ratingAspects": {
+                        "description": "An array of containers for ratings of the product aspects, such as &quot;Is it a good value&quot;.",
+                        "type": "array"
+                    },
+                    "ratingCount": {
+                        "description": "The total number of eBay users that rated the product.",
+                        "type": "integer"
+                    },
+                    "reviewCount": {
+                        "description": "The total number of eBay users that wrote a review for the product.",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "The title of the product.",
+                        "type": "string"
+                    }
+                }
+            },
+            "marketPriceDetails": {
+                "type": "array"
+            },
+            "ratingAspects": {
+                "type": "array"
+            },
+            "RatingAspect": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "description": "The number of eBay users that rated the product on this aspect.",
+                        "type": "integer"
+                    },
+                    "description": {
+                        "description": "The name of the rating aspect. Camping tent examples: Is it lightweight? or Is it easy to set up?",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "This is the name of input field that caused an issue with the call request.",
+                        "type": "string"
+                    },
+                    "ratingAspectDistributions": {
+                        "description": "The container for the details of the aspect rating. The details show the aspect rating value, usually TRUE or FALSE and the user count and percentage.",
+                        "type": "array"
+                    }
+                }
+            },
+            "ratingAspectDistributions": {
+                "type": "array"
+            },
+            "RatingAspectDistribution": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "description": "The number of eBay users that rated the product on this aspect.",
+                        "type": "integer"
+                    },
+                    "percentage": {
+                        "description": "The percentage of the aspect rating value. ratingAspectDistributions.percentage = ratingAspectDistributions.count \/ ratingAspects.count",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The monetary amount, in the currency specified by the currency field.",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
