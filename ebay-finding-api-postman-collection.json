@@ -1,0 +1,148 @@
+{
+    "id": "1ef0c9d48bb39cf61c55376434ec7987",
+    "name": "EBay Finding API",
+    "description": null,
+    "auth": null,
+    "events": null,
+    "variables": [],
+    "order": [],
+    "folders_order": [],
+    "folders": [],
+    "requests": [
+        {
+            "id": "8f8144b5594551805f0d224f5ef3583e",
+            "name": "Find Item By Keywords",
+            "url": "httpssvcs.ebay.com\/services\/search\/FindingService\/v1?OPERATION-NAME=findItemsByKeywords",
+            "description": "This call searches for items on eBay by a keyword query (keywords).",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "SERVICE",
+                    "description": "The service version.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "RESPONSE",
+                    "description": "Response in either XML or JSON.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "keywords",
+                    "description": "The key word or phrase to search by.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1ef0c9d48bb39cf61c55376434ec7987",
+            "rawModeData": ""
+        },
+        {
+            "id": "b0e16a2125ac5e23974cda782b7332ef",
+            "name": "Find Item By Category",
+            "url": "httpssvcs.ebay.com\/services\/search\/FindingService\/v1?OPERATION-NAME=findItemsByCategory",
+            "description": "Returns items in a specific category. Results can be filtered and sorted.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "SERVICE",
+                    "description": "The service version.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "categoryId",
+                    "description": "The ebay category id.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "RESPONSE",
+                    "description": "Response in either XML or JSON.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1ef0c9d48bb39cf61c55376434ec7987",
+            "rawModeData": ""
+        },
+        {
+            "id": "ff794d72b0ef2ab78d47ea192d36bddf",
+            "name": "Find Item By Advanced",
+            "url": "httpssvcs.ebay.com\/services\/search\/FindingService\/v1?OPERATION-NAME=findItemsAdvanced",
+            "description": "Finds items by a keyword query and\/or category and allows searching within item descriptions.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "SERVICE",
+                    "description": "The service version.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "RESPONSE",
+                    "description": "Response in either XML or JSON.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "keywords",
+                    "description": "The key word or phrase to search by.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "1ef0c9d48bb39cf61c55376434ec7987",
+            "rawModeData": ""
+        }
+    ]
+}
