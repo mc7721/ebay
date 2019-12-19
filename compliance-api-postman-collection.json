@@ -1,0 +1,96 @@
+{
+    "id": "537af8885741284092f08e0af1b3e35f",
+    "name": "Compliance API",
+    "description": null,
+    "auth": null,
+    "events": null,
+    "variables": [],
+    "order": [],
+    "folders_order": [],
+    "folders": [],
+    "requests": [
+        {
+            "id": "353b9712f2cd1a85acc228e79aac445b",
+            "name": "getListingViolationsSummary",
+            "url": "http:\/\/api.ebay.com\/sell\/compliance\/v1\/listing_violation_summary",
+            "description": "This call returns listing violation counts for a seller. A user can pass in one or more compliance types through the compliance_type query parameter. Listing violations are returned for multiple marketplaces if the seller sells on multiple eBay marketplaces. Note: For the initial release of Compliance API, the only supported compliance type is PRODUCT_ADOPTION. With this compliance type, a seller will be able to discover which active listings need to be revised with an eBay catalog product or pr",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "compliance_type",
+                    "description": "A user passes in one or more compliance type values through this query parameter. See ComplianceTypeEnum for more information on the compliance types that can be passed in here. If more than one compliance type values is used, delimit these values with a comma. If no compliance type values are passed in, the listing count for all compliance types will be returned. Note: For the initial release of Compliance API, the only supported compliance type is PRODUCT_ADOPTION. With this compliance type, a",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "537af8885741284092f08e0af1b3e35f",
+            "rawModeData": ""
+        },
+        {
+            "id": "027288f6501f5eabb65d516c49c50fdf",
+            "name": "getListingViolations",
+            "url": "http:\/\/api.ebay.com\/sell\/compliance\/v1\/listing_violation",
+            "description": "This call returns specific listing violations for a seller. The seller can either retrieve all listing violations of a specific compliance type, or they can pass in a specific listing ID, and all listing violations applicable to this listing are returned. This call also has pagination control. Note: For the initial release of Compliance API, the only supported compliance type is PRODUCT_ADOPTION. With this compliance type, a seller will be able to discover which active listings need to be revise",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "compliance_type",
+                    "description": "A user passes in one or more compliance type values through this query parameter. See ComplianceTypeEnum for more information on the compliance types that can be passed in here. If more than one compliance type values is used, delimit these values with a comma. If no compliance type values are passed in, the listing count for all compliance types will be returned. Note: For the initial release of Compliance API, the only supported compliance type is PRODUCT_ADOPTION. With this compliance type, a",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "offset",
+                    "description": "The first policy violation to return based on its position in the collection of listing violations. Use this parameter in conjunction with the limit parameter to control the pagination of the output. For example, if offset is set to 10 and limit is set to 10, the call retrieves listing violations 11 thru 20 from the resulting collection of listing violations. Note: This feature employs a zero-based list, where the first item in the list has an offset of 0. If the listing_id parameter is included",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "listing_id",
+                    "description": "Note: This query parameter is for future use, and will not be supported for the initial release of Compliance API. This query parameter is used if the user wants to view all listing violations for one or more eBay listings. The string value passed into this field is the unique identifier of the listing, sometimes referred to as the Item ID. If this query parameter is used, all other query parameters (if provided) are ignored. Either the listing_id or a compliance_type query parameter must be use",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "limit",
+                    "description": "This query parameter is used if the user wants to set a limit on the number of listing violations that are returned in the current result set. This parameter is used in conjunction with the offset parameter to control the pagination of the output. For example, if offset is set to 10 and limit is set to 10, the call retrieves listing violations 11 thru 20 from the collection of listing violations that match the value set in the compliance_type parameter. Note: This feature employs a zero-based li",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "537af8885741284092f08e0af1b3e35f",
+            "rawModeData": ""
+        }
+    ]
+}
