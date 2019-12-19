@@ -1,0 +1,151 @@
+{
+    "id": "f1a9224915be28654ad09ce8cd462f18",
+    "name": "Commerce Taxonomy",
+    "description": null,
+    "auth": null,
+    "events": null,
+    "variables": [],
+    "order": [],
+    "folders_order": [],
+    "folders": [],
+    "requests": [
+        {
+            "id": "73f5d7184fd9a3a5cf066dd2351a915f",
+            "name": "Retrieve the complete category tree corresponding to a specified category tree ID.",
+            "url": "http:\/\/api.ebay.com\/commerce\/taxonomy\/v1_beta\/category_tree\/{category_tree_id}",
+            "description": "This call retrieves the complete category tree that is identified by the category_tree_id parameter. The value of category_tree_id was returned by the Get a Default Category Tree ID call in the categoryTreeId field. The response contains details of all nodes of the specified eBay category tree, as well as the eBay marketplaces that use this category tree. Note: This call can return a very large payload, so you are strongly advised to submit the request with the following HTTP header: &nbsp;&nbsp",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "category_tree_id",
+                    "description": "The unique identifier of the eBay category tree being requested.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "f1a9224915be28654ad09ce8cd462f18",
+            "rawModeData": ""
+        },
+        {
+            "id": "89d511d27a07bbc08604db649a7a150b",
+            "name": "Retrieve all nodes of the category tree hierarchy (the subtree) below a specified category in a specified category tree.",
+            "url": "http:\/\/api.ebay.com\/commerce\/taxonomy\/v1_beta\/category_tree\/{category_tree_id}\/get_category_subtree",
+            "description": "This call retrieves the details of all nodes of the category tree hierarchy (the subtree) below a specified category of a category tree. You identify the tree using the category_tree_id parameter, which was returned by the Get a Default Category Tree ID call in the categoryTreeId field. Note: This call can return a very large payload, so you are strongly advised to submit the request with the following HTTP header: &nbsp;&nbsp;Accept-Encoding: application\/gzip With this header (in addition to th",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "category_id",
+                    "description": "The unique identifier of the category at the top of the subtree being requested. Note: If the category_id submitted identifies the root node of the tree, this call returns an error. To retrieve the complete tree, use this value with the Get a Category Tree call. If the category_id submitted identifies a leaf node of the tree, the call response will contain information about only that leaf node, which is a valid subtree.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "category_tree_id",
+                    "description": "The unique identifier of the eBay category tree being requested.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "f1a9224915be28654ad09ce8cd462f18",
+            "rawModeData": ""
+        },
+        {
+            "id": "b5a79bf416714405ae2937ad69fac371",
+            "name": "Return an array of suggested categories that eBay has determined correspond to keywords that describe a product.",
+            "url": "http:\/\/api.ebay.com\/commerce\/taxonomy\/v1_beta\/category_tree\/{category_tree_id}\/get_category_suggestions",
+            "description": "This call returns an array of category tree leaf nodes in the specified category tree that are considered by eBay to most closely correspond to the query string q. Returned with each suggested node is a localized name for that category (based on the Accept-Language header specified for the call), and details about each of the category's ancestor nodes, extending from its immediate parent up to the root of the category tree. Note: This call can return a large payload, so you are advised to submit",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "category_tree_id",
+                    "description": "The unique identifier of the eBay category tree being requested.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "q",
+                    "description": "A quoted string that describes or characterizes the item being offered for sale. The string format is free form, and can contain any combination of phrases or keywords. eBay will parse the string and return suggested categories for the item.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "f1a9224915be28654ad09ce8cd462f18",
+            "rawModeData": ""
+        },
+        {
+            "id": "5ec1aefc3cc84729a09e708582c7e781",
+            "name": "Retrieve the default category tree reference for a specific eBay marketplace.",
+            "url": "http:\/\/api.ebay.com\/commerce\/taxonomy\/v1_beta\/get_default_category_tree_id",
+            "description": "A given eBay marketplace might use multiple category trees, but one of those trees is considered to be the default for that marketplace. This call retrieves a reference to the default category tree associated with the specified eBay marketplace ID. The response includes only the tree's unique identifier and version, which you can use to retrieve more details about the tree, its structure, and its individual category nodes.",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "marketplace_id",
+                    "description": "The ID of the eBay marketplace for which the category tree ID is being requested. For a list of supported marketplace IDs, see Marketplaces with Default Category Trees.",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "f1a9224915be28654ad09ce8cd462f18",
+            "rawModeData": ""
+        }
+    ]
+}
