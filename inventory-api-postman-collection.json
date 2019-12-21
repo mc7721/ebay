@@ -1,5 +1,5 @@
 {
-    "id": "79c0dc79e3bcdcc6f91f3d4bc15269a6",
+    "id": "6bba98e7af730e1b9186f9d1250f4014",
     "name": "Inventory API",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "69089d7e78cde05e025bfd91ba0e5c79",
+            "id": "697e6d90d19dd144a7439c537f9d0110",
             "name": "",
             "url": "http:\/\/api.ebay.com\/sell\/inventory\/v1\/location\/{merchantLocationKey}",
             "description": "This call retrieves all defined details of the inventory location that is specified by the <b>merchantLocationKey<\/b> path parameter. <p>The <code>authorization<\/code> HTTP header is the only required request header for this call. <\/p><p>A successful call will return an HTTP status value of <i>200 OK<\/i>.<\/p>",
@@ -37,11 +37,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "79c0dc79e3bcdcc6f91f3d4bc15269a6",
+            "collectionId": "6bba98e7af730e1b9186f9d1250f4014",
             "rawModeData": ""
         },
         {
-            "id": "9224e5dbe6595471c540a716753d0088",
+            "id": "b5b3eb02e68587f1ab3376c640da6750",
             "name": "",
             "url": "http:\/\/api.ebay.com\/sell\/inventory\/v1\/location\/{merchantLocationKey}",
             "description": "<p>Use this call to create a new inventory location. In order to create and publish an offer (and create an eBay listing), a seller must have at least one inventory location, as every offer must be associated with a location.<\/p><p>Upon first creating an inventory location, only a seller-defined location identifier and a physical location is required, and once set, these values can not be changed. The unique identifier value (<i>merchantLocationKey<\/i>) is passed in at the end of the call URI. T",
@@ -68,7 +68,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "79c0dc79e3bcdcc6f91f3d4bc15269a6",
+            "collectionId": "6bba98e7af730e1b9186f9d1250f4014",
             "rawModeData": ""
         }
     ]
