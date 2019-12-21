@@ -1,5 +1,5 @@
 {
-    "id": "e6d1d33a04a7a72073b2b236e3a9a61b",
+    "id": "d606c07e9df034b0b937fe28300347e5",
     "name": "Account API",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "4e97c35e9b9cf15dd727a938566b7280",
+            "id": "3a33cf103290e2f168ac0c71059e4e15",
             "name": "",
             "url": "http:\/\/api.ebay.com\/sell\/account\/v1\/fulfillment_policy\/",
             "description": "This method retrieves all the fulfillment policies configured for the marketplace you specify using the marketplace_id query parameter. Marketplaces and locales Get the correct policies for a marketplace that supports multiple locales using the Content-Language request header. For example, get the policies for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language:",
@@ -37,11 +37,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "e6d1d33a04a7a72073b2b236e3a9a61b",
+            "collectionId": "d606c07e9df034b0b937fe28300347e5",
             "rawModeData": ""
         },
         {
-            "id": "ac3eb3b1b64b4614d2f4eed1bb45f83a",
+            "id": "c1c435b90deded72c98034e78095ebe9",
             "name": "",
             "url": "http:\/\/api.ebay.com\/sell\/account\/v1\/fulfillment_policy\/",
             "description": "This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling item purchases. Fulfillment policies include the shipment options that the seller offers to buyers. Each policy targets a marketplaceId and categoryTypes.name combination and you can create multiple policies for each combination. Be aware that some marketplaces require a specific fulfillment policy for vehicle listings. A successful request returns the URI to the new policy in the Location re",
@@ -60,7 +60,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "e6d1d33a04a7a72073b2b236e3a9a61b",
+            "collectionId": "d606c07e9df034b0b937fe28300347e5",
             "rawModeData": ""
         }
     ]
