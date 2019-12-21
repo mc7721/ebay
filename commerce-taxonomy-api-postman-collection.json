@@ -1,5 +1,5 @@
 {
-    "id": "3bf245fc9e102fbf36be2fd4b4888134",
+    "id": "383edf614c18d25b12b8220680faee13",
     "name": "Commerce Taxonomy Api",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "033ed96ae663b89f06fbc54e8d7078e4",
+            "id": "dda2231aada953b0d07f2b2b16431b92",
             "name": "Get a Category Tree",
             "url": "http:\/\/api.ebay.com\/commerce\/taxonomy\/v1_beta\/category_tree\/{category_tree_id}",
             "description": "This call retrieves the complete category tree that is identified by the category_tree_id parameter. The value of category_tree_id was returned by the getDefaultCategoryTreeId call in the categoryTreeId field. The response contains details of all nodes of the specified eBay category tree, as well as the eBay marketplaces that use this category tree. Note: This call can return a very large payload, so you are strongly advised to submit the request with the following HTTP header: &nbsp;&nbsp;Accep",
@@ -37,11 +37,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "3bf245fc9e102fbf36be2fd4b4888134",
+            "collectionId": "383edf614c18d25b12b8220680faee13",
             "rawModeData": ""
         },
         {
-            "id": "6677365acc8e65deb646b6aaef05ae1f",
+            "id": "5fa22d592891279ee5fd65fb43e27f1c",
             "name": "Get a Category Subtree",
             "url": "http:\/\/api.ebay.com\/commerce\/taxonomy\/v1_beta\/category_tree\/{category_tree_id}\/get_category_subtree",
             "description": "This call retrieves the details of all nodes of the category tree hierarchy (the subtree) below a specified category of a category tree. You identify the tree using the category_tree_id parameter, which was returned by the getDefaultCategoryTreeId call in the categoryTreeId field. Note: This call can return a very large payload, so you are strongly advised to submit the request with the following HTTP header: &nbsp;&nbsp;Accept-Encoding: application\/gzip With this header (in addition to the requ",
@@ -75,11 +75,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "3bf245fc9e102fbf36be2fd4b4888134",
+            "collectionId": "383edf614c18d25b12b8220680faee13",
             "rawModeData": ""
         },
         {
-            "id": "325f06a34bdfc86acc62b8ffa4498967",
+            "id": "82a9658bab7df229e3e72465018cd0ac",
             "name": "Get Suggested Categories",
             "url": "http:\/\/api.ebay.com\/commerce\/taxonomy\/v1_beta\/category_tree\/{category_tree_id}\/get_category_suggestions",
             "description": "This call returns an array of category tree leaf nodes in the specified category tree that are considered by eBay to most closely correspond to the query string q. Returned with each suggested node is a localized name for that category (based on the Accept-Language header specified for the call), and details about each of the category's ancestor nodes, extending from its immediate parent up to the root of the category tree. Note: This call can return a large payload, so you are advised to submit",
@@ -113,11 +113,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "3bf245fc9e102fbf36be2fd4b4888134",
+            "collectionId": "383edf614c18d25b12b8220680faee13",
             "rawModeData": ""
         },
         {
-            "id": "57985efd4ad435a0e79180f78787da2a",
+            "id": "8e9de1cd45ca2841a0118797f1a3ad6e",
             "name": "",
             "url": "http:\/\/api.ebay.com\/commerce\/taxonomy\/v1_beta\/category_tree\/{category_tree_id}\/get_item_aspects_for_category",
             "description": "This call returns a list of aspects that are appropriate or necessary for accurately describing items in the specified leaf category. Each aspect identifies an item attribute (for example, color) for which the seller will be required or encouraged to provide a value (or variation values) when offering an item in that category on eBay. For each aspect, getItemAspectsForCategory provides complete metadata, including: The aspect's data type, format, and entry mode Whether the aspect is required in ",
@@ -151,11 +151,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "3bf245fc9e102fbf36be2fd4b4888134",
+            "collectionId": "383edf614c18d25b12b8220680faee13",
             "rawModeData": ""
         },
         {
-            "id": "7dda7537afc285279d1acd50af62e6e5",
+            "id": "a721237f5829dbac842c713a527f8ed2",
             "name": "Get a Default Category Tree ID",
             "url": "http:\/\/api.ebay.com\/commerce\/taxonomy\/v1_beta\/get_default_category_tree_id",
             "description": "A given eBay marketplace might use multiple category trees, but one of those trees is considered to be the default for that marketplace. This call retrieves a reference to the default category tree associated with the specified eBay marketplace ID. The response includes only the tree's unique identifier and version, which you can use to retrieve more details about the tree, its structure, and its individual category nodes.",
@@ -182,7 +182,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "3bf245fc9e102fbf36be2fd4b4888134",
+            "collectionId": "383edf614c18d25b12b8220680faee13",
             "rawModeData": ""
         }
     ]
