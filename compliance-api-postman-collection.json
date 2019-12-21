@@ -1,5 +1,5 @@
 {
-    "id": "537af8885741284092f08e0af1b3e35f",
+    "id": "13cf0a30ffbe5eff646b9632557f58da",
     "name": "Compliance API",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "353b9712f2cd1a85acc228e79aac445b",
+            "id": "5f74c41342e1aaf924bcbfd7276e78ef",
             "name": "getListingViolationsSummary",
             "url": "http:\/\/api.ebay.com\/sell\/compliance\/v1\/listing_violation_summary",
             "description": "This call returns listing violation counts for a seller. A user can pass in one or more compliance types through the compliance_type query parameter. Listing violations are returned for multiple marketplaces if the seller sells on multiple eBay marketplaces. Note: For the initial release of Compliance API, the only supported compliance type is PRODUCT_ADOPTION. With this compliance type, a seller will be able to discover which active listings need to be revised with an eBay catalog product or pr",
@@ -37,11 +37,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "537af8885741284092f08e0af1b3e35f",
+            "collectionId": "13cf0a30ffbe5eff646b9632557f58da",
             "rawModeData": ""
         },
         {
-            "id": "027288f6501f5eabb65d516c49c50fdf",
+            "id": "68407ee04358afa6c47d578bf5aa4bba",
             "name": "getListingViolations",
             "url": "http:\/\/api.ebay.com\/sell\/compliance\/v1\/listing_violation",
             "description": "This call returns specific listing violations for a seller. The seller can either retrieve all listing violations of a specific compliance type, or they can pass in a specific listing ID, and all listing violations applicable to this listing are returned. This call also has pagination control. Note: For the initial release of Compliance API, the only supported compliance type is PRODUCT_ADOPTION. With this compliance type, a seller will be able to discover which active listings need to be revise",
@@ -89,7 +89,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "537af8885741284092f08e0af1b3e35f",
+            "collectionId": "13cf0a30ffbe5eff646b9632557f58da",
             "rawModeData": ""
         }
     ]
