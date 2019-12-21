@@ -1,5 +1,5 @@
 {
-    "id": "310312a116fad4a5d4ecf3dbf854e594",
+    "id": "4121177be4956b426a58b311b1a880ad",
     "name": "Analytics API",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "54999d9bc5e0a027b58444290b02d78d",
+            "id": "37f3d4df778cd0ffba311412711f2ab7",
             "name": "",
             "url": "http:\/\/api.ebay.com\/sell\/analytics\/v1\/seller_standards_profile",
             "description": "This call retrieves all the profiles for the associated seller.",
@@ -29,11 +29,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "310312a116fad4a5d4ecf3dbf854e594",
+            "collectionId": "4121177be4956b426a58b311b1a880ad",
             "rawModeData": ""
         },
         {
-            "id": "7177de01c30ef010affe1dc7dfda9686",
+            "id": "0d1cb78045ab6bf11549bb0a1e561676",
             "name": "",
             "url": "http:\/\/api.ebay.com\/sell\/analytics\/v1\/seller_standards_profile\/{program}\/{cycle}",
             "description": "This call retrieves seller's profiles based on a program or cycle. Each program has one or two cycles (CURRENT or PROJECTED), where each cycle is limited to a single profile.",
@@ -67,11 +67,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "310312a116fad4a5d4ecf3dbf854e594",
+            "collectionId": "4121177be4956b426a58b311b1a880ad",
             "rawModeData": ""
         },
         {
-            "id": "5c458c87dbf1224cc100c71c624b96cc",
+            "id": "8d51fe31c8058b9f08925e6374e38113",
             "name": "",
             "url": "http:\/\/api.ebay.com\/sell\/analytics\/v1\/traffic_report",
             "description": "This call returns a report that details the user-traffic a seller's listings receives. This gives sellers the ability to see such things as how often their listing appeared on eBay, how many times the listings are viewed, and how many purchases were made. In addition to the information requested, the traffic report contains general information about the criteria eBay used to generate the report (such as the report's start and end dates and the basis of the report). In the report itself, the metr",
@@ -119,7 +119,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "310312a116fad4a5d4ecf3dbf854e594",
+            "collectionId": "4121177be4956b426a58b311b1a880ad",
             "rawModeData": ""
         }
     ]
