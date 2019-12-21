@@ -1,5 +1,5 @@
 {
-    "id": "1ef0c9d48bb39cf61c55376434ec7987",
+    "id": "5a97e198eb8313c33a4d1e1833c191a6",
     "name": "EBay Finding API",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "8f8144b5594551805f0d224f5ef3583e",
+            "id": "41de0b2b04ebff64eb6ebe5540bea636",
             "name": "Find Item By Keywords",
             "url": "httpssvcs.ebay.com\/services\/search\/FindingService\/v1?OPERATION-NAME=findItemsByKeywords",
             "description": "This call searches for items on eBay by a keyword query (keywords).",
@@ -51,11 +51,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1ef0c9d48bb39cf61c55376434ec7987",
+            "collectionId": "5a97e198eb8313c33a4d1e1833c191a6",
             "rawModeData": ""
         },
         {
-            "id": "b0e16a2125ac5e23974cda782b7332ef",
+            "id": "0dbe4d0a37496b1765e3dc80bee7fc5e",
             "name": "Find Item By Category",
             "url": "httpssvcs.ebay.com\/services\/search\/FindingService\/v1?OPERATION-NAME=findItemsByCategory",
             "description": "Returns items in a specific category. Results can be filtered and sorted.",
@@ -96,11 +96,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1ef0c9d48bb39cf61c55376434ec7987",
+            "collectionId": "5a97e198eb8313c33a4d1e1833c191a6",
             "rawModeData": ""
         },
         {
-            "id": "ff794d72b0ef2ab78d47ea192d36bddf",
+            "id": "696f4198e311e287af7d8256281c758f",
             "name": "Find Item By Advanced",
             "url": "httpssvcs.ebay.com\/services\/search\/FindingService\/v1?OPERATION-NAME=findItemsAdvanced",
             "description": "Finds items by a keyword query and\/or category and allows searching within item descriptions.",
@@ -141,7 +141,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "1ef0c9d48bb39cf61c55376434ec7987",
+            "collectionId": "5a97e198eb8313c33a4d1e1833c191a6",
             "rawModeData": ""
         }
     ]
