@@ -1,5 +1,5 @@
 {
-    "id": "5eb0ea24e8a90e2769cb64705ac2b411",
+    "id": "8d648645ac39074ef64e0735c3bf9115",
     "name": "Browse",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "f3af481df6c405af350b2b9b97ab46b3",
+            "id": "b7e80f097c4c5691993662cc1bf54e8f",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/browse\/v1\/item\/get_item_by_legacy_id",
             "description": "This call is a bridge between the eBay legacy APIs, such as Trading, Shopping, and Finding and the eBay Buy APIs. There are differences between how legacy APIs and RESTful APIs return the identifier of an &quot;item&quot;. There is also a difference in what the item ID represents and in the format of the item ID value returned. This call lets you use the legacy item IDs retrieve the details of a specific item, such as description, price, and other information the buyer needs to make a purchasing",
@@ -58,11 +58,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "5eb0ea24e8a90e2769cb64705ac2b411",
+            "collectionId": "8d648645ac39074ef64e0735c3bf9115",
             "rawModeData": ""
         },
         {
-            "id": "f50396dbeca967eb285ef1fcbbc82cd2",
+            "id": "9617c7da1c3360789e03ec5bb7ef9c66",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/browse\/v1\/item\/get_items_by_item_group",
             "description": "This call retrieves the details of the individual items in an item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. You pass in the item group ID as a URI parameter. You use this call to show the item details of items with multiple aspects, such as color, size, storage capacity, etc. This call returns two main containers; items and commonDescriptions. The items container has an array of containers with the details of each item in th",
@@ -89,11 +89,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "5eb0ea24e8a90e2769cb64705ac2b411",
+            "collectionId": "8d648645ac39074ef64e0735c3bf9115",
             "rawModeData": ""
         },
         {
-            "id": "04bb78641216e6af06aae37f93a81395",
+            "id": "136200039e01db843cc24b030e5ee5cc",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/browse\/v1\/item\/{item_id}",
             "description": "This call retrieves the details of a specific item, such as description, price, category, all item aspects, condition, return policies, seller feedback and score, shipping options, shipping costs, estimated delivery, and other information the buyer needs to make a purchasing decision. The Buy APIs are designed to let you create an eBay shopping experience in your app or website. This means you will need to know when something, such as the availability, quantity, etc., has changed in any eBay ite",
@@ -127,11 +127,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "5eb0ea24e8a90e2769cb64705ac2b411",
+            "collectionId": "8d648645ac39074ef64e0735c3bf9115",
             "rawModeData": ""
         },
         {
-            "id": "981a0fe2e2799604258ebc5594ae5b9e",
+            "id": "4244e7b69ca8cd94cf76ce24eb7065dc",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/browse\/v1\/item_summary\/search",
             "description": "This call searches for eBay items by various URI query parameters and retrieves summaries of the items. You can search by keyword, category, eBay product ID (EPID), or gtin. Or a combination of these. The following are examples of using these parameters to limit the results: The following call returns 4,330,774 items. &nbsp;&nbsp;&nbsp;\/buy\/browse\/v1\/item_summary\/search?q=phone This call, which limits the results to the category &quot;Cell Phones &amp; Smartphones&quot;, returns 142,098 items. &",
@@ -221,11 +221,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "5eb0ea24e8a90e2769cb64705ac2b411",
+            "collectionId": "8d648645ac39074ef64e0735c3bf9115",
             "rawModeData": ""
         },
         {
-            "id": "c15a209fce1218a76a5e2957aa8e705f",
+            "id": "30ab883496db895a0be62249fd406b73",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/browse\/v1\/item_summary\/search_by_image",
             "description": "This is an Experimental method. This call searches for eBay items based on a image and retrieves summaries of the items. You pass in a Base64 image in the request payload and can refine the search by category, or eBay product ID (ePID), or a combination of these using URI parameters. To get the Base64 image string, you can use sites such as https:\/\/codebeautify.org\/image-to-base64-converter. Fields filters There are also field filters you can use to refine the result set, such as listing format,",
@@ -294,7 +294,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "5eb0ea24e8a90e2769cb64705ac2b411",
+            "collectionId": "8d648645ac39074ef64e0735c3bf9115",
             "rawModeData": ""
         }
     ]
