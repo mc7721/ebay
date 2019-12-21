@@ -17,8 +17,8 @@
         "service api",
         "streams"
     ],
-    "created": "2019-12-19",
-    "modified": "2019-12-19",
+    "created": "2019-12-21",
+    "modified": "2019-12-21",
     "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/apis.json",
     "specificationVersion": "0.14",
     "apis": [
@@ -32,15 +32,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/ebay.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/ebay-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/ebay-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/ebay-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/ebay.json"
                 }
             ]
         },
@@ -54,15 +50,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/commerce-taxonomy-api.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/commerce-taxonomy-api-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/commerce-taxonomy-api-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/commerce-taxonomy-api-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/commerce-taxonomy-api.json"
                 }
             ]
         },
@@ -76,15 +68,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/commerce-taxonomy.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/commerce-taxonomy-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/commerce-taxonomy-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/commerce-taxonomy-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/commerce-taxonomy.json"
                 }
             ]
         },
@@ -98,15 +86,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/taxonomy.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/taxonomy-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/taxonomy-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/taxonomy-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/taxonomy.json"
                 }
             ]
         },
@@ -120,15 +104,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/item-feed-service.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/item-feed-service-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/item-feed-service-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/item-feed-service-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/item-feed-service.json"
                 }
             ]
         },
@@ -142,15 +122,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/api-to-view-search-for-items.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/api-to-view-search-for-items-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/api-to-view-search-for-items-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/api-to-view-search-for-items-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/api-to-view-search-for-items.json"
                 }
             ]
         },
@@ -164,15 +140,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/browse.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/browse-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/browse-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/browse-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/browse.json"
                 }
             ]
         },
@@ -186,15 +158,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/analytics-api.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/analytics-api-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/analytics-api-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/analytics-api-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/analytics-api.json"
                 }
             ]
         },
@@ -208,15 +176,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/account-api.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/account-api-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/account-api-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/account-api-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/account-api.json"
                 }
             ]
         },
@@ -230,15 +194,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/inventory-api.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/inventory-api-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/inventory-api-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/inventory-api-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/inventory-api.json"
                 }
             ]
         },
@@ -252,15 +212,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/fulfillment.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/fulfillment-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/fulfillment-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/fulfillment-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/fulfillment.json"
                 }
             ]
         },
@@ -274,15 +230,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/fulfillment-api.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/fulfillment-api-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/fulfillment-api-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/fulfillment-api-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/fulfillment-api.json"
                 }
             ]
         },
@@ -296,15 +248,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/metadata-api.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/metadata-api-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/metadata-api-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/metadata-api-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/metadata-api.json"
                 }
             ]
         },
@@ -318,15 +266,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/compliance-api.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/compliance-api-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/compliance-api-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/compliance-api-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/compliance-api.json"
                 }
             ]
         },
@@ -340,15 +284,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/ebay-finding-api.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/ebay-finding-api-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/ebay-finding-api-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/ebay-finding-api-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/ebay-finding-api.json"
                 }
             ]
         },
@@ -362,15 +302,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/catalog-api.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/catalog-api-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/catalog-api-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/catalog-api-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/catalog-api.json"
                 }
             ]
         },
@@ -384,15 +320,11 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/browse-api.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/browse-api-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/browse-api-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/browse-api-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/browse-api.json"
                 }
             ]
         },
@@ -406,21 +338,21 @@
             "properties": [
                 {
                     "type": "x-openapi",
-                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/buy-marketing.json"
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/ebay\/master\/buy-marketing-openapi.json"
                 },
                 {
                     "type": "x-openapi",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/buy-marketing-openapi.json"
-                },
-                {
-                    "type": "x-postman-collecction",
-                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/buy-marketing-postman-collection.json"
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/buy-marketing.json"
                 }
             ]
         }
     ],
     "include": [],
     "x-common": [
+        {
+            "type": "APIs.json",
+            "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/apis.json"
+        },
         {
             "type": "Blog",
             "url": "https:\/\/go.developer.ebay.com\/dev-program-blog"
