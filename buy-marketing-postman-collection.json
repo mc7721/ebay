@@ -1,5 +1,5 @@
 {
-    "id": "dcafbd6c7afef6ae73ee0a54fc3c0e7a",
+    "id": "ef885e80a2bee428df1c2863aea79e00",
     "name": "Buy Marketing",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "f84017c6f6cc8d08c87cd26a628a4a6a",
+            "id": "52f9cf4a57f3a5c53a85019693c6ee0a",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/marketing\/v1_beta\/merchandised_product",
             "description": "This call returns an array of products based on the category and metric specified. This includes details of the product, such as the eBay product Id (EPID), title, and user reviews and ratings for the product. You can use the epid returned by this call in the Browse API search call to retrieve items for this product. Restrictions For a list of supported sites and other restrictions, see API Restrictions.",
@@ -58,11 +58,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "dcafbd6c7afef6ae73ee0a54fc3c0e7a",
+            "collectionId": "ef885e80a2bee428df1c2863aea79e00",
             "rawModeData": ""
         },
         {
-            "id": "b465774e67fd0c7bde5b3db63232b0ec",
+            "id": "30750d1044461bb8e025526bfef1556c",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/marketing\/v1_beta\/merchandised_product\/get_also_bought_products",
             "description": "This call returns products that were also bought when shoppers bought the product specified in the request. Showing 'also bought' products inspires up-selling and cross-selling. You specify the product by one of the following. epid (eBay Product Id) gtin (Global Trade Item Number) brand (brand name such as Nike) plus mpn (Manufacturer's Part Number) Restrictions For a list of supported sites and other restrictions, see API Restrictions. Maximum: A maximum of 12 products are returned.",
@@ -110,11 +110,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "dcafbd6c7afef6ae73ee0a54fc3c0e7a",
+            "collectionId": "ef885e80a2bee428df1c2863aea79e00",
             "rawModeData": ""
         },
         {
-            "id": "04b5a62261f466cce0123b31e6ccd3b0",
+            "id": "9d4c53b7cd84952679f063f5414761a4",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/marketing\/v1_beta\/merchandised_product\/get_also_viewed_products",
             "description": "This call returns products that were also viewed when shoppers viewed the product specified in the request. Showing 'also viewed' products encourages up-selling and cross-selling. You specify the product by one one of the following. epid (eBay Product Id) gtin (Global Trade Item Number) brand (brand name such as Nike) plus mpn (Manufacturer's Part Number) Restrictions For a list of supported sites and other restrictions, see API Restrictions. Maximum: A maximum of 12 products are returned.",
@@ -162,7 +162,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "dcafbd6c7afef6ae73ee0a54fc3c0e7a",
+            "collectionId": "ef885e80a2bee428df1c2863aea79e00",
             "rawModeData": ""
         }
     ]
