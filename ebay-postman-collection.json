@@ -1,5 +1,5 @@
 {
-    "id": "59b738bef11634ba207f27d9a5c971ec",
+    "id": "f57416d7a1df059efb6676ce9aa2c6da",
     "name": "Ebay",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "11e1e144986b6d62567d5a4e3ce16d16",
+            "id": "6aaa3f4c4fbb247379bc58a25f1c081d",
             "name": "Get Item Get Item By Legacy",
             "url": "httpsapi.ebay.com\/\/item\/get_item_by_legacy_id",
             "description": "This call is a bridge between the eBay legacy APIs, such as Trading, Shopping, and Finding and the eBay Buy APIs. There are differences between how legacy APIs and RESTful APIs return the identifier of an &quot;item&quot;. There is also a difference in what the item Id represents and in the format of the item Id value returned. This call lets you use the legacy item Ids retrieve the details of a specific item, such as description, price, and other information the buyer needs to make a purchasing",
@@ -58,11 +58,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "61738ab21a61cc0a7512aeb0be0aa5e4",
+            "id": "43305f10258dbc0ea1c6377f3e52c06a",
             "name": "Get Item Get Items By Item Group",
             "url": "httpsapi.ebay.com\/\/item\/get_items_by_item_group",
             "description": "This call retrieves the details of the individual items in an item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. You pass in the item group Id as a URI parameter. You use this call to show the item details of items with multiple aspects, such as color, size, storage capacity, etc. This call returns two main containers; items and commonDescriptions. The items container has an array of containers with the details of each item in th",
@@ -89,11 +89,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "cc8b3643971ca097a873990874ef1966",
+            "id": "df2d408ffebdead8ad68f4d03b2f7813",
             "name": "Get Item Item",
             "url": "httpsapi.ebay.com\/\/item\/{item_id}",
             "description": "This call retrieves the details of a specific item, such as description, price, category, all item aspects, condition, return policies, seller feedback and score, shipping options, shipping costs, estimated delivery, and other information the buyer needs to make a purchasing decision. The Buy APIs are designed to let you create an eBay shopping experience in your app or website. This means you will need to know when something, such as the availability, quantity, etc., has changed in any eBay ite",
@@ -127,11 +127,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "e74becb2e1397832d02f14fe4674b657",
+            "id": "7a1a12cfd5bc5a1da490425b41babd35",
             "name": "Get Item Summary Search",
             "url": "httpsapi.ebay.com\/\/item_summary\/search",
             "description": "This call performs an advanced search for items. You can search by keyword, category, eBay product Id (EPID), or gtin. Or a combination of these. Encoding Parameters and Headers As with all query parameter values, the fields parameter value and request header values must be URL encoded. For better readability, the examples in this document omit the encoding. Example: &nbsp;&nbsp;search?q=world cup soccer ball&amp;aspect_filter=categoryId:20863,Brand:{Nike|Wilson} Encoded Example: &nbsp;&nbsp; se",
@@ -221,11 +221,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "6da61b0a85c4784a6ffc39222d4b69cf",
+            "id": "8c90fd8ebada4b22a665a85670e00617",
             "name": "Get Item",
             "url": "httpsapi.ebay.com\/\/item",
             "description": "The Item feed file is generated each day. This call lets you download a daily TSV_GZIP (tab separated value gzip) Item feed file of all the items that were listed on a specific day in a specific category. For each item, all the item details are returned, except for the item description. The description of each item is excluded because these can be huge and items in an item group (an item with variations, such as size and color) can share the same description. The item descriptions are returned i",
@@ -280,11 +280,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "cf744e27f07c1af4db964bc8e5c84c26",
+            "id": "678321e5cd899a3b9c5576b36680564a",
             "name": "Get Item Description",
             "url": "httpsapi.ebay.com\/\/item_description",
             "description": "The Description feed file is generated each day. This call lets you download a daily TSV_GZIP (tab separated value gzip) Description feed file containing the descriptions of all the items that were listed on a specific day in a specific category. To store the complete item details, you would always run the getItemFeed and getItemDescriptionFeed calls with the same parameters. &nbsp;&nbsp;&nbsp; \/item?feed_scope=NEWLY_LISTED&amp;category_id=625&amp;date=20170918 &nbsp;&nbsp;&nbsp; \/item_descripti",
@@ -339,11 +339,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "7a7ff2892c00ab9bf6152f48d73e26f7",
+            "id": "171c78bab2173b16f699b6db824172c1",
             "name": "Get Merchandised Product",
             "url": "httpsapi.ebay.com\/\/merchandised_product",
             "description": "This call returns an array of products based on the category and metric specified. This includes details of the product, such as the eBay product Id (EPID), title, and user reviews and ratings for the product. You can use the epid returned by this call in the Browse API search call to retrieve items for this product. Restrictions For a list of supported sites and other restrictions, see API Restrictions.",
@@ -391,11 +391,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "1b22c4850afb8b46cf3bb580b56ad797",
+            "id": "0a912f1b60c4cc7d7f417e43a5e42f48",
             "name": "Get Merchandised Product Get Also Bought Products",
             "url": "httpsapi.ebay.com\/\/merchandised_product\/get_also_bought_products",
             "description": "This call returns products that were also bought when shoppers bought the product specified in the request. Showing 'also bought' products inspires up-selling and cross-selling. You specify the product by one of the following. epid (eBay Product Id) gtin (Global Trade Item Number) brand (brand name such as Nike) plus mpn (Manufacturer's Part Number) Restrictions For a list of supported sites and other restrictions, see API Restrictions. Maximum: A maximum of 12 products are returned. The call wi",
@@ -443,11 +443,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "53bf103b4897778a4584b59f944959d9",
+            "id": "a0ef2d0454f1a5640c91ce0effa0f276",
             "name": "Get Merchandised Product Get Also Viewed Products",
             "url": "httpsapi.ebay.com\/\/merchandised_product\/get_also_viewed_products",
             "description": "This call returns products that were also viewed when shoppers viewed the product specified in the request. Showing 'also viewed' products encourages up-selling and cross-selling. You specify the product by one of the following. epid (eBay Product Id) gtin (Global Trade Item Number) brand (brand name such as Nike) plus mpn (Manufacturer's Part Number) Restrictions For a list of supported sites and other restrictions, see API Restrictions. Maximum: A maximum of 12 products are returned. The call ",
@@ -495,11 +495,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "9d59a010335dbd130521fa285345fece",
+            "id": "70b7ae4ed4991f9ac29998e6bd6d6caf",
             "name": "Get Category Tree Category Tree",
             "url": "httpsapi.ebay.com\/\/category_tree\/{category_tree_id}",
             "description": "This call retrieves the complete category tree that is identified by the category_tree_id parameter. The value of category_tree_id was returned by the getDefaultCategoryTreeId call in the categoryTreeId field. The response contains details of all nodes of the specified eBay category tree, as well as the eBay marketplaces that use this category tree. Note: This call can return a very large payload, so you are strongly advised to submit the request with the following HTTP header: &nbsp;&nbsp;Accep",
@@ -526,11 +526,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "6640a768bec46303107864e86b13c27b",
+            "id": "bca81166825f9dfdfc1af2e1dc73acd5",
             "name": "Get Category Tree Category Tree  Get Category Subtree",
             "url": "httpsapi.ebay.com\/\/category_tree\/{category_tree_id}\/get_category_subtree",
             "description": "This call retrieves the details of all nodes of the category tree hierarchy (the subtree) below a specified category of a category tree. You identify the tree using the category_tree_id parameter, which was returned by the getDefaultCategoryTreeId call in the categoryTreeId field. Note: This call can return a very large payload, so you are strongly advised to submit the request with the following HTTP header: &nbsp;&nbsp;Accept-Encoding: application\/gzip With this header (in addition to the requ",
@@ -564,11 +564,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "5dd4262786978b86a979401df3badc91",
+            "id": "df3e661b72eaf9e357cfbf90b989ed61",
             "name": "Get Category Tree Category Tree  Get Category Suggestions",
             "url": "httpsapi.ebay.com\/\/category_tree\/{category_tree_id}\/get_category_suggestions",
             "description": "This call returns an array of category tree leaf nodes in the specified category tree that are considered by eBay to most closely correspond to the query string q. Returned with each suggested node is a localized name for that category (based on the Accept-Language header specified for the call), and details about each of the category's ancestor nodes, extending from its immediate parent up to the root of the category tree. Note: This call can return a large payload, so you are advised to submit",
@@ -602,11 +602,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "8c27d5669a20a68c98d9b2a8c50595df",
+            "id": "28b74c982d2f3d61725ee3e08a3f6c78",
             "name": "Get Category Tree Category Tree  Get Item Aspects For Category",
             "url": "httpsapi.ebay.com\/\/category_tree\/{category_tree_id}\/get_item_aspects_for_category",
             "description": "This call returns a list of aspects that are appropriate or necessary for accurately describing items in the specified leaf category. Each aspect identifies an item attribute (for example, color) for which the seller will be required or encouraged to provide a value (or variation values) when offering an item in that category on eBay. For each aspect, getItemAspectsForCategory provides complete metadata, including: The aspect's data type, format, and entry mode Whether the aspect is required in ",
@@ -640,11 +640,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "575681f5cdcde60166806f4afb38fe8b",
+            "id": "0c410f19134b6eba9db0d6e06606864f",
             "name": "Get Get Default Category Tree",
             "url": "httpsapi.ebay.com\/\/get_default_category_tree_id",
             "description": "A given eBay marketplace might use multiple category trees, but one of those trees is considered to be the default for that marketplace. This call retrieves a reference to the default category tree associated with the specified eBay marketplace ID. The response includes only the tree's unique identifier and version, which you can use to retrieve more details about the tree, its structure, and its individual category nodes.",
@@ -671,11 +671,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "ef6699ba83107d0d42de324ae0e5bd90",
+            "id": "05269d7ccf28b035af77dc3d5c54bdb4",
             "name": "Get Order",
             "url": "httpsapi.ebay.com\/\/order",
             "description": "Use this call to search for and retrieve one or more orders based on their creation date, last modification date, or fulfillment status using the filter parameter. You can alternatively specify a list of orders using the orderIds parameter. The returned Order objects contain information you can use to create and process fulfillments, including: Information about the buyer and seller Information about the order's line items The plans for packaging, addressing and shipping the order The status of ",
@@ -723,11 +723,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "cb47fec643735ab76293467bfcac2931",
+            "id": "9848e7b27310b8f6ce4cea3a5040d53a",
             "name": "Get Order Order",
             "url": "httpsapi.ebay.com\/\/order\/{orderId}",
             "description": "Use this call to retrieve the contents of an order based on its unique identifier, orderId. This value was returned in the getOrders call's orders.orderId field when you searched for orders by creation date, modification date, or fulfillment status. The returned Order object contains information you can use to create and process fulfillments, including: Information about the buyer and seller Information about the order's line items The plans for packaging, addressing and shipping the order The s",
@@ -754,11 +754,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "ff073a8e2c8074e904b79cebb9ec54f1",
+            "id": "84ee59cedceedb1a1f3ea8905c0debbb",
             "name": "Get Order Order Shipping Fulfillment",
             "url": "httpsapi.ebay.com\/\/order\/{orderId}\/shipping_fulfillment",
             "description": "Use this call to retrieve the contents of all fulfillments currently defined for a specified order based on the order's unique identifier, orderId. This value is returned in the getOrders call's members.orderId field when you search for orders by creation date or shipment status.",
@@ -785,11 +785,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "9b133650bdca221988c84931bcc9b6a0",
+            "id": "3e07556825db9ccac636b8e9b3c3caad",
             "name": "Add Order Order Shipping Fulfillment",
             "url": "httpsapi.ebay.com\/\/order\/{orderId}\/shipping_fulfillment",
             "description": "When you group an order's line items into one or more packages, each package requires a corresponding plan for handling, addressing, and shipping; this is a shipping fulfillment. For each package, execute this call once to generate a shipping fulfillment associated with that package. Note: A single line item in an order can consist of multiple units of a purchased item, and one unit can consist of multiple parts or components. Although these components might be provided by the manufacturer in se",
@@ -823,11 +823,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         },
         {
-            "id": "6e5045e427e60dac88be1e45d353be7e",
+            "id": "b66b36a77fcf669ed0816e5fd8f58a0d",
             "name": "Get Order Order Shipping Fulfillment Fulfillment",
             "url": "httpsapi.ebay.com\/\/order\/{orderId}\/shipping_fulfillment\/{fulfillmentId}",
             "description": "Use this call to retrieve the contents of a fulfillment based on its unique identifier, fulfillmentId (combined with the associated order's orderId). The fulfillmentId value was originally generated by the createShippingFulfillment call, and is returned by the getShippingFulfillments call in the members.fulfillmentId field.",
@@ -861,7 +861,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "59b738bef11634ba207f27d9a5c971ec",
+            "collectionId": "f57416d7a1df059efb6676ce9aa2c6da",
             "rawModeData": ""
         }
     ]
