@@ -1,5 +1,5 @@
 {
-    "id": "4fbb5f051716288bc273c4b0240e8d48",
+    "id": "3f188826d3d7f78c9af2af7bf0edb8e3",
     "name": "API to View & Search for Items",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "a2117bc44d310180432f2ef41734da22",
+            "id": "e22d49ba41f5a50c3c287634ab791075",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/browse\/v1\/item\/get_item_by_legacy_id",
             "description": "This call is a bridge between the eBay legacy APIs, such as Trading, Shopping, and Finding and the eBay Buy APIs. There are differences between how legacy APIs and RESTful APIs return the identifier of an &quot;item&quot;. There is also a difference in what the item Id represents and in the format of the item Id value returned. This call lets you use the legacy item Ids retrieve the details of a specific item, such as description, price, and other information the buyer needs to make a purchasing",
@@ -51,11 +51,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "4fbb5f051716288bc273c4b0240e8d48",
+            "collectionId": "3f188826d3d7f78c9af2af7bf0edb8e3",
             "rawModeData": ""
         },
         {
-            "id": "bf8738c8d218d85a5bdc8be5f872ffb7",
+            "id": "1e32c9a1b9a6b69b01464cb2c801639e",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/browse\/v1\/item\/get_items_by_item_group",
             "description": "This call retrieves the details of the individual items in an item group. You pass in the item group Id as a URI parameter. You use this call to show the item details of items with multiple aspects, such as color, size, storage capacity, etc. This call returns two main containers; items and commonDescriptions. The items container has an array of containers with the details of each item in the group. The commonDescriptions container has an array of containers for a description and the item Ids of",
@@ -82,11 +82,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "4fbb5f051716288bc273c4b0240e8d48",
+            "collectionId": "3f188826d3d7f78c9af2af7bf0edb8e3",
             "rawModeData": ""
         },
         {
-            "id": "991adc98d5ab1fcdd528b471f53e1a6d",
+            "id": "5867ed299c077a00aee0da05145f3be7",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/browse\/v1\/item\/{item_id}",
             "description": "This call retrieves the details of a specific item, such as description, price, category, all item aspects, condition, return policies, seller feedback and score, shipping options, shipping costs, estimated delivery, and other information the buyer needs to make a purchasing decision. The Buy APIs are designed to let you create an off-eBay shopping experience, which means you will need to know when something, such as the price, quantity, etc., has changed in any eBay item you are offering. You c",
@@ -120,11 +120,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "4fbb5f051716288bc273c4b0240e8d48",
+            "collectionId": "3f188826d3d7f78c9af2af7bf0edb8e3",
             "rawModeData": ""
         },
         {
-            "id": "b011d9e9759bda437d2185a91b13908a",
+            "id": "07b1ba79d8cb410f54a59536e186d261",
             "name": "",
             "url": "http:\/\/api.ebay.com\/buy\/browse\/v1\/item_summary\/search",
             "description": "This call performs an advanced search for items. You can search by keyword, category, eBay product Id (EPID), or gtin. Or a combination of these. Note: As with all query parameter values, the fields parameter value must be URL encoded. For better readability, the examples in this document omit the encoding. For example: &nbsp;&nbsp;search?q=world cup soccer ball&amp;aspect_filter=categoryId:20863,Brand:{Nike|Wilson} Encoded example: &nbsp;&nbsp; search?q=world cup soccer ball&amp;aspect_filter=c",
@@ -214,7 +214,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "4fbb5f051716288bc273c4b0240e8d48",
+            "collectionId": "3f188826d3d7f78c9af2af7bf0edb8e3",
             "rawModeData": ""
         }
     ]
